@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF24DBF42158E30C00E00BC6 /* Loger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Loger.swift */; };
 		CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAEEC5215688D900E182F2 /* AppDelegate.swift */; };
 		CFDAEEC8215688D900E182F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAEEC7215688D900E182F2 /* ViewController.swift */; };
 		CFDAEECB215688D900E182F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAEEC9215688D900E182F2 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF24DBF32158E30C00E00BC6 /* Loger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loger.swift; sourceTree = "<group>"; };
 		CFDAEEC2215688D900E182F2 /* ChatBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFDAEEC5215688D900E182F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFDAEEC7215688D900E182F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF24DBF52158F34000E00BC6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CF24DBF32158E30C00E00BC6 /* Loger.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		CFDAEEB9215688D900E182F2 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 				CFDAEECC215688DC00E182F2 /* Assets.xcassets */,
 				CFDAEECE215688DC00E182F2 /* LaunchScreen.storyboard */,
 				CFDAEED1215688DC00E182F2 /* Info.plist */,
+				CF24DBF52158F34000E00BC6 /* Utils */,
 			);
 			path = ChatBox;
 			sourceTree = "<group>";
@@ -136,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFDAEEC8215688D900E182F2 /* ViewController.swift in Sources */,
+				CF24DBF42158E30C00E00BC6 /* Loger.swift in Sources */,
 				CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +297,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8J7J52XQN8;
 				INFOPLIST_FILE = ChatBox/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +316,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8J7J52XQN8;
 				INFOPLIST_FILE = ChatBox/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
