@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 
-class Loger {
+class Logger {
     
-    var fromState = UIApplication.shared.applicationState
+    private var fromState = UIApplication.shared.applicationState
     
-    var fromStateStringValue: String {
+    private var fromStateStringValue: String {
         switch fromState {
         case .active:
             return "Active"
@@ -41,9 +41,18 @@ class Loger {
             
             let stateChanged = " 🔵 App moved from \(fromStateStringValue) to \(currentStateStringValue): \(nameMethod)"
             self.fromState = state
+            
+            #if DEBUG
             print(stateChanged)
+            #endif
         }
 
+    }
+    
+    func printControllerLifeCycle(nameMethod: String) {
+        #if DEBUG
+        print(nameMethod)
+        #endif
     }
     
 }

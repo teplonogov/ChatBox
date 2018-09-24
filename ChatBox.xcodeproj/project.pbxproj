@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CF24DBF42158E30C00E00BC6 /* Loger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Loger.swift */; };
+		CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Logger.swift */; };
 		CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAEEC5215688D900E182F2 /* AppDelegate.swift */; };
 		CFDAEEC8215688D900E182F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAEEC7215688D900E182F2 /* ViewController.swift */; };
 		CFDAEECB215688D900E182F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAEEC9215688D900E182F2 /* Main.storyboard */; };
@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CF24DBF32158E30C00E00BC6 /* Loger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loger.swift; sourceTree = "<group>"; };
+		CF24DBF32158E30C00E00BC6 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CFDAEEC2215688D900E182F2 /* ChatBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFDAEEC5215688D900E182F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFDAEEC7215688D900E182F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 		CF24DBF52158F34000E00BC6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CF24DBF32158E30C00E00BC6 /* Loger.swift */,
+				CF24DBF32158E30C00E00BC6 /* Logger.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -147,7 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFDAEEC8215688D900E182F2 /* ViewController.swift in Sources */,
-				CF24DBF42158E30C00E00BC6 /* Loger.swift in Sources */,
+				CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */,
 				CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

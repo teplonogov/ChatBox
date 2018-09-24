@@ -10,46 +10,48 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    let logger = Logger()
+    
     // MARK: - Life Cycle
     
     override func loadView() {
         super.loadView()
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print(#function)
+        logger.printControllerLifeCycle(nameMethod: #function)
     }
 
 
