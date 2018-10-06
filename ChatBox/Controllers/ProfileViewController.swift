@@ -29,6 +29,8 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         print("Frame from viewDidLoad: \(editButton.frame)")
         
+        configureViews()
+        
         if let data = UserDefaults.standard.object(forKey: avatar_image) {
             let avatar = UIImage(data: data as! Data)
             avatarImageView.image = avatar
@@ -94,6 +96,9 @@ class ProfileViewController: UIViewController {
     
     @IBAction func editProfileTapped(_ sender: Any) {
         print("🔵 Edit profile button was tapped ")
+    }
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Helpers
