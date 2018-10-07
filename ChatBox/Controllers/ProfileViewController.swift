@@ -29,7 +29,6 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         print("Frame from viewDidLoad: \(editButton.frame)")
         
-        configureViews()
         
         if let data = UserDefaults.standard.object(forKey: avatar_image) {
             let avatar = UIImage(data: data as! Data)
@@ -39,6 +38,11 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureViews()
+    }
+    
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -46,7 +50,6 @@ class ProfileViewController: UIViewController {
         /*
          Frame отличается от frame во время viewDidLoad, т.к. в сториборде выбран девайс iPhone SE, а симулятор – iPhone X. Дело в том, что компилятор сначала берет текущие размеры view из сториборда, а уже после перестраивает их согласно Constraints => размеры отличаются. Если же в симуляторе и в сториборде будут устройства с одинаковыми размерами дисплея, то frame не изменится.
          */
-        configureViews()
     }
     
     

@@ -17,7 +17,6 @@ let avatar_image: String = "avatarImage"
 
 /*
  UIAlertController
- 
  */
 
 let avatar_edit: String = "Edit Avatar..."
@@ -25,5 +24,11 @@ let library_text: String = "From library"
 let camera_text: String = "Take a new photo"
 let delete_text: String = "Delete"
 let cancel_text: String = "Cancel"
+
+
+/*
+ Storyboard ID
+ */
+
 
  

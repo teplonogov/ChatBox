@@ -11,14 +11,14 @@ import Foundation
 class Person {
     
     let name: String?
-    let message: String?
     let hasUnreadMessages: Bool
     let online: Bool
-    let date: Date?
+    var date: Date?
+    var messageData: [MessageModel]?
     
-    init(name: String?, message: String?, unread: Bool, online: Bool, date: Date?) {
+    
+    init(name: String?, unread: Bool, online: Bool, date: Date?) {
         self.name = name
-        self.message = message
         self.hasUnreadMessages = unread
         self.online = online
         self.date = date

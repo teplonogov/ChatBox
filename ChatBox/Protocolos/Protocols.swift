@@ -17,3 +17,7 @@ protocol ConversationCellConfiguration: class {
     var hasUnreadMessages: Bool {get set}
     
 }
+
+protocol MessageCellConfiguration: class {
+    var messageText: String? {get set}
+}

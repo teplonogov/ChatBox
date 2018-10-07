@@ -28,7 +28,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi! How are you?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agl-7b-Z1s">
-                        <rect key="frame" x="47" y="39.5" width="104.5" height="17"/>
+                        <rect key="frame" x="47" y="39.5" width="208" height="17"/>
                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="13"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -49,6 +49,7 @@
                 <constraints>
                     <constraint firstItem="h3T-cD-N3d" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2Ix-Dq-0Nj"/>
                     <constraint firstItem="n8K-NI-FhO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5nx-3Z-kwL"/>
+                    <constraint firstItem="agl-7b-Z1s" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.65" id="AuU-dM-F6w"/>
                     <constraint firstItem="mwh-0X-SWh" firstAttribute="leading" secondItem="n8K-NI-FhO" secondAttribute="trailing" constant="16" id="EoR-0a-P9H"/>
                     <constraint firstItem="n8K-NI-FhO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="TfV-qT-P8F"/>
                     <constraint firstItem="h3T-cD-N3d" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Uk2-gI-Mt4"/>
