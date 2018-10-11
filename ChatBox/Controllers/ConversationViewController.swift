@@ -10,7 +10,7 @@ import UIKit
 
 class ConversationViewController: UIViewController {
     
-    var user: Person?
+    var user: Person!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noMessagesLabel: UILabel!
@@ -18,15 +18,12 @@ class ConversationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let unwrappedUser = user else {
-            return
-        }
+        navigationItem.title = user.name
         
-        navigationItem.title = unwrappedUser.name
-        
-        if user?.messageData != nil {
+        if user.messageData != nil {
             noMessagesLabel.isHidden = true
         }
+        
         
     }
     
@@ -40,11 +37,10 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = MessageCell()
         
-        guard let message = user?.messageData?[indexPath.row] else {
-            return cell
-        }
+        var cell: MessageCell
+        
+        let message = user.messageData![indexPath.row]
         
         let cellID = message.incoming ? "InCell" : "OutCell"
         

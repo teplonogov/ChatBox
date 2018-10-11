@@ -13,18 +13,20 @@ class ConversationsListViewController: UIViewController {
     var onlineHeroes = [Person]()
     var offlineHeroes = [Person]()
     
+    var userToConversation: Person?
+    
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)]
-        }
-        
-        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)
+//        if #available(iOS 11.0, *) {
+//            self.navigationController?.navigationBar.prefersLargeTitles = true
+//            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)]
+//        }
+//
+//        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)
         
         let users = TemporaryData.generateData()
         
@@ -42,9 +44,16 @@ class ConversationsListViewController: UIViewController {
     
 
     @IBAction func showProfileButton(_ sender: Any) {
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        let profileVC = sb.instantiateViewController(withIdentifier: "ProfileVC")
+        let profileVC = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
         self.present(profileVC, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let chatVC = segue.destination as! ConversationViewController
+        chatVC.user = userToConversation
     }
     
     
@@ -77,7 +86,6 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
             cell = ConversationCell(style: .default, reuseIdentifier: "ConversationCell")
         }
         
-        
         configureCell(indexPath: indexPath, cell: cell)
         
         return cell
@@ -89,13 +97,12 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
         return 70
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        let chatVC = sb.instantiateViewController(withIdentifier: "ConversationID") as! ConversationViewController
-        
-        var user: Person?
+        let user: Person?
         
         if indexPath.section == 0 {
             user = onlineHeroes[indexPath.row]
@@ -103,9 +110,10 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
             user = offlineHeroes[indexPath.row]
         }
         
-        chatVC.user = user
-        
-        navigationController?.pushViewController(chatVC, animated: true)
+        if user != nil {
+            self.userToConversation = user
+            performSegue(withIdentifier: "ConversationID", sender: nil)
+        }
         
     }
     
