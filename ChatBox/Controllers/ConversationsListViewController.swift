@@ -48,6 +48,12 @@ class ConversationsListViewController: UIViewController {
         self.present(profileVC, animated: true, completion: nil)
     }
     
+    @IBAction func showThemesAction(_ sender: Any) {
+        let themesVC = ThemesViewController(nibName: "ThemesViewController", bundle: nil)
+        let themesNavigationController = UINavigationController(rootViewController: themesVC)
+        self.present(themesNavigationController, animated: true, completion: nil)
+        
+    }
     
     // MARK: - Navigation
     

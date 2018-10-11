@@ -70,6 +70,11 @@
                         <viewLayoutGuide key="safeArea" id="XM0-3A-VCx"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="Rwv-hQ-YkX">
+                        <barButtonItem key="leftBarButtonItem" title="Themes" id="L05-mH-Byc">
+                            <connections>
+                                <action selector="showThemesAction:" destination="Xsg-lo-cVw" id="s1J-xP-oEj"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Profile" id="arW-kU-JeU">
                             <connections>
                                 <action selector="showProfileButton:" destination="Xsg-lo-cVw" id="Gao-qp-Lp7"/>
@@ -88,7 +93,6 @@
         <!--Conversation View Controller-->
         <scene sceneID="424-4C-zo4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0N9-uI-HBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ConversationID" id="Njg-eB-RWu" customClass="ConversationViewController" customModule="ChatBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fn3-p9-CTV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -204,6 +208,7 @@
                         <outlet property="tableView" destination="2kW-iA-YRT" id="r0J-ne-tEh"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0N9-uI-HBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="862.5" y="-708.80281690140851"/>
         </scene>
