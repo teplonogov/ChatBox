@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Themes.h"
+#import "ThemesViewControllerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ThemesViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIButton *themeOneButton;
+@property (weak, nonatomic) IBOutlet UIButton *themeTwoButton;
+@property (weak, nonatomic) IBOutlet UIButton *themeThreeButton;
+
+@property (nonatomic, weak) id <ThemesViewControllerDelegate> delegate;
 
 @end
 

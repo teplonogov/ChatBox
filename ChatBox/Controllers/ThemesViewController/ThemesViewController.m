@@ -7,8 +7,11 @@
 //
 
 #import "ThemesViewController.h"
+#import "UIColor+ChatBox.h"
 
-@interface ThemesViewController ()
+@interface ThemesViewController () 
+
+@property (strong, nonatomic) Themes* themes;
 
 @end
 
@@ -21,22 +24,43 @@
     
     UIBarButtonItem* closeButton = [[UIBarButtonItem alloc] initWithImage:closeButtonImage style:UIBarButtonItemStyleDone target:self action:@selector(closeAction)];
     
-    self.navigationController.navigationBar.topItem.rightBarButtonItem = closeButton;
+    _themeOneButton.layer.cornerRadius = 10;
+    _themeTwoButton.layer.cornerRadius = 10;
+    _themeThreeButton.layer.cornerRadius = 10;
+    
+    self.themes = [[Themes alloc] init];
+    self.themes.theme1 = [UIColor lightYellowColor];
+    self.themes.theme2 = [UIColor coralColor];
+    self.themes.theme3 = [UIColor lightGreenColor];
+        
+    self.navigationController.navigationBar.topItem.leftBarButtonItem = closeButton;
     
 }
+
+#pragma mark - Actions
 
 - (void)closeAction {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)themeOneAction:(UIButton *)sender {
+    self.view.backgroundColor = self.themes.theme1;
+    [self.delegate themesViewController:self didSelectTheme:self.themes.theme1];
 }
-*/
+
+- (IBAction)themeTwoAction:(UIButton *)sender {
+    self.view.backgroundColor = self.themes.theme2;
+    [self.delegate themesViewController:self didSelectTheme:self.themes.theme2];
+}
+
+- (IBAction)themeThreeAction:(id)sender {
+    self.view.backgroundColor = self.themes.theme3;
+    [self.delegate themesViewController:self didSelectTheme:self.themes.theme3];
+}
+
 
 @end
+
+
+
+

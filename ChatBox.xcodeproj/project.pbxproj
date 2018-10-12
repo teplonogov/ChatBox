@@ -18,6 +18,8 @@
 		CF673577216F688E0062A600 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF673576216F688E0062A600 /* ProfileViewController.xib */; };
 		CF67357F216F7CC30062A600 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67357D216F7CC30062A600 /* ThemesViewController.m */; };
 		CF673580216F7CC30062A600 /* ThemesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF67357E216F7CC30062A600 /* ThemesViewController.xib */; };
+		CF67358421709EB90062A600 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358321709EB90062A600 /* Themes.m */; };
+		CF67358F2170B15E0062A600 /* UIColor+ChatBox.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */; };
 		CFC17407216A371200A384CD /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17406216A371200A384CD /* MessageCell.swift */; };
 		CFC17409216A38AB00A384CD /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17408216A38AB00A384CD /* MessageModel.swift */; };
 		CFC1740B216A3AD200A384CD /* TemporaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC1740A216A3AD200A384CD /* TemporaryData.swift */; };
@@ -42,6 +44,11 @@
 		CF67357C216F7CC30062A600 /* ThemesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
 		CF67357D216F7CC30062A600 /* ThemesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
 		CF67357E216F7CC30062A600 /* ThemesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemesViewController.xib; sourceTree = "<group>"; };
+		CF67358221709EB90062A600 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		CF67358321709EB90062A600 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		CF67358D2170B15E0062A600 /* UIColor+ChatBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+ChatBox.h"; sourceTree = "<group>"; };
+		CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ChatBox.m"; sourceTree = "<group>"; };
+		CF6735912170D32C0062A600 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		CFC17406216A371200A384CD /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		CFC17408216A38AB00A384CD /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		CFC1740A216A3AD200A384CD /* TemporaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryData.swift; sourceTree = "<group>"; };
@@ -96,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				CF4766262168FCF3008AF8C2 /* Protocols.swift */,
+				CF6735912170D32C0062A600 /* ThemesViewControllerDelegate.h */,
 			);
 			path = Protocolos;
 			sourceTree = "<group>";
@@ -114,6 +122,8 @@
 		CF47662E21692303008AF8C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CF6735902170B16C0062A600 /* UIColor+ChatBox */,
+				CF67358521709EC20062A600 /* Themes */,
 				CF47662C216922F4008AF8C2 /* Person.swift */,
 				CFC17408216A38AB00A384CD /* MessageModel.swift */,
 				CFC1740A216A3AD200A384CD /* TemporaryData.swift */,
@@ -138,6 +148,24 @@
 				CF67357E216F7CC30062A600 /* ThemesViewController.xib */,
 			);
 			path = ThemesViewController;
+			sourceTree = "<group>";
+		};
+		CF67358521709EC20062A600 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				CF67358221709EB90062A600 /* Themes.h */,
+				CF67358321709EB90062A600 /* Themes.m */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
+		CF6735902170B16C0062A600 /* UIColor+ChatBox */ = {
+			isa = PBXGroup;
+			children = (
+				CF67358D2170B15E0062A600 /* UIColor+ChatBox.h */,
+				CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */,
+			);
+			path = "UIColor+ChatBox";
 			sourceTree = "<group>";
 		};
 		CFDAEEB9215688D900E182F2 = {
@@ -251,9 +279,11 @@
 			files = (
 				CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */,
 				CFC17407216A371200A384CD /* MessageCell.swift in Sources */,
+				CF67358F2170B15E0062A600 /* UIColor+ChatBox.m in Sources */,
 				CF5A6A2E215EC44B0084371A /* ProfileViewController.swift in Sources */,
 				CF476634216A14DB008AF8C2 /* ConversationViewController.swift in Sources */,
 				CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */,
+				CF67358421709EB90062A600 /* Themes.m in Sources */,
 				CF4766272168FCF3008AF8C2 /* Protocols.swift in Sources */,
 				CFDC457B216125770016BB0F /* Constants.swift in Sources */,
 				CFC1740B216A3AD200A384CD /* TemporaryData.swift in Sources */,
@@ -408,6 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8J7J52XQN8;
 				INFOPLIST_FILE = ChatBox/Info.plist;
@@ -430,6 +461,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8J7J52XQN8;
 				INFOPLIST_FILE = ChatBox/Info.plist;

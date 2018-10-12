@@ -70,12 +70,12 @@
                         <viewLayoutGuide key="safeArea" id="XM0-3A-VCx"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="Rwv-hQ-YkX">
-                        <barButtonItem key="leftBarButtonItem" title="Themes" id="L05-mH-Byc">
+                        <barButtonItem key="leftBarButtonItem" image="ThemeIcon" id="L05-mH-Byc">
                             <connections>
                                 <action selector="showThemesAction:" destination="Xsg-lo-cVw" id="s1J-xP-oEj"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Profile" id="arW-kU-JeU">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" image="ProfileIcon" id="arW-kU-JeU">
                             <connections>
                                 <action selector="showProfileButton:" destination="Xsg-lo-cVw" id="Gao-qp-Lp7"/>
                             </connections>
@@ -213,4 +213,8 @@
             <point key="canvasLocation" x="862.5" y="-708.80281690140851"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ProfileIcon" width="30" height="30"/>
+        <image name="ThemeIcon" width="30" height="30"/>
+    </resources>
 </document>
