@@ -49,11 +49,7 @@ class ConversationsListViewController: UIViewController {
     }
     
     @IBAction func showThemesAction(_ sender: Any) {
-        let themesVC = ThemesViewController(nibName: "ThemesViewController", bundle: nil)
-        let themesNavigationController = UINavigationController(rootViewController: themesVC)
-        themesVC.delegate = self
-        self.present(themesNavigationController, animated: true, completion: nil)
-        
+        transitionToThemesVC()
     }
     
     
@@ -61,6 +57,9 @@ class ConversationsListViewController: UIViewController {
         ThemeManager.shared.changeThemeTo(color: color)
     }
     
+    func logThemeChanging(selectedTheme: UIColor) {
+        print("Color is: \(selectedTheme.description)")
+    }
 
     
     // MARK: - Navigation
@@ -166,19 +165,4 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     
 }
 
-// MARK: - ThemesViewControllerDelegate
 
-extension ConversationsListViewController: ThemesViewControllerDelegate {
-    
-    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
-        logThemeChanging(selectedTheme: selectedTheme)
-        configureAppearance(color: selectedTheme)
-        let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
-        UserDefaults.standard.set(colorData, forKey: "theme")
-    }
-    
-    func logThemeChanging(selectedTheme: UIColor) {
-        print("Color is: \(selectedTheme.description)")
-    }
-
-}

@@ -23,9 +23,13 @@
     
     NSData* themeData = [NSUserDefaults.standardUserDefaults objectForKey:@"theme"];
     
-    UIColor* themeColor = [NSKeyedUnarchiver unarchiveObjectWithData:themeData];
-    
-    self.view.backgroundColor = themeColor;
+    if (themeData != nil) {
+        UIColor* themeColor = [NSKeyedUnarchiver unarchiveObjectWithData:themeData];
+        self.view.backgroundColor = themeColor;
+    } else {
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:96.0f/255.0f green:154/255.0f blue:234/255.0f alpha:1];
+        self.view.backgroundColor = UIColor.whiteColor;
+    }
     
     UIImage* closeButtonImage = [UIImage imageNamed:@"CloseButton"];
     
@@ -65,7 +69,6 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.view.backgroundColor = self.themes.theme1;
         self.navigationController.navigationBar.tintColor = UIColor.skyBlueColor;
-        //UINavigationBar.appearance().barStyle = UIBarStyle.blackOpaque
         [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
         [self setNavBarTheme:self.themes.theme1];
     }];

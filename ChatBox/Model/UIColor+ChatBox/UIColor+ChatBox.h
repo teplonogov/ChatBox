@@ -12,9 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (ChatBox)
 
-+ (UIColor *)coralColor;
-+ (UIColor *)lightYellowColor;
-+ (UIColor *)lightGreenColor;
 + (UIColor *)nightBlueColor;
 + (UIColor *)skyBlueColor;
 

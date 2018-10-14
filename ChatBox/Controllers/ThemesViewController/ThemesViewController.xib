@@ -12,9 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThemesViewController">
             <connections>
-                <outlet property="themeOneButton" destination="dyn-aU-2bB" id="ht9-U9-cff"/>
-                <outlet property="themeThreeButton" destination="mT1-uW-lDp" id="YZ6-Y4-PGY"/>
-                <outlet property="themeTwoButton" destination="i9I-ua-U8b" id="CnP-u7-GOS"/>
+                <outlet property="themeOneButton" destination="dyn-aU-2bB" id="JvO-ds-EkA"/>
+                <outlet property="themeThreeButton" destination="mT1-uW-lDp" id="4n7-pO-Hm6"/>
+                <outlet property="themeTwoButton" destination="i9I-ua-U8b" id="F97-xh-aLl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,7 +32,7 @@
                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                     <state key="normal" title="Sky Blue"/>
                     <connections>
-                        <action selector="themeTwoAction:" destination="-1" eventType="touchUpInside" id="NL0-es-Tii"/>
+                        <action selector="themeTwoAction:" destination="-1" eventType="touchUpInside" id="Fr4-eV-Wf9"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dyn-aU-2bB">
@@ -41,7 +41,7 @@
                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                     <state key="normal" title="Light"/>
                     <connections>
-                        <action selector="themeOneAction:" destination="-1" eventType="touchUpInside" id="FG1-xm-L9A"/>
+                        <action selector="themeOneAction:" destination="-1" eventType="touchUpInside" id="Qtr-dC-R5L"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mT1-uW-lDp">
@@ -50,7 +50,7 @@
                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                     <state key="normal" title="Night Blue"/>
                     <connections>
-                        <action selector="themeThreeAction:" destination="-1" eventType="touchUpInside" id="UeO-CJ-Esn"/>
+                        <action selector="themeThreeAction:" destination="-1" eventType="touchUpInside" id="Ocg-aA-lV5"/>
                     </connections>
                 </button>
             </subviews>

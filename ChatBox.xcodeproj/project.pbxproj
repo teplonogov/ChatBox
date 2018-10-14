@@ -21,6 +21,30 @@
 		CF67358421709EB90062A600 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358321709EB90062A600 /* Themes.m */; };
 		CF67358F2170B15E0062A600 /* UIColor+ChatBox.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */; };
 		CF6735CD21738F2E0062A600 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735CC21738F2E0062A600 /* ThemeManager.swift */; };
+		CF6735D0217390350062A600 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Logger.swift */; };
+		CF6735D1217390350062A600 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17406216A371200A384CD /* MessageCell.swift */; };
+		CF6735D2217390350062A600 /* UIColor+ChatBox.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */; };
+		CF6735D3217390350062A600 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A6A2D215EC44B0084371A /* ProfileViewController.swift */; };
+		CF6735D4217390350062A600 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF476633216A14DB008AF8C2 /* ConversationViewController.swift */; };
+		CF6735D5217390350062A600 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAEEC5215688D900E182F2 /* AppDelegate.swift */; };
+		CF6735D6217390350062A600 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358321709EB90062A600 /* Themes.m */; };
+		CF6735D7217390350062A600 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766262168FCF3008AF8C2 /* Protocols.swift */; };
+		CF6735D8217390350062A600 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDC457A216125770016BB0F /* Constants.swift */; };
+		CF6735D9217390350062A600 /* TemporaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC1740A216A3AD200A384CD /* TemporaryData.swift */; };
+		CF6735DA217390350062A600 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766292169033E008AF8C2 /* ConversationsListViewController.swift */; };
+		CF6735DB217390350062A600 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735CC21738F2E0062A600 /* ThemeManager.swift */; };
+		CF6735DC217390350062A600 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17408216A38AB00A384CD /* MessageModel.swift */; };
+		CF6735DD217390350062A600 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47662C216922F4008AF8C2 /* Person.swift */; };
+		CF6735DE217390350062A600 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766202168F136008AF8C2 /* ConversationCell.swift */; };
+		CF6735E2217390350062A600 /* ConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF4766212168F136008AF8C2 /* ConversationCell.xib */; };
+		CF6735E3217390350062A600 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAEECE215688DC00E182F2 /* LaunchScreen.storyboard */; };
+		CF6735E4217390350062A600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFDAEECC215688DC00E182F2 /* Assets.xcassets */; };
+		CF6735E5217390350062A600 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF673576216F688E0062A600 /* ProfileViewController.xib */; };
+		CF6735E6217390350062A600 /* ThemesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF67357E216F7CC30062A600 /* ThemesViewController.xib */; };
+		CF6735E7217390350062A600 /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAEEC9215688D900E182F2 /* Conversations.storyboard */; };
+		CF6735EF217394720062A600 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735ED2173946F0062A600 /* ThemesViewController.swift */; };
+		CF6735F2217397280062A600 /* ConversationsListExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735F1217397280062A600 /* ConversationsListExtension.swift */; };
+		CF6735F521739E890062A600 /* ConversationsListExtensionSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735F321739E790062A600 /* ConversationsListExtensionSwift.swift */; };
 		CFC17407216A371200A384CD /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17406216A371200A384CD /* MessageCell.swift */; };
 		CFC17409216A38AB00A384CD /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17408216A38AB00A384CD /* MessageModel.swift */; };
 		CFC1740B216A3AD200A384CD /* TemporaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC1740A216A3AD200A384CD /* TemporaryData.swift */; };
@@ -51,6 +75,11 @@
 		CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ChatBox.m"; sourceTree = "<group>"; };
 		CF6735912170D32C0062A600 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		CF6735CC21738F2E0062A600 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		CF6735EB217390350062A600 /* ChatBox_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatBox_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF6735EC217390350062A600 /* ChatBox_Swift.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ChatBox_Swift.plist; path = /Users/teplonogov/Developing/Tinkoff/ChatBox/ChatBox_Swift.plist; sourceTree = "<absolute>"; };
+		CF6735ED2173946F0062A600 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
+		CF6735F1217397280062A600 /* ConversationsListExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListExtension.swift; sourceTree = "<group>"; };
+		CF6735F321739E790062A600 /* ConversationsListExtensionSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListExtensionSwift.swift; sourceTree = "<group>"; };
 		CFC17406216A371200A384CD /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		CFC17408216A38AB00A384CD /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		CFC1740A216A3AD200A384CD /* TemporaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryData.swift; sourceTree = "<group>"; };
@@ -64,6 +93,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CF6735E0217390350062A600 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CFDAEEBF215688D900E182F2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,7 +151,7 @@
 			children = (
 				CF673581216F7CCF0062A600 /* ThemesViewController */,
 				CF673578216F68CA0062A600 /* ProfileViewController */,
-				CF4766292169033E008AF8C2 /* ConversationsListViewController.swift */,
+				CF6735F0217397070062A600 /* ConversationsListViewController */,
 				CF476633216A14DB008AF8C2 /* ConversationViewController.swift */,
 			);
 			path = Controllers;
@@ -149,6 +185,7 @@
 				CF67357C216F7CC30062A600 /* ThemesViewController.h */,
 				CF67357D216F7CC30062A600 /* ThemesViewController.m */,
 				CF67357E216F7CC30062A600 /* ThemesViewController.xib */,
+				CF6735ED2173946F0062A600 /* ThemesViewController.swift */,
 			);
 			path = ThemesViewController;
 			sourceTree = "<group>";
@@ -171,11 +208,22 @@
 			path = "UIColor+ChatBox";
 			sourceTree = "<group>";
 		};
+		CF6735F0217397070062A600 /* ConversationsListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CF4766292169033E008AF8C2 /* ConversationsListViewController.swift */,
+				CF6735F1217397280062A600 /* ConversationsListExtension.swift */,
+				CF6735F321739E790062A600 /* ConversationsListExtensionSwift.swift */,
+			);
+			path = ConversationsListViewController;
+			sourceTree = "<group>";
+		};
 		CFDAEEB9215688D900E182F2 = {
 			isa = PBXGroup;
 			children = (
 				CFDAEEC4215688D900E182F2 /* ChatBox */,
 				CFDAEEC3215688D900E182F2 /* Products */,
+				CF6735EC217390350062A600 /* ChatBox_Swift.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				CFDAEEC2215688D900E182F2 /* ChatBox.app */,
+				CF6735EB217390350062A600 /* ChatBox_Swift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,6 +257,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CF6735CE217390350062A600 /* ChatBox_Swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF6735E8217390350062A600 /* Build configuration list for PBXNativeTarget "ChatBox_Swift" */;
+			buildPhases = (
+				CF6735CF217390350062A600 /* Sources */,
+				CF6735E0217390350062A600 /* Frameworks */,
+				CF6735E1217390350062A600 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChatBox_Swift;
+			productName = ChatBox;
+			productReference = CF6735EB217390350062A600 /* ChatBox_Swift.app */;
+			productType = "com.apple.product-type.application";
+		};
 		CFDAEEC1215688D900E182F2 /* ChatBox */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CFDAEED4215688DC00E182F2 /* Build configuration list for PBXNativeTarget "ChatBox" */;
@@ -255,11 +321,25 @@
 			projectRoot = "";
 			targets = (
 				CFDAEEC1215688D900E182F2 /* ChatBox */,
+				CF6735CE217390350062A600 /* ChatBox_Swift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CF6735E1217390350062A600 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6735E2217390350062A600 /* ConversationCell.xib in Resources */,
+				CF6735E3217390350062A600 /* LaunchScreen.storyboard in Resources */,
+				CF6735E4217390350062A600 /* Assets.xcassets in Resources */,
+				CF6735E5217390350062A600 /* ProfileViewController.xib in Resources */,
+				CF6735E6217390350062A600 /* ThemesViewController.xib in Resources */,
+				CF6735E7217390350062A600 /* Conversations.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CFDAEEC0215688D900E182F2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,6 +356,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CF6735CF217390350062A600 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6735D0217390350062A600 /* Logger.swift in Sources */,
+				CF6735D1217390350062A600 /* MessageCell.swift in Sources */,
+				CF6735D2217390350062A600 /* UIColor+ChatBox.m in Sources */,
+				CF6735D3217390350062A600 /* ProfileViewController.swift in Sources */,
+				CF6735D4217390350062A600 /* ConversationViewController.swift in Sources */,
+				CF6735D5217390350062A600 /* AppDelegate.swift in Sources */,
+				CF6735D6217390350062A600 /* Themes.m in Sources */,
+				CF6735D7217390350062A600 /* Protocols.swift in Sources */,
+				CF6735D8217390350062A600 /* Constants.swift in Sources */,
+				CF6735D9217390350062A600 /* TemporaryData.swift in Sources */,
+				CF6735EF217394720062A600 /* ThemesViewController.swift in Sources */,
+				CF6735DA217390350062A600 /* ConversationsListViewController.swift in Sources */,
+				CF6735DB217390350062A600 /* ThemeManager.swift in Sources */,
+				CF6735DC217390350062A600 /* MessageModel.swift in Sources */,
+				CF6735DD217390350062A600 /* Person.swift in Sources */,
+				CF6735DE217390350062A600 /* ConversationCell.swift in Sources */,
+				CF6735F521739E890062A600 /* ConversationsListExtensionSwift.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CFDAEEBE215688D900E182F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -283,6 +387,7 @@
 				CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */,
 				CFC17407216A371200A384CD /* MessageCell.swift in Sources */,
 				CF67358F2170B15E0062A600 /* UIColor+ChatBox.m in Sources */,
+				CF6735F2217397280062A600 /* ConversationsListExtension.swift in Sources */,
 				CF5A6A2E215EC44B0084371A /* ProfileViewController.swift in Sources */,
 				CF476634216A14DB008AF8C2 /* ConversationViewController.swift in Sources */,
 				CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */,
@@ -321,6 +426,51 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CF6735E9217390350062A600 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8J7J52XQN8;
+				INFOPLIST_FILE = ChatBox_Swift.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "teplonogov.ChatBox-Swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChatBox/ChatBox-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CF6735EA217390350062A600 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8J7J52XQN8;
+				INFOPLIST_FILE = ChatBox_Swift.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "teplonogov.ChatBox-Swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChatBox/ChatBox-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		CFDAEED2215688DC00E182F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -485,6 +635,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CF6735E8217390350062A600 /* Build configuration list for PBXNativeTarget "ChatBox_Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF6735E9217390350062A600 /* Debug */,
+				CF6735EA217390350062A600 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CFDAEEBD215688D900E182F2 /* Build configuration list for PBXProject "ChatBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
