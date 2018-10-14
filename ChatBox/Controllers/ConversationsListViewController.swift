@@ -56,6 +56,13 @@ class ConversationsListViewController: UIViewController {
         
     }
     
+    
+    func configureAppearance(color: UIColor) {
+        ThemeManager.shared.changeThemeTo(color: color)
+    }
+    
+
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -165,6 +172,9 @@ extension ConversationsListViewController: ThemesViewControllerDelegate {
     
     func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
         logThemeChanging(selectedTheme: selectedTheme)
+        configureAppearance(color: selectedTheme)
+        let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
+        UserDefaults.standard.set(colorData, forKey: "theme")
     }
     
     func logThemeChanging(selectedTheme: UIColor) {

@@ -15,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        if let themeData = UserDefaults.standard.object(forKey: "theme") as? Data {
+            let color = NSKeyedUnarchiver.unarchiveObject(with: themeData) as? UIColor
+            ThemeManager.shared.changeThemeTo(color: color!)
+        }
+        
         return true
     }
 
