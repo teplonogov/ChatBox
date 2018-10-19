@@ -11,18 +11,23 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var photoContainerView: UIView!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet var gcdButton: UIButton!
+    @IBOutlet var operationButton: UIButton!
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var avatarButton: UIButton!
+    @IBOutlet var descriptionTextView: UITextView!
     
-    // MARK: - Task 4.2
-    
-    /*
- 
-     Распечатать свойство frame у кнопки editButton в момент иниициализации контроллера не получится, т.к. его properties еще не успели инициализироваться => editButton = nil => программа упадет.
- 
-     */
+    var editMode: Bool = false
+    var nameWasChanged: Bool = false
+    var descriptionWasChanged: Bool = false
+    var somethingWasChanged: Bool = false
     
     
+    var oldName: String?
+    var oldDescription: String?
+    
+
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -36,6 +41,23 @@ class ProfileViewController: UIViewController {
         } else {
             avatarImageView.image = #imageLiteral(resourceName: "placeholder-user")
         }
+        
+        descriptionTextView.delegate = self
+        
+        self.avatarButton.alpha = 0.2
+        avatarButton.isHidden = true
+        
+        oldName = "Alexey Teplonogov"
+        oldDescription = "Love iOS Development 🔧, adore snowboarding🏂 and don't realy like study at BMSTU"
+        
+        nameTextField.text = oldName
+        descriptionTextView.text = oldDescription
+        
+        gcdButton.isEnabled = false
+        operationButton.isEnabled = false
+        
+        configureColorsEditMode(somethingChanged: editMode)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -47,9 +69,7 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         print("Frame from viewDidAppear: \(editButton.frame)")
-        /*
-         Frame отличается от frame во время viewDidLoad, т.к. в сториборде выбран девайс iPhone SE, а симулятор – iPhone X. Дело в том, что компилятор сначала берет текущие размеры view из сториборда, а уже после перестраивает их согласно Constraints => размеры отличаются. Если же в симуляторе и в сториборде будут устройства с одинаковыми размерами дисплея, то frame не изменится.
-         */
+
     }
     
     
@@ -98,24 +118,87 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func editProfileTapped(_ sender: Any) {
-        print("🔵 Edit profile button was tapped ")
+
+        editMode = !editMode
+        let title = editMode ? "Отмена" : "Редактировать"
+        editButton.setTitle(title, for: .normal)
+        avatarButton.isHidden = !self.editMode
+
+        UIView.animate(withDuration: 0.2, animations: {
+            if self.editMode {
+                self.nameTextField.borderStyle = .roundedRect
+                self.nameTextField.isUserInteractionEnabled = true
+                self.descriptionTextView.isEditable = true
+                self.avatarButton.alpha = 1
+            } else {
+                self.nameTextField.borderStyle = .none
+                self.nameTextField.isUserInteractionEnabled = false
+                self.descriptionTextView.isEditable = false
+                self.avatarButton.alpha = 0.2
+            }
+        })
+        
     }
+    
+    @IBAction func nameFieldEditingChanged(_ sender: UITextField) {
+        
+        if sender.text != oldName {
+            nameWasChanged = true
+            somethingWasChanged = true
+        } else {
+            nameWasChanged = false
+            somethingWasChanged = descriptionWasChanged
+        }
+        
+        configureColorsEditMode(somethingChanged: somethingWasChanged)
+    }
+    
+    
+    
     @IBAction func closeButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Helpers
     
+    func configureColorsEditMode(somethingChanged: Bool) {
+        
+        if somethingChanged {
+            operationButton.layer.borderColor = UIColor.black.cgColor
+            operationButton.setTitleColor(UIColor.black, for: .normal)
+            gcdButton.layer.borderColor = UIColor.black.cgColor
+            gcdButton.setTitleColor(UIColor.black, for: .normal)
+        } else {
+            operationButton.layer.borderColor = UIColor.gray.cgColor
+            operationButton.setTitleColor(UIColor.gray, for: .normal)
+            gcdButton.layer.borderColor = UIColor.gray.cgColor
+            gcdButton.setTitleColor(UIColor.gray, for: .normal)
+        }
+        
+    }
+    
     func configureViews() {
-        let cornerRadius = photoContainerView.bounds.width/2
-        photoContainerView.layer.cornerRadius = cornerRadius
+
+        let cornerRadius = avatarButton.bounds.width/2
+        avatarButton.layer.cornerRadius = cornerRadius
+
+        avatarButton.imageEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        
         avatarImageView.layer.cornerRadius = cornerRadius
         avatarImageView.clipsToBounds = true
         
         editButton.layer.cornerRadius = 15
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor
+        
+        gcdButton.layer.cornerRadius = 15
+        gcdButton.layer.borderWidth = 1
+        
+        operationButton.layer.cornerRadius = 15
+        operationButton.layer.borderWidth = 1
+        
     }
+    
     
     
     // png периодически переворчаиваются из-за rotation flag, правим это тут
@@ -164,6 +247,25 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+
+extension ProfileViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+        if textView.text != oldDescription {
+            descriptionWasChanged = true
+            somethingWasChanged = true
+        } else {
+            descriptionWasChanged = false
+            somethingWasChanged = nameWasChanged
+        }
+        
+        configureColorsEditMode(somethingChanged: somethingWasChanged)
+        
     }
     
 }
