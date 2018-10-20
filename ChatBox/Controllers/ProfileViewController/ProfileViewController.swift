@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
     var editMode: Bool = false
     var nameWasChanged: Bool = false
     var descriptionWasChanged: Bool = false
+    var avatarWasChanged: Bool = false
     var somethingWasChanged: Bool = false
     
     
@@ -32,7 +33,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Frame from viewDidLoad: \(editButton.frame)")
+        //print("Frame from viewDidLoad: \(editButton.frame)")
         
         
         if let data = UserDefaults.standard.object(forKey: avatar_image) {
@@ -56,7 +57,7 @@ class ProfileViewController: UIViewController {
         gcdButton.isEnabled = false
         operationButton.isEnabled = false
         
-        configureColorsEditMode(somethingChanged: editMode)
+        configureColorsEditMode(isDataChanged: editMode)
         
     }
     
@@ -68,7 +69,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print("Frame from viewDidAppear: \(editButton.frame)")
+        //print("Frame from viewDidAppear: \(editButton.frame)")
 
     }
     
@@ -129,11 +130,14 @@ class ProfileViewController: UIViewController {
                 self.nameTextField.borderStyle = .roundedRect
                 self.nameTextField.isUserInteractionEnabled = true
                 self.descriptionTextView.isEditable = true
+                self.descriptionTextView.layer.borderWidth = 1
+                self.descriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
                 self.avatarButton.alpha = 1
             } else {
                 self.nameTextField.borderStyle = .none
                 self.nameTextField.isUserInteractionEnabled = false
                 self.descriptionTextView.isEditable = false
+                self.descriptionTextView.layer.borderWidth = 0
                 self.avatarButton.alpha = 0.2
             }
         })
@@ -150,7 +154,7 @@ class ProfileViewController: UIViewController {
             somethingWasChanged = descriptionWasChanged
         }
         
-        configureColorsEditMode(somethingChanged: somethingWasChanged)
+        configureColorsEditMode(isDataChanged: somethingWasChanged)
     }
     
     
@@ -161,9 +165,9 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func configureColorsEditMode(somethingChanged: Bool) {
+    func configureColorsEditMode(isDataChanged: Bool) {
         
-        if somethingChanged {
+        if isDataChanged {
             operationButton.layer.borderColor = UIColor.black.cgColor
             operationButton.setTitleColor(UIColor.black, for: .normal)
             gcdButton.layer.borderColor = UIColor.black.cgColor
@@ -190,6 +194,8 @@ class ProfileViewController: UIViewController {
         editButton.layer.cornerRadius = 15
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor
+        
+        descriptionTextView.layer.cornerRadius = 10
         
         gcdButton.layer.cornerRadius = 15
         gcdButton.layer.borderWidth = 1
@@ -241,7 +247,10 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 
         UserDefaults.standard.set(imageData, forKey: avatar_image)
         avatarImageView.image = correctedImg
+        avatarWasChanged = true
+        somethingWasChanged = true
         picker.dismiss(animated: true, completion: nil)
+        configureColorsEditMode(isDataChanged: somethingWasChanged)
         
     }
     
@@ -264,7 +273,7 @@ extension ProfileViewController: UITextViewDelegate {
             somethingWasChanged = nameWasChanged
         }
         
-        configureColorsEditMode(somethingChanged: somethingWasChanged)
+        configureColorsEditMode(isDataChanged: somethingWasChanged)
         
     }
     

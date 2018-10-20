@@ -45,6 +45,7 @@
 		CF6735EF217394720062A600 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735ED2173946F0062A600 /* ThemesViewController.swift */; };
 		CF6735F2217397280062A600 /* ConversationsListExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735F1217397280062A600 /* ConversationsListExtension.swift */; };
 		CF6735F521739E890062A600 /* ConversationsListExtensionSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735F321739E790062A600 /* ConversationsListExtensionSwift.swift */; };
+		CF78831B217B7A0000FC739F /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF78831A217B7A0000FC739F /* GCDDataManager.swift */; };
 		CFC17407216A371200A384CD /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17406216A371200A384CD /* MessageCell.swift */; };
 		CFC17409216A38AB00A384CD /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17408216A38AB00A384CD /* MessageModel.swift */; };
 		CFC1740B216A3AD200A384CD /* TemporaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC1740A216A3AD200A384CD /* TemporaryData.swift */; };
@@ -80,6 +81,7 @@
 		CF6735ED2173946F0062A600 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		CF6735F1217397280062A600 /* ConversationsListExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListExtension.swift; sourceTree = "<group>"; };
 		CF6735F321739E790062A600 /* ConversationsListExtensionSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListExtensionSwift.swift; sourceTree = "<group>"; };
+		CF78831A217B7A0000FC739F /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		CFC17406216A371200A384CD /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		CFC17408216A38AB00A384CD /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		CFC1740A216A3AD200A384CD /* TemporaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryData.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				CFC17408216A38AB00A384CD /* MessageModel.swift */,
 				CF6735CC21738F2E0062A600 /* ThemeManager.swift */,
 				CFC1740A216A3AD200A384CD /* TemporaryData.swift */,
+				CF78831A217B7A0000FC739F /* GCDDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				CF6735F2217397280062A600 /* ConversationsListExtension.swift in Sources */,
 				CF5A6A2E215EC44B0084371A /* ProfileViewController.swift in Sources */,
 				CF476634216A14DB008AF8C2 /* ConversationViewController.swift in Sources */,
+				CF78831B217B7A0000FC739F /* GCDDataManager.swift in Sources */,
 				CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */,
 				CF67358421709EB90062A600 /* Themes.m in Sources */,
 				CF4766272168FCF3008AF8C2 /* Protocols.swift in Sources */,

@@ -39,7 +39,7 @@
     _themeTwoButton.layer.cornerRadius = 10;
     _themeThreeButton.layer.cornerRadius = 10;
     
-    self.themes = [[Themes alloc] init];
+    self.themes = [[[Themes alloc] init] autorelease];
     self.themes.theme1 = [UIColor whiteColor];
     self.themes.theme2 = [UIColor skyBlueColor];
     self.themes.theme3 = [UIColor nightBlueColor];
@@ -52,7 +52,7 @@
 
 - (void)dealloc {
     [self.themes release];
-    self.themes = nil;
+    //self.themes = nil;
 
 
     NSLog(@"controller deallocated");
