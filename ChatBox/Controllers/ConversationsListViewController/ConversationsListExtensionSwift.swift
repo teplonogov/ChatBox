@@ -17,8 +17,11 @@ extension ConversationsListViewController {
         themesVC.handler = { [weak self] (selectedTheme: UIColor) in
             self?.logThemeChanging(selectedTheme: selectedTheme)
             self?.configureAppearance(color: selectedTheme)
-            let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
-            UserDefaults.standard.set(colorData, forKey: "theme")
+            
+            DispatchQueue.global(qos: .utility).async {
+                let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
+                UserDefaults.standard.set(colorData, forKey: "theme")
+            }
         }
         
         self.present(themesNavigationController, animated: true, completion: nil)

@@ -11,7 +11,7 @@
 
 @interface ThemesViewController () 
 
-@property (strong, nonatomic) Themes* themes;
+@property (retain, nonatomic) Themes* themes;
 
 @end
 

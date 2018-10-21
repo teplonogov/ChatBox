@@ -21,3 +21,10 @@ protocol ConversationCellConfiguration: class {
 protocol MessageCellConfiguration: class {
     var messageText: String? {get set}
 }
+
+
+
+protocol GetSaveProfileProtocol {
+    func getProfile(completion: @escaping (UserProfile) -> ())
+    func saveProfile(profile: UserProfile, nameChanged: Bool, descriptionChanged: Bool, avatarChanged: Bool, completion: @escaping(Error?) -> ())
+}

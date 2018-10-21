@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="ChatBox" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="doc-mZ-HT4" id="NJI-Ef-nYf"/>
                 <outlet property="avatarButton" destination="Uw1-A9-jf1" id="jLe-PB-aRH"/>
                 <outlet property="avatarImageView" destination="JKT-gU-iMu" id="iK8-3C-2jQ"/>
                 <outlet property="descriptionTextView" destination="UFu-pO-Rc7" id="4en-hH-OQA"/>
@@ -51,7 +52,7 @@
                         <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="cNJ-Sl-VUo"/>
                     </connections>
                 </button>
-                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Alexey Teplonogov" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kkW-3F-i6o">
+                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="No name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kkW-3F-i6o">
                     <rect key="frame" x="30" y="341" width="260" height="25"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="20"/>
@@ -67,6 +68,9 @@
                     <state key="normal" title="GCD">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="saveGCDAction:" destination="-1" eventType="touchUpInside" id="VRh-7L-z7x"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wT5-R4-cdS">
                     <rect key="frame" x="170" y="510.5" width="130" height="42.5"/>
@@ -75,14 +79,20 @@
                     <state key="normal" title="Operation">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="saveOperationAction:" destination="-1" eventType="touchUpInside" id="axt-0V-Q2E"/>
+                    </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Love iOS Development 🔧, adore snowboarding🏂 and don't realy like study at BMSTU" translatesAutoresizingMaskIntoConstraints="NO" id="UFu-pO-Rc7">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFu-pO-Rc7">
                     <rect key="frame" x="30" y="371" width="260" height="82"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="textColor" red="0.43826011929999997" green="0.43826011929999997" blue="0.43826011929999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                 </textView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="doc-mZ-HT4">
+                    <rect key="frame" x="150" y="366" width="20" height="20"/>
+                </activityIndicatorView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uw1-A9-jf1">
                     <rect key="frame" x="225" y="260" width="65" height="65"/>
                     <color key="backgroundColor" red="0.37780940530000001" green="0.60292738680000002" blue="0.91767978670000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -122,10 +132,12 @@
                 <constraint firstItem="UFu-pO-Rc7" firstAttribute="top" secondItem="kkW-3F-i6o" secondAttribute="bottom" constant="5" id="hnq-ci-T6B"/>
                 <constraint firstItem="JVv-c0-bXg" firstAttribute="leading" secondItem="eJV-uV-acW" secondAttribute="leading" constant="20" id="lRj-9F-E17"/>
                 <constraint firstItem="wT5-R4-cdS" firstAttribute="leading" secondItem="FRh-TW-E01" secondAttribute="trailing" constant="20" id="p62-lh-s10"/>
+                <constraint firstItem="doc-mZ-HT4" firstAttribute="top" secondItem="kkW-3F-i6o" secondAttribute="bottom" id="ptz-GM-v1s"/>
                 <constraint firstItem="JKT-gU-iMu" firstAttribute="bottom" secondItem="Uw1-A9-jf1" secondAttribute="bottom" id="rDC-Ir-5Vg"/>
                 <constraint firstItem="kkW-3F-i6o" firstAttribute="centerX" secondItem="eJV-uV-acW" secondAttribute="centerX" id="s1i-cl-5Ya"/>
                 <constraint firstAttribute="trailing" secondItem="wT5-R4-cdS" secondAttribute="trailing" constant="20" id="zEs-mG-zJh"/>
                 <constraint firstItem="kkW-3F-i6o" firstAttribute="leading" secondItem="JKT-gU-iMu" secondAttribute="leading" id="zXQ-jz-kk7"/>
+                <constraint firstItem="doc-mZ-HT4" firstAttribute="centerX" secondItem="eJV-uV-acW" secondAttribute="centerX" id="zxa-sd-UKM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="DXQ-lX-EpN"/>
             <point key="canvasLocation" x="136.875" y="122.53521126760563"/>

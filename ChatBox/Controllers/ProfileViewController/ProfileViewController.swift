@@ -17,47 +17,43 @@ class ProfileViewController: UIViewController {
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var avatarButton: UIButton!
     @IBOutlet var descriptionTextView: UITextView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
+    let gcdLoadManager = GCDDataManager()
+    var saveManager: GetSaveProfileProtocol!
+    var userProfile: UserProfile?
     
     var editMode: Bool = false
     var nameWasChanged: Bool = false
     var descriptionWasChanged: Bool = false
     var avatarWasChanged: Bool = false
-    var somethingWasChanged: Bool = false
-    
-    
-    var oldName: String?
-    var oldDescription: String?
-    
+    var dataWasChanged: Bool = false
 
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print("Frame from viewDidLoad: \(editButton.frame)")
-        
-        
-        if let data = UserDefaults.standard.object(forKey: avatar_image) {
-            let avatar = UIImage(data: data as! Data)
-            avatarImageView.image = avatar
-        } else {
-            avatarImageView.image = #imageLiteral(resourceName: "placeholder-user")
-        }
         
         descriptionTextView.delegate = self
         
         self.avatarButton.alpha = 0.2
         avatarButton.isHidden = true
-        
-        oldName = "Alexey Teplonogov"
-        oldDescription = "Love iOS Development 🔧, adore snowboarding🏂 and don't realy like study at BMSTU"
-        
-        nameTextField.text = oldName
-        descriptionTextView.text = oldDescription
+        activityIndicator.startAnimating()
         
         gcdButton.isEnabled = false
         operationButton.isEnabled = false
         
-        configureColorsEditMode(isDataChanged: editMode)
+        switchEditMode(isDataChanged: editMode)
+        
+        gcdLoadManager.getProfile { (userProfile) in
+            self.nameTextField.text = userProfile.name
+            self.descriptionTextView.text = userProfile.description
+            self.avatarImageView.image = userProfile.avatar
+            self.userProfile = userProfile
+            self.activityIndicator.stopAnimating()
+        }
+        
+        registerNotifications()
         
     }
     
@@ -73,8 +69,67 @@ class ProfileViewController: UIViewController {
 
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
     //MARK: - Actions
+    
+    @IBAction func saveGCDAction(_ sender: UIButton) {
+        saveManager = GCDDataManager()
+        saveData()
+    }
+    
+    
+    @IBAction func saveOperationAction(_ sender: Any) {
+        saveManager = OperationDataManager()
+        saveData()
+    }
+    
+    func saveData() {
+        
+        guard dataWasChanged == true else {
+            print("Nothing was changed")
+            return
+        }
+        
+        activityIndicator.startAnimating()
+        
+        let newName = nameTextField.text ?? "No name"
+        let newDescription = descriptionTextView.text ?? ""
+        let newAvatar = avatarImageView.image ?? UIImage(named: "placeholder-user")!
+        
+        let newUserProfile = UserProfile.init(name: newName, description: newDescription, avatar: newAvatar)
+        
+            saveManager.saveProfile(profile: newUserProfile, nameChanged: nameWasChanged, descriptionChanged: descriptionWasChanged, avatarChanged: avatarWasChanged) { error in
+                
+                if let unwrappedError = error {
+                    print("Can't save data:\(unwrappedError.localizedDescription)")
+                    let errorAlert = UIAlertController(title: "Error!", message: "Can't save information", preferredStyle: .alert)
+                    let continueAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let repeatAction = UIAlertAction(title: "Repeat", style: .default, handler: { (action) in
+                        self.saveData()
+                    })
+                    errorAlert.addAction(continueAction)
+                    errorAlert.addAction(repeatAction)
+                    self.present(errorAlert, animated: true, completion: nil)
+                    
+                } else {
+                    self.dataWasChanged = false
+                    self.switchEditMode(isDataChanged: self.dataWasChanged)
+                    
+                    let completeAlert = UIAlertController(title: "Data was saved", message: nil, preferredStyle: .alert)
+                    let continueAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                    completeAlert.addAction(continueAction)
+                    self.present(completeAlert, animated: true, completion: nil)
+                }
+                
+                self.activityIndicator.stopAnimating()
+        }
+
+    }
+    
     
     @IBAction func chooseAvatarTapped(_ sender: UIButton) {
         print("🔵 Choose image for profile's avatar")
@@ -84,23 +139,25 @@ class ProfileViewController: UIViewController {
         
         let actionSheet = UIAlertController(title: nil, message: avatar_edit, preferredStyle: .actionSheet)
         
-        let libraryButton = UIAlertAction(title: library_text, style: .default) { (action) in
-                imagePicker.sourceType = .photoLibrary
-                self.present(imagePicker, animated: true, completion: nil)
+        let libraryButton = UIAlertAction(title: library_text, style: .default) { [weak self] (action) in
+            imagePicker.sourceType = .photoLibrary
+            self?.present(imagePicker, animated: true, completion: nil)
         }
         
-        let cameraButton = UIAlertAction(title: camera_text, style: .default) { (action) in
+        let cameraButton = UIAlertAction(title: camera_text, style: .default) { [weak self] (action) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePicker.sourceType = .camera
-                self.present(imagePicker, animated: true, completion: nil)
+                self?.present(imagePicker, animated: true, completion: nil)
             } else {
                 print("Camera not available in Simulator")
             }
         }
         
-        let deleteButton = UIAlertAction(title: delete_text, style: .destructive) { (action) in
-            UserDefaults.standard.removeObject(forKey: avatar_image)
-            self.avatarImageView.image = #imageLiteral(resourceName: "placeholder-user")
+        let deleteButton = UIAlertAction(title: delete_text, style: .destructive) { [weak self] (action) in
+            self?.avatarImageView.image = #imageLiteral(resourceName: "placeholder-user")
+            self?.avatarWasChanged = true
+            self?.dataWasChanged = true
+            self?.switchEditMode(isDataChanged: (self?.dataWasChanged)!)
         }
         
         let cancelButton = UIAlertAction(title: cancel_text, style: .cancel, handler: nil)
@@ -108,7 +165,8 @@ class ProfileViewController: UIViewController {
         actionSheet.addAction(libraryButton)
         actionSheet.addAction(cameraButton)
         
-        if UserDefaults.standard.object(forKey: avatar_image) != nil {
+        let placeholderImage = #imageLiteral(resourceName: "placeholder-user")
+        if !(avatarImageView.image?.isEqual(placeholderImage))! {
             actionSheet.addAction(deleteButton)
         }
         
@@ -121,40 +179,45 @@ class ProfileViewController: UIViewController {
     @IBAction func editProfileTapped(_ sender: Any) {
 
         editMode = !editMode
-        let title = editMode ? "Отмена" : "Редактировать"
+        let title = editMode ? "Ok" : "Редактировать"
         editButton.setTitle(title, for: .normal)
-        avatarButton.isHidden = !self.editMode
 
-        UIView.animate(withDuration: 0.2, animations: {
-            if self.editMode {
+        if editMode {
+            self.nameTextField.isUserInteractionEnabled = true
+            self.descriptionTextView.isEditable = true
+            avatarButton.isHidden = false
+            UIView.animate(withDuration: 0.2, animations: {
                 self.nameTextField.borderStyle = .roundedRect
-                self.nameTextField.isUserInteractionEnabled = true
-                self.descriptionTextView.isEditable = true
                 self.descriptionTextView.layer.borderWidth = 1
                 self.descriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
                 self.avatarButton.alpha = 1
-            } else {
+            })
+        } else {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.nameTextField.borderStyle = .none
                 self.nameTextField.isUserInteractionEnabled = false
                 self.descriptionTextView.isEditable = false
                 self.descriptionTextView.layer.borderWidth = 0
-                self.avatarButton.alpha = 0.2
+                self.avatarButton.alpha = 0.1
+            }) { (finished) in
+                self.avatarButton.isHidden = true
             }
-        })
+        }
+
         
     }
     
     @IBAction func nameFieldEditingChanged(_ sender: UITextField) {
         
-        if sender.text != oldName {
+        if sender.text != userProfile?.name {
             nameWasChanged = true
-            somethingWasChanged = true
+            dataWasChanged = true
         } else {
             nameWasChanged = false
-            somethingWasChanged = descriptionWasChanged
+            dataWasChanged = descriptionWasChanged || avatarWasChanged
         }
         
-        configureColorsEditMode(isDataChanged: somethingWasChanged)
+        switchEditMode(isDataChanged: dataWasChanged)
     }
     
     
@@ -165,18 +228,22 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func configureColorsEditMode(isDataChanged: Bool) {
+    func switchEditMode(isDataChanged: Bool) {
         
         if isDataChanged {
             operationButton.layer.borderColor = UIColor.black.cgColor
             operationButton.setTitleColor(UIColor.black, for: .normal)
             gcdButton.layer.borderColor = UIColor.black.cgColor
             gcdButton.setTitleColor(UIColor.black, for: .normal)
+            gcdButton.isEnabled = true
+            operationButton.isEnabled = true
         } else {
             operationButton.layer.borderColor = UIColor.gray.cgColor
             operationButton.setTitleColor(UIColor.gray, for: .normal)
             gcdButton.layer.borderColor = UIColor.gray.cgColor
             gcdButton.setTitleColor(UIColor.gray, for: .normal)
+            gcdButton.isEnabled = false
+            operationButton.isEnabled = false
         }
         
     }
@@ -206,22 +273,23 @@ class ProfileViewController: UIViewController {
     }
     
     
+    //MARK: - Notifications
     
-    // png периодически переворчаиваются из-за rotation flag, правим это тут
-    func rotateImage(image: UIImage) -> UIImage {
-        
-        if (image.imageOrientation == UIImage.Orientation.up ) {
-            return image
+    func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWiilDissapear), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardDidAppear(_ notification: NSNotification) {
+        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
         }
-        
-        UIGraphicsBeginImageContext(image.size)
-        
-        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
-        let copy = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return copy!
+        view.frame.origin.y = -keyboardRect.height
+    }
+    
+    
+    @objc func keyboardWiilDissapear() {
+        view.frame.origin.y = 0
     }
     
 
@@ -234,23 +302,16 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        let correctedImg = rotateImage(image: image)
         
-        var imageData: Data?
-        
-        if picker.sourceType == .camera {
-            imageData = correctedImg.jpegData(compressionQuality: 1.0)
-        } else {
-            imageData = correctedImg.pngData()
+        guard let newAvatar = info[.originalImage] as? UIImage else {
+            return
         }
 
-        UserDefaults.standard.set(imageData, forKey: avatar_image)
-        avatarImageView.image = correctedImg
+        avatarImageView.image = newAvatar
         avatarWasChanged = true
-        somethingWasChanged = true
+        dataWasChanged = true
         picker.dismiss(animated: true, completion: nil)
-        configureColorsEditMode(isDataChanged: somethingWasChanged)
+        switchEditMode(isDataChanged: dataWasChanged)
         
     }
     
@@ -265,16 +326,20 @@ extension ProfileViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         
-        if textView.text != oldDescription {
+        if textView.text != userProfile?.description {
             descriptionWasChanged = true
-            somethingWasChanged = true
+            dataWasChanged = true
         } else {
             descriptionWasChanged = false
-            somethingWasChanged = nameWasChanged
+            dataWasChanged = nameWasChanged || avatarWasChanged
         }
         
-        configureColorsEditMode(isDataChanged: somethingWasChanged)
+        switchEditMode(isDataChanged: dataWasChanged)
         
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("textViewDidBeginEditing ")
     }
     
 }

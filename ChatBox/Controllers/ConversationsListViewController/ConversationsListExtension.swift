@@ -15,8 +15,12 @@ extension ConversationsListViewController: ThemesViewControllerDelegate {
     func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
         logThemeChanging(selectedTheme: selectedTheme)
         configureAppearance(color: selectedTheme)
-        let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
-        UserDefaults.standard.set(colorData, forKey: "theme")
+        
+        DispatchQueue.global(qos: .utility).async {
+            let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
+            UserDefaults.standard.set(colorData, forKey: "theme")
+        }
+        
     }
     
     func transitionToThemesVC() {
