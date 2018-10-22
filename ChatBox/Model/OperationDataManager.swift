@@ -17,7 +17,7 @@ class OperationDataManager: GetSaveProfileProtocol {
     
     init() {
         fileDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        archiveURL = fileDirectory.appendingPathComponent("user_profile").appendingPathExtension("plist")
+        archiveURL = fileDirectory.appendingPathComponent("profile").appendingPathExtension("plist")
     }
     
     func getProfile(completion: @escaping (UserProfile) -> ()) {
