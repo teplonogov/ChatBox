@@ -26,5 +26,5 @@ protocol MessageCellConfiguration: class {
 
 protocol GetSaveProfileProtocol {
     func getProfile(completion: @escaping (UserProfile) -> ())
-    func saveProfile(profile: UserProfile, nameChanged: Bool, descriptionChanged: Bool, avatarChanged: Bool, completion: @escaping(Error?) -> ())
+    func saveProfile(profile: UserProfile, completion: @escaping(Error?) -> ())
 }

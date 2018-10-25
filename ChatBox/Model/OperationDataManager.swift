@@ -27,9 +27,9 @@ class OperationDataManager: GetSaveProfileProtocol {
         operationQueue.addOperation(getOperation)
     }
     
-    func saveProfile(profile: UserProfile, nameChanged: Bool, descriptionChanged: Bool, avatarChanged: Bool, completion: @escaping (Error?) -> ()) {
+    func saveProfile(profile: UserProfile, completion: @escaping (Error?) -> ()) {
         
-        let saveOperation = SaveUserProfile(nameChanged: nameChanged, descriptionChanged: descriptionChanged, avatarChanged: avatarChanged)
+        let saveOperation = SaveUserProfile(nameChanged: profile.nameWasChanged, descriptionChanged: profile.descriptionWasChanged, avatarChanged: profile.avatarWasChanged)
         saveOperation.userProfile = profile
         saveOperation.archiveURL = archiveURL
         saveOperation.completionHandler = completion
@@ -61,7 +61,11 @@ class GetUserProfile: Operation {
             avatar = UIImage(named: "placeholder-user")!
         }
         
-        profile = UserProfile(name: name, description: description, avatar: avatar)
+        profile = UserProfile()
+        profile.name = name
+        profile.description = description
+        profile.avatar = avatar
+        
         OperationQueue.main.addOperation {
             self.completionHandler(self.profile)
             
@@ -97,7 +101,7 @@ class SaveUserProfile: Operation {
         }
         
         if avatarChanged {
-            guard let imageData = userProfile.avatar.jpegData(compressionQuality: 1.0) else {
+            guard let imageData = userProfile.avatar?.jpegData(compressionQuality: 1.0) else {
                 OperationQueue.main.addOperation {
                     self.completionHandler(DataImageError.dataError)
                 }

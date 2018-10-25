@@ -37,7 +37,10 @@ class GCDDataManager: GetSaveProfileProtocol {
                 image = UIImage(named: "placeholder-user")!
             }
             
-            let profile = UserProfile(name: name, description: description, avatar: image)
+            let profile = UserProfile()
+            profile.name = name
+            profile.description = description
+            profile.avatar = image
             
             DispatchQueue.main.async {
                 completion(profile)
@@ -46,22 +49,22 @@ class GCDDataManager: GetSaveProfileProtocol {
         
     }
     
-    func saveProfile(profile: UserProfile, nameChanged: Bool, descriptionChanged: Bool, avatarChanged: Bool, completion: @escaping (Error?) -> ()) {
+    func saveProfile(profile: UserProfile, completion: @escaping (Error?) -> ()) {
         
         DispatchQueue.global(qos: .utility).async {
             sleep(1)
             
-            if nameChanged {
+            if profile.nameWasChanged {
                 UserDefaults.standard.set(profile.name, forKey: "user_name")
             }
             
-            if descriptionChanged {
+            if profile.descriptionWasChanged {
                 UserDefaults.standard.set(profile.description, forKey: "user_description")
             }
             
-            if avatarChanged {
+            if profile.avatarWasChanged {
                 do {
-                    try self.saveImage(profile.avatar)
+                    try self.saveImage(profile.avatar ?? #imageLiteral(resourceName: "placeholder-user"))
                 } catch let error {
                     DispatchQueue.main.async {
                         completion(error)

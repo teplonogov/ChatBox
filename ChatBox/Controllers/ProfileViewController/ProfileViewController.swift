@@ -22,12 +22,10 @@ class ProfileViewController: UIViewController {
     let gcdLoadManager = GCDDataManager()
     var saveManager: GetSaveProfileProtocol!
     var userProfile: UserProfile?
+    var newUserProfile: UserProfile?
     
     var editMode: Bool = false
-    var nameWasChanged: Bool = false
-    var descriptionWasChanged: Bool = false
-    var avatarWasChanged: Bool = false
-    var dataWasChanged: Bool = false
+
 
     // MARK: - Life Cycle
     
@@ -52,6 +50,7 @@ class ProfileViewController: UIViewController {
             self.userProfile = userProfile
             self.activityIndicator.stopAnimating()
         }
+        
         
         registerNotifications()
         
@@ -89,7 +88,7 @@ class ProfileViewController: UIViewController {
     
     func saveData() {
         
-        guard dataWasChanged == true else {
+        guard newUserProfile?.dataWasChanged == true else {
             print("Nothing was changed")
             return
         }
@@ -100,9 +99,11 @@ class ProfileViewController: UIViewController {
         let newDescription = descriptionTextView.text ?? ""
         let newAvatar = avatarImageView.image ?? UIImage(named: "placeholder-user")!
         
-        let newUserProfile = UserProfile.init(name: newName, description: newDescription, avatar: newAvatar)
+        newUserProfile?.name = newName
+        newUserProfile?.description = newDescription
+        newUserProfile?.avatar = newAvatar
         
-            saveManager.saveProfile(profile: newUserProfile, nameChanged: nameWasChanged, descriptionChanged: descriptionWasChanged, avatarChanged: avatarWasChanged) { error in
+        saveManager.saveProfile(profile: newUserProfile!) { error in
                 
                 if let unwrappedError = error {
                     print("Can't save data:\(unwrappedError.localizedDescription)")
@@ -116,8 +117,8 @@ class ProfileViewController: UIViewController {
                     self.present(errorAlert, animated: true, completion: nil)
                     
                 } else {
-                    self.dataWasChanged = false
-                    self.switchEditMode(isDataChanged: self.dataWasChanged)
+                    self.newUserProfile?.dataWasChanged = false
+                    self.switchEditMode(isDataChanged: self.newUserProfile?.dataWasChanged ?? false)
                     
                     let completeAlert = UIAlertController(title: "Data was saved", message: nil, preferredStyle: .alert)
                     let continueAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
@@ -155,9 +156,9 @@ class ProfileViewController: UIViewController {
         
         let deleteButton = UIAlertAction(title: delete_text, style: .destructive) { [weak self] (action) in
             self?.avatarImageView.image = #imageLiteral(resourceName: "placeholder-user")
-            self?.avatarWasChanged = true
-            self?.dataWasChanged = true
-            self?.switchEditMode(isDataChanged: (self?.dataWasChanged)!)
+            self?.newUserProfile?.avatarWasChanged = true
+            self?.newUserProfile?.dataWasChanged = true
+            self?.switchEditMode(isDataChanged: (self?.newUserProfile?.dataWasChanged)!)
         }
         
         let cancelButton = UIAlertAction(title: cancel_text, style: .cancel, handler: nil)
@@ -183,6 +184,7 @@ class ProfileViewController: UIViewController {
         editButton.setTitle(title, for: .normal)
 
         if editMode {
+            newUserProfile = UserProfile()
             self.nameTextField.isUserInteractionEnabled = true
             self.descriptionTextView.isEditable = true
             avatarButton.isHidden = false
@@ -210,14 +212,14 @@ class ProfileViewController: UIViewController {
     @IBAction func nameFieldEditingChanged(_ sender: UITextField) {
         
         if sender.text != userProfile?.name {
-            nameWasChanged = true
-            dataWasChanged = true
+            newUserProfile?.nameWasChanged = true
+            newUserProfile?.dataWasChanged = true
         } else {
-            nameWasChanged = false
-            dataWasChanged = descriptionWasChanged || avatarWasChanged
+            newUserProfile?.nameWasChanged = false
+            newUserProfile?.dataWasChanged = newUserProfile?.descriptionWasChanged ?? false || newUserProfile?.avatarWasChanged ?? false
         }
         
-        switchEditMode(isDataChanged: dataWasChanged)
+        switchEditMode(isDataChanged: newUserProfile?.dataWasChanged ?? false)
     }
     
     
@@ -308,10 +310,10 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
 
         avatarImageView.image = newAvatar
-        avatarWasChanged = true
-        dataWasChanged = true
+        newUserProfile?.avatarWasChanged = true
+        newUserProfile?.dataWasChanged = true
         picker.dismiss(animated: true, completion: nil)
-        switchEditMode(isDataChanged: dataWasChanged)
+        switchEditMode(isDataChanged: newUserProfile?.dataWasChanged ?? false)
         
     }
     
@@ -327,14 +329,14 @@ extension ProfileViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         
         if textView.text != userProfile?.description {
-            descriptionWasChanged = true
-            dataWasChanged = true
+            newUserProfile?.descriptionWasChanged = true
+            newUserProfile?.dataWasChanged = true
         } else {
-            descriptionWasChanged = false
-            dataWasChanged = nameWasChanged || avatarWasChanged
+            newUserProfile?.descriptionWasChanged = false
+            newUserProfile?.dataWasChanged = newUserProfile?.nameWasChanged ?? false || newUserProfile?.avatarWasChanged ?? false
         }
         
-        switchEditMode(isDataChanged: dataWasChanged)
+        switchEditMode(isDataChanged: newUserProfile?.dataWasChanged ?? false)
         
     }
     
