@@ -7,39 +7,60 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class ConversationsListViewController: UIViewController {
     
-    var onlineHeroes = [Person]()
-    var offlineHeroes = [Person]()
+//    var onlineHeroes = [Person]()
+//    var offlineHeroes = [Person]()
+    var choosenConversation: Conversation?
     
-    var userToConversation: Person?
-    
+    var conversations = [Conversation]()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if #available(iOS 11.0, *) {
-//            self.navigationController?.navigationBar.prefersLargeTitles = true
-//            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)]
-//        }
+        
+//        let users = TemporaryData.generateData()
 //
-//        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)
-        
-        let users = TemporaryData.generateData()
-        
-        for person in users {
-            if person.online {
-                onlineHeroes.append(person)
-            } else {
-                offlineHeroes.append(person)
-            }
-        }
+//        for person in users {
+//            if person.online {
+//                onlineHeroes.append(person)
+//            } else {
+//                offlineHeroes.append(person)
+//            }
+//        }
 
+        
         let nibCell = UINib(nibName: "ConversationCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "ConversationCell")
+        
+        CommunicationManager.shared.startConnection()
+        CommunicationManager.shared.delegate = self
+        
+        conversations.sort(by: sortConversation(first:second:))
+    }
+    
+    
+    func sortConversation(first: Conversation, second: Conversation) -> Bool {
+        if let firstDate = first.date, let firstName = first.name {
+            if let secondDate = second.date, let secondName = first.name {
+                if firstDate.timeIntervalSinceNow != secondDate.timeIntervalSinceNow {
+                    return firstDate.timeIntervalSinceNow > secondDate.timeIntervalSinceNow
+                }
+                return firstName > secondName
+            }
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        updateUsers()
     }
     
 
@@ -60,13 +81,14 @@ class ConversationsListViewController: UIViewController {
     func logThemeChanging(selectedTheme: UIColor) {
         print("Color is: \(selectedTheme.description)")
     }
+    
 
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let chatVC = segue.destination as! ConversationViewController
-        chatVC.user = userToConversation
+        chatVC.conversation = choosenConversation
     }
     
     
@@ -78,15 +100,11 @@ class ConversationsListViewController: UIViewController {
 extension ConversationsListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return onlineHeroes.count
-        } else {
-            return offlineHeroes.count
-        }
+        return conversations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,42 +133,18 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let user: Person?
+//        let user: Person?
         
-        if indexPath.section == 0 {
-            user = onlineHeroes[indexPath.row]
-        } else {
-            user = offlineHeroes[indexPath.row]
-        }
+//        if indexPath.section == 0 {
+//            user = onlineHeroes[indexPath.row]
+//        } else {
+//            user = offlineHeroes[indexPath.row]
+//        }
         
-        if user != nil {
-            self.userToConversation = user
-            performSegue(withIdentifier: "ConversationID", sender: nil)
-        }
+        self.choosenConversation = conversations[indexPath.row]
+        performSegue(withIdentifier: "ConversationID", sender: nil)
         
-    }
-    
-    
-    
-    //MARK: - Helpers
-    
-    func configureCell(indexPath: IndexPath, cell: ConversationCell) {
-        var heroes = [Person]()
         
-        if indexPath.section == 0 {
-            heroes = onlineHeroes
-        } else {
-            heroes = offlineHeroes
-        }
-        
-        cell.name = heroes[indexPath.row].name
-        cell.message = heroes[indexPath.row].messageData?.last?.textMessage
-        cell.online = heroes[indexPath.row].online
-        cell.date = heroes[indexPath.row].date
-        cell.hasUnreadMessages = heroes[indexPath.row].hasUnreadMessages
-        cell.onlineView.layer.cornerRadius = cell.onlineView.bounds.width/2
-        
-
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -162,7 +156,50 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     }
     
     
+    //MARK: - Helpers
+    
+    func configureCell(indexPath: IndexPath, cell: ConversationCell) {
+//        var heroes = [Person]()
+        
+//        if indexPath.section == 0 {
+//            heroes = onlineHeroes
+//        } else {
+//            heroes = offlineHeroes
+//        }
+        
+        cell.name = conversations[indexPath.row].name
+        cell.message = conversations[indexPath.row].message
+        cell.online = conversations[indexPath.row].online
+        cell.date = conversations[indexPath.row].date
+        cell.hasUnreadMessages = conversations[indexPath.row].hasUnreadMessages
+        cell.onlineView.layer.cornerRadius = cell.onlineView.bounds.width/2
+        
+
+    }
+    
     
 }
+
+
+extension ConversationsListViewController: CommunicatorListDelegate {
+    
+    func updateUsers() {
+        conversations.removeAll()
+        for (_, value) in CommunicationManager.shared.conversations {
+            conversations.append(value)
+        }
+        
+        conversations.sort(by: sortConversation(first:second:))
+        tableView.reloadData()
+    }
+    
+    func handleError(error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    
+    
+}
+
 
 

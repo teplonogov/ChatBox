@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF0EE1C421862A72005D67A8 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0EE1C321862A72005D67A8 /* Conversation.swift */; };
 		CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Logger.swift */; };
 		CF4766222168F136008AF8C2 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766202168F136008AF8C2 /* ConversationCell.swift */; };
 		CF4766232168F136008AF8C2 /* ConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF4766212168F136008AF8C2 /* ConversationCell.xib */; };
@@ -56,9 +57,12 @@
 		CFDAEECD215688DC00E182F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFDAEECC215688DC00E182F2 /* Assets.xcassets */; };
 		CFDAEED0215688DC00E182F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAEECE215688DC00E182F2 /* LaunchScreen.storyboard */; };
 		CFDC457B216125770016BB0F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDC457A216125770016BB0F /* Constants.swift */; };
+		CFFD0947218203E800016184 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD0946218203E800016184 /* MultipeerCommunicator.swift */; };
+		CFFD094C21820B2200016184 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD094B21820B2200016184 /* CommunicationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF0EE1C321862A72005D67A8 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		CF24DBF32158E30C00E00BC6 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CF4766202168F136008AF8C2 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		CF4766212168F136008AF8C2 /* ConversationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationCell.xib; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 		CFDAEECF215688DC00E182F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFDAEED1215688DC00E182F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFDC457A216125770016BB0F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CFFD0946218203E800016184 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
+		CFFD094B21820B2200016184 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,14 +173,11 @@
 			isa = PBXGroup;
 			children = (
 				CF6735902170B16C0062A600 /* UIColor+ChatBox */,
-				CF67358521709EC20062A600 /* Themes */,
-				CF47662C216922F4008AF8C2 /* Person.swift */,
-				CFC17408216A38AB00A384CD /* MessageModel.swift */,
+				CFFD0948218206A600016184 /* Multithreading */,
+				CFFD0949218206CC00016184 /* Entities */,
+				CFFD094A2182070F00016184 /* Communication */,
 				CF6735CC21738F2E0062A600 /* ThemeManager.swift */,
 				CFC1740A216A3AD200A384CD /* TemporaryData.swift */,
-				CF78831C217CA60300FC739F /* UserProfile.swift */,
-				CF78831A217B7A0000FC739F /* GCDDataManager.swift */,
-				CF78831E217CD83300FC739F /* OperationDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -261,6 +264,36 @@
 				CF24DBF52158F34000E00BC6 /* Utils */,
 			);
 			path = ChatBox;
+			sourceTree = "<group>";
+		};
+		CFFD0948218206A600016184 /* Multithreading */ = {
+			isa = PBXGroup;
+			children = (
+				CF78831A217B7A0000FC739F /* GCDDataManager.swift */,
+				CF78831E217CD83300FC739F /* OperationDataManager.swift */,
+			);
+			path = Multithreading;
+			sourceTree = "<group>";
+		};
+		CFFD0949218206CC00016184 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				CF67358521709EC20062A600 /* Themes */,
+				CF47662C216922F4008AF8C2 /* Person.swift */,
+				CFC17408216A38AB00A384CD /* MessageModel.swift */,
+				CF78831C217CA60300FC739F /* UserProfile.swift */,
+				CF0EE1C321862A72005D67A8 /* Conversation.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		CFFD094A2182070F00016184 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				CFFD0946218203E800016184 /* MultipeerCommunicator.swift */,
+				CFFD094B21820B2200016184 /* CommunicationManager.swift */,
+			);
+			path = Communication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,6 +428,8 @@
 			files = (
 				CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */,
 				CFC17407216A371200A384CD /* MessageCell.swift in Sources */,
+				CF0EE1C421862A72005D67A8 /* Conversation.swift in Sources */,
+				CFFD094C21820B2200016184 /* CommunicationManager.swift in Sources */,
 				CF67358F2170B15E0062A600 /* UIColor+ChatBox.m in Sources */,
 				CF6735F2217397280062A600 /* ConversationsListExtension.swift in Sources */,
 				CF5A6A2E215EC44B0084371A /* ProfileViewController.swift in Sources */,
@@ -410,6 +445,7 @@
 				CF78831F217CD83300FC739F /* OperationDataManager.swift in Sources */,
 				CFC17409216A38AB00A384CD /* MessageModel.swift in Sources */,
 				CF47662D216922F4008AF8C2 /* Person.swift in Sources */,
+				CFFD0947218203E800016184 /* MultipeerCommunicator.swift in Sources */,
 				CF4766222168F136008AF8C2 /* ConversationCell.swift in Sources */,
 				CF78831D217CA60300FC739F /* UserProfile.swift in Sources */,
 				CF67357F216F7CC30062A600 /* ThemesViewController.m in Sources */,
