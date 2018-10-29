@@ -13,7 +13,7 @@ class CommunicationManager: CommunicatorDelegate {
     
     static let shared = CommunicationManager()
     var conversations = [String : Conversation]()
-    let communicator: MultipeerCommunicator
+    var communicator: MultipeerCommunicator!
     weak var delegate: CommunicatorListDelegate?
     
     
@@ -36,8 +36,8 @@ class CommunicationManager: CommunicatorDelegate {
             conversation.online = true
         } else {
             let conversation = Conversation(userID: userID, name: userName)
-            conversations[userID] = conversation
             conversation.online = true
+            conversations[userID] = conversation
         }
         
         if let unwrappedDelegate = delegate {
@@ -93,10 +93,14 @@ class CommunicationManager: CommunicatorDelegate {
             conversation.date = Date()
             conversation.message = text
         }
-        guard let delegate = delegate else { return }
-        DispatchQueue.main.async {
-            delegate.updateUsers()
+
+        if let unwrappedDelegate = delegate {
+            DispatchQueue.main.async {
+                unwrappedDelegate.updateUsers()
+            }
         }
+        
+        
     }
     
 

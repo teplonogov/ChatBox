@@ -23,7 +23,7 @@ class ThemeManager {
             navBarAppearance.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             navBarAppearance.barTintColor = color
             navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
-            //navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
+            navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
             UINavigationBar.appearance().barStyle = UIBarStyle.blackOpaque
             
         } else {
@@ -31,7 +31,7 @@ class ThemeManager {
             navBarAppearance.tintColor = UIColor.skyBlue()
             navBarAppearance.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.skyBlue()]
-            //navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.skyBlue()]
+            navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.skyBlue()]
             UINavigationBar.appearance().barStyle = UIBarStyle.default
         }
     }
