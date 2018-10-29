@@ -11,10 +11,7 @@ import MultipeerConnectivity
 
 class ConversationsListViewController: UIViewController {
     
-//    var onlineHeroes = [Person]()
-//    var offlineHeroes = [Person]()
     var choosenConversation: Conversation?
-    
     var conversations = [Conversation]()
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,12 +19,10 @@ class ConversationsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         let nibCell = UINib(nibName: "ConversationCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "ConversationCell")
         
         CommunicationManager.shared.startConnection()
-        
         conversations.sort(by: sortConversation(first:second:))
     }
     
@@ -121,10 +116,8 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
         self.choosenConversation = conversations[indexPath.row]
         performSegue(withIdentifier: "ConversationID", sender: nil)
-        
         
     }
     
@@ -140,7 +133,6 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
     //MARK: - Helpers
     
     func configureCell(indexPath: IndexPath, cell: ConversationCell) {
-
         let conversation = conversations[indexPath.row]
         cell.name = conversation.name
         cell.message = conversation.message
@@ -148,8 +140,6 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
         cell.date = conversation.date
         cell.hasUnreadMessages = conversation.hasUnreadMessages
         cell.onlineView.layer.cornerRadius = cell.onlineView.bounds.width/2
-        
-
     }
     
     
@@ -160,7 +150,6 @@ extension ConversationsListViewController: CommunicatorListDelegate {
     
     func updateUsers() {
         conversations = Array(CommunicationManager.shared.conversations.values)
-        
         conversations.sort(by: sortConversation(first:second:))
         tableView.reloadData()
     }

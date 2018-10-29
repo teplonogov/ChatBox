@@ -80,9 +80,6 @@ class MultipeerCommunicator: NSObject, Communicator {
     
     
     func getSession(peerID: MCPeerID) -> MCSession {
-//        guard sessions[peerID.displayName] == nil else {
-//            return sessions[peerID.displayName]!
-//        }
         
         if let session = sessions[peerID.displayName] {
             return session
