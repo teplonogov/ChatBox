@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,9 +17,8 @@
                 <outlet property="avatarImageView" destination="JKT-gU-iMu" id="iK8-3C-2jQ"/>
                 <outlet property="descriptionTextView" destination="UFu-pO-Rc7" id="4en-hH-OQA"/>
                 <outlet property="editButton" destination="DXN-74-ab5" id="AP4-V8-WY2"/>
-                <outlet property="gcdButton" destination="FRh-TW-E01" id="945-6D-N1L"/>
                 <outlet property="nameTextField" destination="kkW-3F-i6o" id="8dd-b5-Bed"/>
-                <outlet property="operationButton" destination="wT5-R4-cdS" id="sOK-sy-sOF"/>
+                <outlet property="saveButton" destination="FRh-TW-E01" id="945-6D-N1L"/>
                 <outlet property="view" destination="eJV-uV-acW" id="v1P-Eb-AMR"/>
             </connections>
         </placeholder>
@@ -62,25 +61,14 @@
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRh-TW-E01">
-                    <rect key="frame" x="20" y="510.5" width="130" height="42.5"/>
+                    <rect key="frame" x="20" y="510.5" width="280" height="42.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                    <state key="normal" title="GCD">
+                    <state key="normal" title="Сохранить">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
-                        <action selector="saveGCDAction:" destination="-1" eventType="touchUpInside" id="VRh-7L-z7x"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wT5-R4-cdS">
-                    <rect key="frame" x="170" y="510.5" width="130" height="42.5"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                    <state key="normal" title="Operation">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="saveOperationAction:" destination="-1" eventType="touchUpInside" id="axt-0V-Q2E"/>
+                        <action selector="saveAction:" destination="-1" eventType="touchUpInside" id="VRh-7L-z7x"/>
                     </connections>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFu-pO-Rc7">
@@ -108,13 +96,11 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="FRh-TW-E01" secondAttribute="bottom" constant="15" id="A2s-Fv-lxX"/>
-                <constraint firstItem="FRh-TW-E01" firstAttribute="width" secondItem="wT5-R4-cdS" secondAttribute="width" id="AHc-v4-vIn"/>
                 <constraint firstItem="UFu-pO-Rc7" firstAttribute="trailing" secondItem="JKT-gU-iMu" secondAttribute="trailing" id="Dsx-XV-qFs"/>
                 <constraint firstItem="Uw1-A9-jf1" firstAttribute="trailing" secondItem="JKT-gU-iMu" secondAttribute="trailing" id="E9e-wo-3gD"/>
                 <constraint firstItem="FRh-TW-E01" firstAttribute="height" secondItem="DXN-74-ab5" secondAttribute="height" id="IPX-Xw-ik4"/>
                 <constraint firstItem="JKT-gU-iMu" firstAttribute="centerX" secondItem="eJV-uV-acW" secondAttribute="centerX" id="JbB-VE-up9"/>
                 <constraint firstItem="JKT-gU-iMu" firstAttribute="leading" secondItem="eJV-uV-acW" secondAttribute="leading" constant="30" id="Lko-DC-nck"/>
-                <constraint firstItem="FRh-TW-E01" firstAttribute="height" secondItem="wT5-R4-cdS" secondAttribute="height" id="Lpg-Te-BcH"/>
                 <constraint firstAttribute="trailing" secondItem="DXN-74-ab5" secondAttribute="trailing" constant="20" id="N5u-YM-OhL"/>
                 <constraint firstAttribute="trailing" secondItem="JKT-gU-iMu" secondAttribute="trailing" constant="30" id="Nst-Q7-tNa"/>
                 <constraint firstItem="FRh-TW-E01" firstAttribute="leading" secondItem="DXQ-lX-EpN" secondAttribute="leading" constant="20" id="PVF-ej-Orq"/>
@@ -123,7 +109,6 @@
                 <constraint firstAttribute="bottom" secondItem="FRh-TW-E01" secondAttribute="bottom" constant="15" id="TWw-64-uOz"/>
                 <constraint firstItem="kkW-3F-i6o" firstAttribute="top" secondItem="JKT-gU-iMu" secondAttribute="bottom" constant="16" id="Tkb-Pr-7qw"/>
                 <constraint firstItem="FRh-TW-E01" firstAttribute="top" secondItem="DXN-74-ab5" secondAttribute="bottom" constant="10" id="Trp-GP-Q38"/>
-                <constraint firstAttribute="bottom" secondItem="wT5-R4-cdS" secondAttribute="bottom" constant="15" id="UrJ-1q-zuR"/>
                 <constraint firstItem="DXN-74-ab5" firstAttribute="top" secondItem="UFu-pO-Rc7" secondAttribute="bottom" constant="5" id="YvK-3e-c7w"/>
                 <constraint firstItem="JKT-gU-iMu" firstAttribute="top" secondItem="eJV-uV-acW" secondAttribute="top" constant="65" id="aIm-oC-Fpl"/>
                 <constraint firstItem="JVv-c0-bXg" firstAttribute="top" secondItem="eJV-uV-acW" secondAttribute="top" constant="30" id="dbC-9S-ElJ"/>
@@ -131,11 +116,10 @@
                 <constraint firstItem="UFu-pO-Rc7" firstAttribute="leading" secondItem="JKT-gU-iMu" secondAttribute="leading" id="giS-qs-fZi"/>
                 <constraint firstItem="UFu-pO-Rc7" firstAttribute="top" secondItem="kkW-3F-i6o" secondAttribute="bottom" constant="5" id="hnq-ci-T6B"/>
                 <constraint firstItem="JVv-c0-bXg" firstAttribute="leading" secondItem="eJV-uV-acW" secondAttribute="leading" constant="20" id="lRj-9F-E17"/>
-                <constraint firstItem="wT5-R4-cdS" firstAttribute="leading" secondItem="FRh-TW-E01" secondAttribute="trailing" constant="20" id="p62-lh-s10"/>
                 <constraint firstItem="doc-mZ-HT4" firstAttribute="top" secondItem="kkW-3F-i6o" secondAttribute="bottom" id="ptz-GM-v1s"/>
                 <constraint firstItem="JKT-gU-iMu" firstAttribute="bottom" secondItem="Uw1-A9-jf1" secondAttribute="bottom" id="rDC-Ir-5Vg"/>
                 <constraint firstItem="kkW-3F-i6o" firstAttribute="centerX" secondItem="eJV-uV-acW" secondAttribute="centerX" id="s1i-cl-5Ya"/>
-                <constraint firstAttribute="trailing" secondItem="wT5-R4-cdS" secondAttribute="trailing" constant="20" id="zEs-mG-zJh"/>
+                <constraint firstItem="DXQ-lX-EpN" firstAttribute="trailing" secondItem="FRh-TW-E01" secondAttribute="trailing" constant="20" id="wyl-8M-2e8"/>
                 <constraint firstItem="kkW-3F-i6o" firstAttribute="leading" secondItem="JKT-gU-iMu" secondAttribute="leading" id="zXQ-jz-kk7"/>
                 <constraint firstItem="doc-mZ-HT4" firstAttribute="centerX" secondItem="eJV-uV-acW" secondAttribute="centerX" id="zxa-sd-UKM"/>
             </constraints>

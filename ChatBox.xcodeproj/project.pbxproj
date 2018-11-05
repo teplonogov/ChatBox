@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CF0EE1C421862A72005D67A8 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0EE1C321862A72005D67A8 /* Conversation.swift */; };
+		CF14459B2190DABD00155F54 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF14459A2190DABD00155F54 /* CoreDataManager.swift */; };
+		CF14459D2190DCE800155F54 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF14459C2190DCE800155F54 /* Profile.swift */; };
 		CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Logger.swift */; };
 		CF4766222168F136008AF8C2 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766202168F136008AF8C2 /* ConversationCell.swift */; };
 		CF4766232168F136008AF8C2 /* ConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF4766212168F136008AF8C2 /* ConversationCell.xib */; };
@@ -49,6 +51,9 @@
 		CF78831B217B7A0000FC739F /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF78831A217B7A0000FC739F /* GCDDataManager.swift */; };
 		CF78831D217CA60300FC739F /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF78831C217CA60300FC739F /* UserProfile.swift */; };
 		CF78831F217CD83300FC739F /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF78831E217CD83300FC739F /* OperationDataManager.swift */; };
+		CFA085BC218A1DFD0038A284 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA085BB218A1DFD0038A284 /* CoreDataStack.swift */; };
+		CFA085BD218A1E020038A284 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA085BB218A1DFD0038A284 /* CoreDataStack.swift */; };
+		CFA085C0218A1E590038A284 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CFA085BE218A1E590038A284 /* CoreDataModel.xcdatamodeld */; };
 		CFC17407216A371200A384CD /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17406216A371200A384CD /* MessageCell.swift */; };
 		CFC17409216A38AB00A384CD /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17408216A38AB00A384CD /* MessageModel.swift */; };
 		CFC1740B216A3AD200A384CD /* TemporaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC1740A216A3AD200A384CD /* TemporaryData.swift */; };
@@ -63,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		CF0EE1C321862A72005D67A8 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		CF14459A2190DABD00155F54 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		CF14459C2190DCE800155F54 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		CF24DBF32158E30C00E00BC6 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CF4766202168F136008AF8C2 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		CF4766212168F136008AF8C2 /* ConversationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationCell.xib; sourceTree = "<group>"; };
@@ -90,6 +97,8 @@
 		CF78831A217B7A0000FC739F /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		CF78831C217CA60300FC739F /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		CF78831E217CD83300FC739F /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
+		CFA085BB218A1DFD0038A284 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		CFA085BF218A1E590038A284 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CFC17406216A371200A384CD /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		CFC17408216A38AB00A384CD /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		CFC1740A216A3AD200A384CD /* TemporaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryData.swift; sourceTree = "<group>"; };
@@ -122,6 +131,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF1445992190D9C200155F54 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CFA085BB218A1DFD0038A284 /* CoreDataStack.swift */,
+				CFA085BE218A1E590038A284 /* CoreDataModel.xcdatamodeld */,
+				CF14459A2190DABD00155F54 /* CoreDataManager.swift */,
+				CF14459C2190DCE800155F54 /* Profile.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		CF24DBF52158F34000E00BC6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +192,7 @@
 		CF47662E21692303008AF8C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CF1445992190D9C200155F54 /* CoreData */,
 				CF6735902170B16C0062A600 /* UIColor+ChatBox */,
 				CFFD0948218206A600016184 /* Multithreading */,
 				CFFD0949218206CC00016184 /* Entities */,
@@ -405,6 +426,7 @@
 				CF6735D0217390350062A600 /* Logger.swift in Sources */,
 				CF6735D1217390350062A600 /* MessageCell.swift in Sources */,
 				CF6735D2217390350062A600 /* UIColor+ChatBox.m in Sources */,
+				CFA085BD218A1E020038A284 /* CoreDataStack.swift in Sources */,
 				CF6735D3217390350062A600 /* ProfileViewController.swift in Sources */,
 				CF6735D4217390350062A600 /* ConversationViewController.swift in Sources */,
 				CF6735D5217390350062A600 /* AppDelegate.swift in Sources */,
@@ -441,13 +463,17 @@
 				CFDC457B216125770016BB0F /* Constants.swift in Sources */,
 				CFC1740B216A3AD200A384CD /* TemporaryData.swift in Sources */,
 				CF47662A2169033E008AF8C2 /* ConversationsListViewController.swift in Sources */,
+				CFA085BC218A1DFD0038A284 /* CoreDataStack.swift in Sources */,
 				CF6735CD21738F2E0062A600 /* ThemeManager.swift in Sources */,
 				CF78831F217CD83300FC739F /* OperationDataManager.swift in Sources */,
 				CFC17409216A38AB00A384CD /* MessageModel.swift in Sources */,
 				CF47662D216922F4008AF8C2 /* Person.swift in Sources */,
+				CF14459B2190DABD00155F54 /* CoreDataManager.swift in Sources */,
 				CFFD0947218203E800016184 /* MultipeerCommunicator.swift in Sources */,
 				CF4766222168F136008AF8C2 /* ConversationCell.swift in Sources */,
+				CFA085C0218A1E590038A284 /* CoreDataModel.xcdatamodeld in Sources */,
 				CF78831D217CA60300FC739F /* UserProfile.swift in Sources */,
+				CF14459D2190DCE800155F54 /* Profile.swift in Sources */,
 				CF67357F216F7CC30062A600 /* ThemesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -711,6 +737,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CFA085BE218A1E590038A284 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CFA085BF218A1E590038A284 /* Model.xcdatamodel */,
+			);
+			currentVersion = CFA085BF218A1E590038A284 /* Model.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CFDAEEBA215688D900E182F2 /* Project object */;
 }

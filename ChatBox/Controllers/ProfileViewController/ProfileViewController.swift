@@ -7,24 +7,32 @@
 //
 
 import UIKit
+//import CoreData
 
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var editButton: UIButton!
-    @IBOutlet var gcdButton: UIButton!
-    @IBOutlet var operationButton: UIButton!
+    @IBOutlet var saveButton: UIButton!
+    //@IBOutlet var operationButton: UIButton!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var avatarButton: UIButton!
     @IBOutlet var descriptionTextView: UITextView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    let storageManager = CoreDataManager()
     let gcdLoadManager = GCDDataManager()
     var saveManager: GetSaveProfileProtocol!
-    var userProfile: UserProfile?
-    var newUserProfile: UserProfile?
+    var profile: Profile!
+    //var userProfile: UserProfile?
+    //var newUserProfile: UserProfile?
     
     var editMode: Bool = false
+    
+    var nameWasChanged: Bool = false
+    var descriptionWasChanged: Bool = false
+    var avatarWasChanged: Bool = false
+    var dataWasChanged: Bool = false
 
 
     // MARK: - Life Cycle
@@ -38,16 +46,28 @@ class ProfileViewController: UIViewController {
         avatarButton.isHidden = true
         activityIndicator.startAnimating()
         
-        gcdButton.isEnabled = false
-        operationButton.isEnabled = false
+        saveButton.isEnabled = false
+        //operationButton.isEnabled = false
         
         switchEditMode(isDataChanged: editMode)
         
-        gcdLoadManager.getProfile { (userProfile) in
-            self.nameTextField.text = userProfile.name
-            self.descriptionTextView.text = userProfile.description
-            self.avatarImageView.image = userProfile.avatar
-            self.userProfile = userProfile
+//        gcdLoadManager.getProfile { (userProfile) in
+//            self.nameTextField.text = userProfile.name
+//            self.descriptionTextView.text = userProfile.description
+//            self.avatarImageView.image = userProfile.avatar
+//            self.userProfile = userProfile
+//            self.activityIndicator.stopAnimating()
+//        }
+        
+        storageManager.loadProfile { (userPorfile) in
+            guard let profile = userPorfile else {
+                return
+            }
+            self.profile = profile
+            self.nameTextField.text = profile.name
+            self.descriptionTextView.text = profile.descriptionProfile
+            let avatar = UIImage(data: profile.avatarImage!)
+            self.avatarImageView.image = avatar
             self.activityIndicator.stopAnimating()
         }
         
@@ -75,20 +95,20 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Actions
     
-    @IBAction func saveGCDAction(_ sender: UIButton) {
-        saveManager = GCDDataManager()
+    @IBAction func saveAction(_ sender: UIButton) {
+        //saveManager = GCDDataManager()
         saveData()
     }
     
     
-    @IBAction func saveOperationAction(_ sender: Any) {
-        saveManager = OperationDataManager()
-        saveData()
-    }
+//    @IBAction func saveOperationAction(_ sender: Any) {
+//        saveManager = OperationDataManager()
+//        saveData()
+//    }
     
     func saveData() {
         
-        guard newUserProfile?.dataWasChanged == true else {
+        guard self.dataWasChanged == true else {
             print("Nothing was changed")
             return
         }
@@ -97,37 +117,68 @@ class ProfileViewController: UIViewController {
         
         let newName = nameTextField.text ?? "No name"
         let newDescription = descriptionTextView.text ?? ""
-        let newAvatar = avatarImageView.image ?? UIImage(named: "placeholder-user")!
         
-        newUserProfile?.name = newName
-        newUserProfile?.description = newDescription
-        newUserProfile?.avatar = newAvatar
         
-        saveManager.saveProfile(profile: newUserProfile!) { error in
-                
-                if let unwrappedError = error {
-                    print("Can't save data:\(unwrappedError.localizedDescription)")
-                    let errorAlert = UIAlertController(title: "Error!", message: "Can't save information", preferredStyle: .alert)
-                    let continueAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    let repeatAction = UIAlertAction(title: "Repeat", style: .default, handler: { (action) in
-                        self.saveData()
-                    })
-                    errorAlert.addAction(continueAction)
-                    errorAlert.addAction(repeatAction)
-                    self.present(errorAlert, animated: true, completion: nil)
-                    
-                } else {
-                    self.newUserProfile?.dataWasChanged = false
-                    self.switchEditMode(isDataChanged: self.newUserProfile?.dataWasChanged ?? false)
-                    
-                    let completeAlert = UIAlertController(title: "Data was saved", message: nil, preferredStyle: .alert)
-                    let continueAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                    completeAlert.addAction(continueAction)
-                    self.present(completeAlert, animated: true, completion: nil)
-                }
-                
-                self.activityIndicator.stopAnimating()
+        profile.name = newName
+        profile.descriptionProfile = newDescription
+        
+        if avatarWasChanged {
+            let imageData = avatarImageView.image?.jpegData(compressionQuality: 1.0)
+            profile.avatarImage = imageData
         }
+        
+        
+        storageManager.saveProfile { (error) in
+            if let unwrappedError = error {
+                print("Can't save data:\(unwrappedError.localizedDescription)")
+                let errorAlert = UIAlertController(title: "Error!", message: "Can't save information", preferredStyle: .alert)
+                let continueAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let repeatAction = UIAlertAction(title: "Repeat", style: .default, handler: { (action) in
+                    self.saveData()
+                })
+                errorAlert.addAction(continueAction)
+                errorAlert.addAction(repeatAction)
+                self.present(errorAlert, animated: true, completion: nil)
+                
+            } else {
+                self.dataWasChanged = false
+                self.switchEditMode(isDataChanged: self.dataWasChanged)
+                
+                let completeAlert = UIAlertController(title: "Data was saved", message: nil, preferredStyle: .alert)
+                let continueAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                completeAlert.addAction(continueAction)
+                self.present(completeAlert, animated: true, completion: nil)
+            }
+            
+            self.activityIndicator.stopAnimating()
+            
+        }
+        
+//        saveManager.saveProfile(profile: newUserProfile!) { error in
+//
+//                if let unwrappedError = error {
+//                    print("Can't save data:\(unwrappedError.localizedDescription)")
+//                    let errorAlert = UIAlertController(title: "Error!", message: "Can't save information", preferredStyle: .alert)
+//                    let continueAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    let repeatAction = UIAlertAction(title: "Repeat", style: .default, handler: { (action) in
+//                        self.saveData()
+//                    })
+//                    errorAlert.addAction(continueAction)
+//                    errorAlert.addAction(repeatAction)
+//                    self.present(errorAlert, animated: true, completion: nil)
+//
+//                } else {
+//                    self.newUserProfile?.dataWasChanged = false
+//                    self.switchEditMode(isDataChanged: self.newUserProfile?.dataWasChanged ?? false)
+//
+//                    let completeAlert = UIAlertController(title: "Data was saved", message: nil, preferredStyle: .alert)
+//                    let continueAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+//                    completeAlert.addAction(continueAction)
+//                    self.present(completeAlert, animated: true, completion: nil)
+//                }
+//
+//                self.activityIndicator.stopAnimating()
+//        }
 
     }
     
@@ -156,9 +207,9 @@ class ProfileViewController: UIViewController {
         
         let deleteButton = UIAlertAction(title: delete_text, style: .destructive) { [weak self] (action) in
             self?.avatarImageView.image = #imageLiteral(resourceName: "placeholder-user")
-            self?.newUserProfile?.avatarWasChanged = true
-            self?.newUserProfile?.dataWasChanged = true
-            self?.switchEditMode(isDataChanged: (self?.newUserProfile?.dataWasChanged)!)
+            self?.avatarWasChanged = true
+            self?.dataWasChanged = true
+            self?.switchEditMode(isDataChanged: (self?.dataWasChanged)!)
         }
         
         let cancelButton = UIAlertAction(title: cancel_text, style: .cancel, handler: nil)
@@ -184,7 +235,7 @@ class ProfileViewController: UIViewController {
         editButton.setTitle(title, for: .normal)
 
         if editMode {
-            newUserProfile = UserProfile()
+            //newUserProfile = UserProfile()
             self.nameTextField.isUserInteractionEnabled = true
             self.descriptionTextView.isEditable = true
             avatarButton.isHidden = false
@@ -211,15 +262,15 @@ class ProfileViewController: UIViewController {
     
     @IBAction func nameFieldEditingChanged(_ sender: UITextField) {
         
-        if sender.text != userProfile?.name {
-            newUserProfile?.nameWasChanged = true
-            newUserProfile?.dataWasChanged = true
+        if sender.text != profile.name {
+            self.nameWasChanged = true
+            self.dataWasChanged = true
         } else {
-            newUserProfile?.nameWasChanged = false
-            newUserProfile?.dataWasChanged = newUserProfile?.descriptionWasChanged ?? false || newUserProfile?.avatarWasChanged ?? false
+            self.nameWasChanged = false
+            self.dataWasChanged = self.descriptionWasChanged || self.avatarWasChanged
         }
         
-        switchEditMode(isDataChanged: newUserProfile?.dataWasChanged ?? false)
+        switchEditMode(isDataChanged: self.dataWasChanged)
     }
     
     
@@ -233,19 +284,19 @@ class ProfileViewController: UIViewController {
     func switchEditMode(isDataChanged: Bool) {
         
         if isDataChanged {
-            operationButton.layer.borderColor = UIColor.black.cgColor
-            operationButton.setTitleColor(UIColor.black, for: .normal)
-            gcdButton.layer.borderColor = UIColor.black.cgColor
-            gcdButton.setTitleColor(UIColor.black, for: .normal)
-            gcdButton.isEnabled = true
-            operationButton.isEnabled = true
+            //operationButton.layer.borderColor = UIColor.black.cgColor
+            //operationButton.setTitleColor(UIColor.black, for: .normal)
+            saveButton.layer.borderColor = UIColor.black.cgColor
+            saveButton.setTitleColor(UIColor.black, for: .normal)
+            saveButton.isEnabled = true
+            //operationButton.isEnabled = true
         } else {
-            operationButton.layer.borderColor = UIColor.gray.cgColor
-            operationButton.setTitleColor(UIColor.gray, for: .normal)
-            gcdButton.layer.borderColor = UIColor.gray.cgColor
-            gcdButton.setTitleColor(UIColor.gray, for: .normal)
-            gcdButton.isEnabled = false
-            operationButton.isEnabled = false
+            //operationButton.layer.borderColor = UIColor.gray.cgColor
+            //operationButton.setTitleColor(UIColor.gray, for: .normal)
+            saveButton.layer.borderColor = UIColor.gray.cgColor
+            saveButton.setTitleColor(UIColor.gray, for: .normal)
+            saveButton.isEnabled = false
+            //operationButton.isEnabled = false
         }
         
     }
@@ -266,11 +317,11 @@ class ProfileViewController: UIViewController {
         
         descriptionTextView.layer.cornerRadius = 10
         
-        gcdButton.layer.cornerRadius = 15
-        gcdButton.layer.borderWidth = 1
+        saveButton.layer.cornerRadius = 15
+        saveButton.layer.borderWidth = 1
         
-        operationButton.layer.cornerRadius = 15
-        operationButton.layer.borderWidth = 1
+        //operationButton.layer.cornerRadius = 15
+        //operationButton.layer.borderWidth = 1
         
     }
     
@@ -310,10 +361,10 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
 
         avatarImageView.image = newAvatar
-        newUserProfile?.avatarWasChanged = true
-        newUserProfile?.dataWasChanged = true
+        self.avatarWasChanged = true
+        self.dataWasChanged = true
         picker.dismiss(animated: true, completion: nil)
-        switchEditMode(isDataChanged: newUserProfile?.dataWasChanged ?? false)
+        switchEditMode(isDataChanged: self.dataWasChanged)
         
     }
     
@@ -328,15 +379,15 @@ extension ProfileViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         
-        if textView.text != userProfile?.description {
-            newUserProfile?.descriptionWasChanged = true
-            newUserProfile?.dataWasChanged = true
+        if textView.text != profile.descriptionProfile {
+            self.descriptionWasChanged = true
+            self.dataWasChanged = true
         } else {
-            newUserProfile?.descriptionWasChanged = false
-            newUserProfile?.dataWasChanged = newUserProfile?.nameWasChanged ?? false || newUserProfile?.avatarWasChanged ?? false
+            self.descriptionWasChanged = false
+            self.dataWasChanged = self.nameWasChanged || self.avatarWasChanged
         }
         
-        switchEditMode(isDataChanged: newUserProfile?.dataWasChanged ?? false)
+        switchEditMode(isDataChanged: self.dataWasChanged)
         
     }
     
