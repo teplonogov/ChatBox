@@ -13,7 +13,7 @@ import CoreData
 extension Profile {
     
     static func getRequest(model: NSManagedObjectModel) -> NSFetchRequest<Profile>? {
-        let template = "FetchRequestProfile"
+        let template = "FetchProfile"
         guard let request = model.fetchRequestTemplate(forName: template) as? NSFetchRequest<Profile> else {
             assert(false, "No template with typename \(template)")
             return nil }

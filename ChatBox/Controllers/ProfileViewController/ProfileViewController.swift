@@ -24,8 +24,6 @@ class ProfileViewController: UIViewController {
     let gcdLoadManager = GCDDataManager()
     var saveManager: GetSaveProfileProtocol!
     var profile: Profile!
-    //var userProfile: UserProfile?
-    //var newUserProfile: UserProfile?
     
     var editMode: Bool = false
     
@@ -50,14 +48,6 @@ class ProfileViewController: UIViewController {
         //operationButton.isEnabled = false
         
         switchEditMode(isDataChanged: editMode)
-        
-//        gcdLoadManager.getProfile { (userProfile) in
-//            self.nameTextField.text = userProfile.name
-//            self.descriptionTextView.text = userProfile.description
-//            self.avatarImageView.image = userProfile.avatar
-//            self.userProfile = userProfile
-//            self.activityIndicator.stopAnimating()
-//        }
         
         storageManager.loadProfile { (userPorfile) in
             guard let profile = userPorfile else {
@@ -99,12 +89,7 @@ class ProfileViewController: UIViewController {
         //saveManager = GCDDataManager()
         saveData()
     }
-    
-    
-//    @IBAction func saveOperationAction(_ sender: Any) {
-//        saveManager = OperationDataManager()
-//        saveData()
-//    }
+
     
     func saveData() {
         
@@ -154,31 +139,6 @@ class ProfileViewController: UIViewController {
             
         }
         
-//        saveManager.saveProfile(profile: newUserProfile!) { error in
-//
-//                if let unwrappedError = error {
-//                    print("Can't save data:\(unwrappedError.localizedDescription)")
-//                    let errorAlert = UIAlertController(title: "Error!", message: "Can't save information", preferredStyle: .alert)
-//                    let continueAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    let repeatAction = UIAlertAction(title: "Repeat", style: .default, handler: { (action) in
-//                        self.saveData()
-//                    })
-//                    errorAlert.addAction(continueAction)
-//                    errorAlert.addAction(repeatAction)
-//                    self.present(errorAlert, animated: true, completion: nil)
-//
-//                } else {
-//                    self.newUserProfile?.dataWasChanged = false
-//                    self.switchEditMode(isDataChanged: self.newUserProfile?.dataWasChanged ?? false)
-//
-//                    let completeAlert = UIAlertController(title: "Data was saved", message: nil, preferredStyle: .alert)
-//                    let continueAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-//                    completeAlert.addAction(continueAction)
-//                    self.present(completeAlert, animated: true, completion: nil)
-//                }
-//
-//                self.activityIndicator.stopAnimating()
-//        }
 
     }
     

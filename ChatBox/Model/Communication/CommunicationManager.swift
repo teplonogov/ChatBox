@@ -12,18 +12,22 @@ import MultipeerConnectivity
 class CommunicationManager: CommunicatorDelegate {
     
     static let shared = CommunicationManager()
-    var conversations = [String : Conversation]()
     var communicator: MultipeerCommunicator!
     weak var delegate: CommunicatorListDelegate?
     
+    let storageManager = CoreDataManager()
     
     private init() {
-        communicator = MultipeerCommunicator()
-        communicator.delegate = self
-    }
-    
-    func startConnection() {
-        communicator.startAdvertiserAndBrowser()
+        storageManager.loadProfile { (userProfile) in
+            guard let profile = userProfile else {
+                return
+            }
+            
+            self.communicator = MultipeerCommunicator(with: profile)
+            self.communicator.startAdvertiserAndBrowser()
+            self.communicator.delegate = self
+        }
+
     }
     
     
@@ -32,27 +36,28 @@ class CommunicationManager: CommunicatorDelegate {
     
     
     func didFoundUser(userID: String, userName: String?) {
-        if let conversation = conversations[userID] {
-            conversation.online = true
-        } else {
-            let conversation = Conversation(userID: userID, name: userName)
-            conversation.online = true
-            conversations[userID] = conversation
-        }
-        
-        if let unwrappedDelegate = delegate {
-            DispatchQueue.main.async {
-                unwrappedDelegate.updateUsers()
+        let saveContext = CoreDataStack.shared.saveContext
+        saveContext.perform {
+            guard let user = User.findOrInsertUser(id: userID, in: saveContext) else {
+                return
             }
+            let conversation = ConversationUser.findOrInsertConversationWith(id: userID, in: saveContext)
+            user.name = userName
+            user.isOnline = true
+            conversation.isOnline = true
+            conversation.user = user
+            CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
         }
     }
     
     func didLostUser(userID: String) {
-        if let conversation = conversations[userID] {
-            conversation.online = false
-            conversations.removeValue(forKey: userID)
+        let saveContext = CoreDataStack.shared.saveContext
+        saveContext.perform {
+            let conversation = ConversationUser.findOrInsertConversationWith(id: userID, in: saveContext)
+            conversation.isOnline = false
+            conversation.user?.isOnline = false
+            CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
         }
-        
         if let unwrappedDelegate = delegate {
             DispatchQueue.main.async {
                 unwrappedDelegate.updateUsers()
@@ -81,23 +86,31 @@ class CommunicationManager: CommunicatorDelegate {
     }
     
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
-        if let conversation = conversations[fromUser] {
-            let message = Conversation.Message.incoming(text)
-            conversation.messagesData.append(message)
-            conversation.date = Date()
-            conversation.message = text
-            conversation.hasUnreadMessages = true
-        } else if let conversation = conversations[toUser] {
-            let message = Conversation.Message.outgoing(text)
-            conversation.messagesData.append(message)
-            conversation.date = Date()
-            conversation.message = text
-        }
-
-        if let unwrappedDelegate = delegate {
-            DispatchQueue.main.async {
-                unwrappedDelegate.updateUsers()
+        let saveContext = CoreDataStack.shared.saveContext
+        saveContext.perform {
+            let message:Message
+            if let conversation = ConversationUser.findConversationWith(id: fromUser, in: saveContext) {
+                message = Message.insertNewMessage(in: saveContext)
+                message.incoming = true
+                message.conversationID = conversation.id
+                message.text = text
+                conversation.date = Date()
+                message.date = Date()
+                conversation.hasUnreadMessages = true
+                conversation.addToMessages(message)
+                conversation.lastMessage = message
+            } else if let conversation = ConversationUser.findConversationWith(id: toUser, in: saveContext) {
+                message = Message.insertNewMessage(in: saveContext)
+                message.incoming = false
+                message.conversationID = conversation.id
+                message.text = text
+                conversation.date = Date()
+                message.date = Date()
+                conversation.hasUnreadMessages = false
+                conversation.addToMessages(message)
+                conversation.lastMessage = message
             }
+            CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
         }
         
         

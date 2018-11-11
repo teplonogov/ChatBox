@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class ConversationViewController: UIViewController {
     
-    var conversation: Conversation!
+    var conversation: ConversationUser!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noMessagesLabel: UILabel!
@@ -18,26 +19,42 @@ class ConversationViewController: UIViewController {
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     @IBOutlet var messageTextField: UITextField!
     
+    var fetchedResultsController: NSFetchedResultsController<Message>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = conversation.name ?? "No name"
-        sendButton.layer.cornerRadius = 10
-        
-        switchPlaceHolder()
         sendButton.isEnabled = false
-        conversation.hasUnreadMessages = false
         CommunicationManager.shared.delegate = self
+        
+        guard let conversationID = conversation.id else {
+            return
+        }
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: FetchRequestManager.shared.fetchMessagesFrom(conversationID: conversationID), managedObjectContext: CoreDataStack.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         setupKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        sendButton.layer.cornerRadius = 10
+        conversation.hasUnreadMessages = false
+        navigationItem.title = conversation.user?.name ?? "No name"
+        switchPlaceHolder()
         scrollDown()
     }
     
     func switchPlaceHolder() {
-        if conversation.messagesData.isEmpty {
+        guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
+            return
+        }
+        if fetchedObjects.isEmpty {
             noMessagesLabel.isHidden = false
         } else {
             noMessagesLabel.isHidden = true
@@ -48,8 +65,11 @@ class ConversationViewController: UIViewController {
     
     
     func scrollDown() {
-        if !conversation.messagesData.isEmpty {
-            let indexPath = IndexPath(row: conversation.messagesData.count - 1, section: 0)
+        guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
+            return
+        }
+        if !fetchedObjects.isEmpty {
+            let indexPath = IndexPath(row: fetchedObjects.count - 1, section: 0)
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
     }
@@ -66,19 +86,17 @@ class ConversationViewController: UIViewController {
     
     
     @IBAction func sendMessageAction(_ sender: UIButton) {
-        guard let text = messageTextField.text else {
+        guard let text = messageTextField.text, let conversationID = conversation.id else {
             return
         }
         
         noMessagesLabel.isHidden = true
         
-        CommunicationManager.shared.communicator.sendMessage(string: text, to: conversation.userID) { (success, error) in
-            
+        CommunicationManager.shared.communicator.sendMessage(string: text, to: conversationID) { (success, error) in
             if success {
                 self.messageTextField.text = ""
                 self.sendButton.isEnabled = false
             }
-            
             if let error = error {
                 print(error.localizedDescription)
                 self.view.endEditing(true)
@@ -144,29 +162,32 @@ class ConversationViewController: UIViewController {
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversation.messagesData.count
+        guard let sections = fetchedResultsController.sections else {
+            return 0
+        }
+        return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: MessageCell
+        let message = fetchedResultsController.object(at: indexPath)
         
-        let message = conversation.messagesData[indexPath.row]
-        
-        switch message {
-        case .incoming(let text):
-            cell = tableView.dequeueReusableCell(withIdentifier: "InCell", for: indexPath) as! MessageCell
-            cell.messageText = text
-            
-        case .outgoing(let text):
-            cell = tableView.dequeueReusableCell(withIdentifier: "OutCell", for: indexPath) as! MessageCell
-            cell.messageText = text
-            
+        if message.incoming {
+            guard let messageCell = tableView.dequeueReusableCell(withIdentifier: "InCell", for: indexPath) as? MessageCell else {
+                return UITableViewCell()
+            }
+            messageCell.messageText = message.text
+            messageCell.bubleView.layer.cornerRadius = 15
+            return messageCell
+        } else {
+            guard let messageCell = tableView.dequeueReusableCell(withIdentifier: "OutCell", for: indexPath) as? MessageCell else {
+                return UITableViewCell()
+            }
+            messageCell.messageText = message.text
+            messageCell.bubleView.layer.cornerRadius = 15
+            return messageCell
         }
         
-        cell.bubleView.layer.cornerRadius = 15
-    
-        return cell
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -180,11 +201,10 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
 
 extension ConversationViewController: CommunicatorListDelegate {
     func updateUsers() {
-        if !conversation.online {
+        if !conversation.isOnline {
             sendButton.isEnabled = false
         }
         conversation.hasUnreadMessages = false
-        tableView.reloadData()
         scrollDown()
     }
     

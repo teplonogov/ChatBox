@@ -22,18 +22,18 @@ class MultipeerCommunicator: NSObject, Communicator {
     
     var sessions: [String: MCSession] = [:]
     
-    override init() {
+    init(with profile: Profile) {
         super.init()
         
-        let userName = UserDefaults.standard.string(forKey: "user_name") ?? "noname: (\(UIDevice.current.model))"
-        self.discoveryInfo = ["userName" : userName]
+        discoveryInfo = ["userName" : profile.name ?? "noname: (\(UIDevice.current.model))"]
         
         serviceType = "tinkoff-chat"
         
         localPeerID = MCPeerID(displayName: UIDevice.current.name)
         
-        nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: localPeerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
+        
         nearbyServiceBrowser = MCNearbyServiceBrowser(peer: localPeerID, serviceType: serviceType)
+        nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: localPeerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
         
         nearbyServiceBrowser.delegate = self
         nearbyServiceAdvertiser.delegate = self
