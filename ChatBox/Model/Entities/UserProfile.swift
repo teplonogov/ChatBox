@@ -12,7 +12,7 @@ class UserProfile {
     var name: String = "No name"
     var description: String = ""
     var avatar: UIImage?
-    
+
     var nameWasChanged: Bool = false
     var descriptionWasChanged: Bool = false
     var avatarWasChanged: Bool = false

@@ -9,9 +9,8 @@
 import Foundation
 
 struct MessageModel {
-    
+
     var textMessage: String?
     var incoming: Bool
-    
-    
+
 }

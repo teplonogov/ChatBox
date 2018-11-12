@@ -8,9 +8,8 @@
 
 import Foundation
 
-
 class Conversation {
-    
+
     var name: String?
     var message: String?
     var date: Date?
@@ -18,17 +17,17 @@ class Conversation {
     var online: Bool
     var hasUnreadMessages: Bool
     var messagesData: [Message] = []
-    
+
     init(userID: String, name: String?) {
         self.userID = userID
         self.name = name
         online = true
         hasUnreadMessages = false
     }
-    
+
     enum Message {
         case incoming(String)
         case outgoing(String)
     }
-    
+
 }

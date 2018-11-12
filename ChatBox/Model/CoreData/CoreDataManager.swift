@@ -8,11 +8,10 @@
 
 import Foundation
 
-
 class CoreDataManager {
-    
+
     private let coreDataStack = CoreDataStack.shared
-    
+
     func loadProfile(completion: @escaping (Profile?) -> Void) {
         Profile.getProfile(in: coreDataStack.mainContext) { (userProfile) in
             DispatchQueue.main.async {
@@ -20,8 +19,7 @@ class CoreDataManager {
             }
         }
     }
-    
-    
+
     func saveProfile(completion: @escaping (Error?) -> Void) {
         coreDataStack.performSave(context: coreDataStack.saveContext) { (error) in
             DispatchQueue.main.async {
@@ -29,5 +27,5 @@ class CoreDataManager {
             }
         }
     }
-    
+
 }

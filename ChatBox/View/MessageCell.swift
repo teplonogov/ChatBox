@@ -9,18 +9,17 @@
 import UIKit
 
 class MessageCell: UITableViewCell, MessageCellConfiguration {
-    
+
     var messageText: String? {
         didSet {
             messageLabel.text = messageText
         }
     }
-    
+
     @IBOutlet weak var messageLabel: UILabel!
-    
+
     @IBOutlet weak var bubleView: UIView!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -9,9 +9,8 @@
 import Foundation
 import CoreData
 
-
 extension Profile {
-    
+
     static func getRequest(model: NSManagedObjectModel) -> NSFetchRequest<Profile>? {
         let template = "FetchProfile"
         guard let request = model.fetchRequestTemplate(forName: template) as? NSFetchRequest<Profile> else {
@@ -19,9 +18,10 @@ extension Profile {
             return nil }
         return request
     }
-    
+
     static func insertProfile(in context: NSManagedObjectContext) -> Profile? {
-        guard let profile = NSEntityDescription.insertNewObject(forEntityName: "Profile", into: context) as? Profile else {
+        guard let profile = NSEntityDescription.insertNewObject(forEntityName: "Profile",
+                                                                into: context) as? Profile else {
             return nil
         }
         profile.name = UIDevice.current.name
@@ -29,7 +29,7 @@ extension Profile {
         profile.descriptionProfile = ""
         return profile
     }
-    
+
     static func getProfile(in context: NSManagedObjectContext, completion: @escaping (Profile?) -> Void) {
         context.perform {
             guard let model = context.persistentStoreCoordinator?.managedObjectModel else { return }
@@ -50,5 +50,5 @@ extension Profile {
             }
         }
     }
-    
+
 }

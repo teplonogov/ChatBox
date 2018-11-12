@@ -8,27 +8,22 @@
 
 import Foundation
 
-
 /*
  UserDefaults
  */
 
-let avatar_image: String = "avatarImage"
+let avatarImage: String = "avatarImage"
 
 /*
  UIAlertController
  */
 
-let avatar_edit: String = "Edit Avatar..."
-let library_text: String = "From library"
-let camera_text: String = "Take a new photo"
-let delete_text: String = "Delete"
-let cancel_text: String = "Cancel"
-
+let avatarEdit: String = "Edit Avatar..."
+let libraryText: String = "From library"
+let cameraText: String = "Take a new photo"
+let deleteText: String = "Delete"
+let cancelText: String = "Cancel"
 
 /*
  Storyboard ID
  */
-
-
- 

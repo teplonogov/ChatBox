@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class ConversationViewController: UIViewController {
-    
+
     var conversation: ConversationUser!
 
     @IBOutlet weak var tableView: UITableView!
@@ -18,29 +18,33 @@ class ConversationViewController: UIViewController {
     @IBOutlet var sendButton: UIButton!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     @IBOutlet var messageTextField: UITextField!
-    
+
     var fetchedResultsController: NSFetchedResultsController<Message>!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         sendButton.isEnabled = false
         CommunicationManager.shared.delegate = self
-        
+
         guard let conversationID = conversation.id else {
             return
         }
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: FetchRequestManager.shared.fetchMessagesFrom(conversationID: conversationID), managedObjectContext: CoreDataStack.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        let request = FetchRequestManager.shared.fetchMessagesFrom(conversationID: conversationID)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                      managedObjectContext: CoreDataStack.shared.mainContext,
+                                                        sectionNameKeyPath: nil,
+                                                                 cacheName: nil)
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print(error.localizedDescription)
         }
-        
+
         setupKeyboard()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         sendButton.layer.cornerRadius = 10
@@ -49,7 +53,7 @@ class ConversationViewController: UIViewController {
         switchPlaceHolder()
         scrollDown()
     }
-    
+
     func switchPlaceHolder() {
         guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
             return
@@ -60,10 +64,7 @@ class ConversationViewController: UIViewController {
             noMessagesLabel.isHidden = true
         }
     }
-    
 
-    
-    
     func scrollDown() {
         guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
             return
@@ -73,9 +74,9 @@ class ConversationViewController: UIViewController {
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
     }
-    
-    //MARK: - Actions
-    
+
+    // MARK: - Actions
+
     @IBAction func messageTextChanged(_ sender: UITextField) {
         if sender.text == "" {
             sendButton.isEnabled = false
@@ -83,15 +84,14 @@ class ConversationViewController: UIViewController {
             sendButton.isEnabled = true
         }
     }
-    
-    
+
     @IBAction func sendMessageAction(_ sender: UIButton) {
         guard let text = messageTextField.text, let conversationID = conversation.id else {
             return
         }
-        
+
         noMessagesLabel.isHidden = true
-        
+
         CommunicationManager.shared.communicator.sendMessage(string: text, to: conversationID) { (success, error) in
             if success {
                 self.messageTextField.text = ""
@@ -100,104 +100,105 @@ class ConversationViewController: UIViewController {
             if let error = error {
                 print(error.localizedDescription)
                 self.view.endEditing(true)
-                let alert = UIAlertController(title: "Error after trying send message", message: nil, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error after trying send message",
+                                              message: nil,
+                                              preferredStyle: .alert)
                 let action = UIAlertAction(title: "Ок", style: .default, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
             }
         }
-        
+
     }
-    
-    
-    
-    //MARK: - Notifications
-    
+
+    // MARK: - Notifications
+
     func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWilAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWiilDissapear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWilAppear),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWiilDissapear),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
-    
+
     @objc private func keyboardWilAppear(_ notification: NSNotification) {
-        guard let info = notification.userInfo, let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+        guard let info = notification.userInfo,
+            let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
         let keyboardFrame = keyboardFrameValue.cgRectValue
         let keyboardSize = keyboardFrame.size
-        
+
         bottomConstraint.constant = keyboardSize.height + 5 - view.safeAreaInsets.bottom
-        
+
         UIView.animate(withDuration: 0) {
             self.view.layoutIfNeeded()
             self.scrollDown()
         }
     }
-    
+
     @objc private func keyboardWiilDissapear() {
         self.bottomConstraint.constant = 10
         UIView.animate(withDuration: 0) {
             self.view.layoutIfNeeded()
         }
     }
-    
-    
-    //MARK: - Keyboard
-    
-    
+
+    // MARK: - Keyboard
+
     func setupKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(gesture:)))
         view.addGestureRecognizer(tapGesture)
         registerNotifications()
     }
-    
+
     @objc func hideKeyboard(gesture: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
-
-    
 
 }
 
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections else {
             return 0
         }
         return sections[section].numberOfObjects
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let message = fetchedResultsController.object(at: indexPath)
-        
+
         if message.incoming {
-            guard let messageCell = tableView.dequeueReusableCell(withIdentifier: "InCell", for: indexPath) as? MessageCell else {
+            guard let messageCell = tableView.dequeueReusableCell(withIdentifier: "InCell",
+                                                                  for: indexPath) as? MessageCell else {
                 return UITableViewCell()
             }
             messageCell.messageText = message.text
             messageCell.bubleView.layer.cornerRadius = 15
             return messageCell
         } else {
-            guard let messageCell = tableView.dequeueReusableCell(withIdentifier: "OutCell", for: indexPath) as? MessageCell else {
+            guard let messageCell = tableView.dequeueReusableCell(withIdentifier: "OutCell",
+                                                                  for: indexPath) as? MessageCell else {
                 return UITableViewCell()
             }
             messageCell.messageText = message.text
             messageCell.bubleView.layer.cornerRadius = 15
             return messageCell
         }
-        
+
     }
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
-    
-    
-}
 
+}
 
 extension ConversationViewController: CommunicatorListDelegate {
     func updateUsers() {
@@ -207,7 +208,7 @@ extension ConversationViewController: CommunicatorListDelegate {
         conversation.hasUnreadMessages = false
         scrollDown()
     }
-    
+
     func handleError(error: Error) {
         self.view.endEditing(true)
         let alert = UIAlertController(title: "Connection error", message: nil, preferredStyle: .alert)
@@ -215,8 +216,5 @@ extension ConversationViewController: CommunicatorListDelegate {
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
-    
-    
+
 }
-
-

@@ -10,38 +10,35 @@ import Foundation
 import MultipeerConnectivity
 
 class CommunicationManager: CommunicatorDelegate {
-    
+
     static let shared = CommunicationManager()
     var communicator: MultipeerCommunicator!
     weak var delegate: CommunicatorListDelegate?
-    
+
     let storageManager = CoreDataManager()
-    
+
     private init() {
         storageManager.loadProfile { (userProfile) in
             guard let profile = userProfile else {
                 return
             }
-            
+
             self.communicator = MultipeerCommunicator(with: profile)
             self.communicator.startAdvertiserAndBrowser()
             self.communicator.delegate = self
         }
 
     }
-    
-    
-    
-    //MARK: - CommunicatorDelegate
-    
-    
+
+    // MARK: - CommunicatorDelegate
+
     func didFoundUser(userID: String, userName: String?) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
-            guard let user = User.findOrInsertUser(id: userID, in: saveContext) else {
+            guard let user = User.findOrInsertUser(withID: userID, in: saveContext) else {
                 return
             }
-            let conversation = ConversationUser.findOrInsertConversationWith(id: userID, in: saveContext)
+            let conversation = ConversationUser.findOrInsertConversation(withID: userID, in: saveContext)
             user.name = userName
             user.isOnline = true
             conversation.isOnline = true
@@ -49,11 +46,11 @@ class CommunicationManager: CommunicatorDelegate {
             CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
         }
     }
-    
+
     func didLostUser(userID: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
-            let conversation = ConversationUser.findOrInsertConversationWith(id: userID, in: saveContext)
+            let conversation = ConversationUser.findOrInsertConversation(withID: userID, in: saveContext)
             conversation.isOnline = false
             conversation.user?.isOnline = false
             CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
@@ -63,9 +60,9 @@ class CommunicationManager: CommunicatorDelegate {
                 unwrappedDelegate.updateUsers()
             }
         }
-        
+
     }
-    
+
     func failedToStartBrowsingForUsers(error: Error) {
         print("Check \(#function), something went wrong")
         if let unwrappedDelegate = delegate {
@@ -73,9 +70,9 @@ class CommunicationManager: CommunicatorDelegate {
                 unwrappedDelegate.handleError(error: error)
             }
         }
-        
+
     }
-    
+
     func failedToStartAdvertising(error: Error) {
         print("Check \(#function), something went wrong")
         if let unwrappedDelegate = delegate {
@@ -84,12 +81,12 @@ class CommunicationManager: CommunicatorDelegate {
             }
         }
     }
-    
+
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
-            let message:Message
-            if let conversation = ConversationUser.findConversationWith(id: fromUser, in: saveContext) {
+            let message: Message
+            if let conversation = ConversationUser.findConversation(withID: fromUser, in: saveContext) {
                 message = Message.insertNewMessage(in: saveContext)
                 message.incoming = true
                 message.conversationID = conversation.id
@@ -99,7 +96,7 @@ class CommunicationManager: CommunicatorDelegate {
                 conversation.hasUnreadMessages = true
                 conversation.addToMessages(message)
                 conversation.lastMessage = message
-            } else if let conversation = ConversationUser.findConversationWith(id: toUser, in: saveContext) {
+            } else if let conversation = ConversationUser.findConversation(withID: toUser, in: saveContext) {
                 message = Message.insertNewMessage(in: saveContext)
                 message.incoming = false
                 message.conversationID = conversation.id
@@ -112,9 +109,7 @@ class CommunicationManager: CommunicatorDelegate {
             }
             CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
         }
-        
-        
+
     }
-    
 
 }

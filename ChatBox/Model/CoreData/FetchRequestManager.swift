@@ -9,13 +9,11 @@
 import Foundation
 import CoreData
 
-
 class FetchRequestManager {
-    
+
     static let shared = FetchRequestManager()
     private init() {}
-    
-    
+
     func fetchAllConversations() -> NSFetchRequest<ConversationUser> {
         let request: NSFetchRequest<ConversationUser> = ConversationUser.fetchRequest()
         let dateSort = NSSortDescriptor(key: "date", ascending: false)
@@ -23,32 +21,31 @@ class FetchRequestManager {
         request.sortDescriptors = [dateSort, onlineSort]
         return request
     }
-    
-    
+
     func fetchOnlineConversations() -> NSFetchRequest<ConversationUser> {
         let request: NSFetchRequest<ConversationUser> = ConversationUser.fetchRequest()
         request.predicate = NSPredicate(format: "isOnline == YES")
         return request
     }
-    
-    func fetchConversationsWith(id: String) -> NSFetchRequest<ConversationUser> {
+
+    func fetchConversations(withID: String) -> NSFetchRequest<ConversationUser> {
         let request: NSFetchRequest<ConversationUser> = ConversationUser.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = NSPredicate(format: "id == %@", withID)
         return request
     }
-    
-    func fetchUserWith(id: String) -> NSFetchRequest<User> {
+
+    func fetchUser(withID: String) -> NSFetchRequest<User> {
         let request: NSFetchRequest<User> = User.fetchRequest()
-        request.predicate = NSPredicate(format: "userID == %@", id)
+        request.predicate = NSPredicate(format: "userID == %@", withID)
         return request
     }
-    
+
     func fetchOnlineUsers() -> NSFetchRequest<User> {
         let request: NSFetchRequest<User> = User.fetchRequest()
         request.predicate = NSPredicate(format: "isOnline == true")
         return request
     }
-    
+
     func fetchMessagesFrom(conversationID: String) -> NSFetchRequest<Message> {
         let request: NSFetchRequest<Message> = Message.fetchRequest()
         request.predicate = NSPredicate(format: "conversationID == %@", conversationID)
@@ -56,5 +53,5 @@ class FetchRequestManager {
         request.sortDescriptors = [dateSort]
         return request
     }
-    
+
 }

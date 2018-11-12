@@ -9,7 +9,6 @@
 import Foundation
 import MultipeerConnectivity
 
-
 // MARK: - Cell Configuration
 
 protocol ConversationCellConfiguration: class {
@@ -18,47 +17,43 @@ protocol ConversationCellConfiguration: class {
     var date: Date? {get set}
     var online: Bool {get set}
     var hasUnreadMessages: Bool {get set}
-    
+
 }
 
 protocol MessageCellConfiguration: class {
     var messageText: String? {get set}
 }
 
-
 // MARK: - Multithreading
 
 protocol GetSaveProfileProtocol {
-    func getProfile(completion: @escaping (UserProfile) -> ())
-    func saveProfile(profile: UserProfile, completion: @escaping(Error?) -> ())
+    func getProfile(completion: @escaping (UserProfile) -> Void)
+    func saveProfile(profile: UserProfile, completion: @escaping(Error?) -> Void)
 }
-
-
-
 
 // MARK: - Communicator
 
 protocol Communicator: class {
-    
+
     var online: Bool? {get set}
     var delegate: CommunicatorDelegate? {get set}
-    func sendMessage(string: String, to userID: String, completionHandler:((_ success: Bool, _ error: Error?) -> ())?)
-    
+    func sendMessage(string: String, to userID: String, completionHandler:((_ success: Bool, _ error: Error?) -> Void)?)
+
 }
 
 protocol CommunicatorDelegate: class {
-    
+
     //discovering
     func didFoundUser(userID: String, userName: String?)
     func didLostUser(userID: String)
-    
+
     //errors
     func failedToStartBrowsingForUsers(error: Error)
     func failedToStartAdvertising(error: Error)
-    
+
     //messages
     func didRecieveMessage(text: String, fromUser: String, toUser: String)
-    
+
 }
 
 protocol CommunicatorListDelegate: class {

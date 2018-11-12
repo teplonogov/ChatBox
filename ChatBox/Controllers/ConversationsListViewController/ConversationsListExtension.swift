@@ -11,23 +11,23 @@ import Foundation
 // MARK: - ThemesViewControllerDelegate
 
 extension ConversationsListViewController: ThemesViewControllerDelegate {
-    
+
     func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
         logThemeChanging(selectedTheme: selectedTheme)
         configureAppearance(color: selectedTheme)
-        
+
         DispatchQueue.global(qos: .utility).async {
             let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
             UserDefaults.standard.set(colorData, forKey: "theme")
         }
-        
+
     }
-    
+
     func transitionToThemesVC() {
         let themesVC = ThemesViewController(nibName: "ThemesViewController", bundle: nil)
         let themesNavigationController = UINavigationController(rootViewController: themesVC)
         themesVC.delegate = self
         self.present(themesNavigationController, animated: true, completion: nil)
     }
-    
+
 }
