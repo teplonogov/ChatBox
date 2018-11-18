@@ -12,19 +12,18 @@ import MultipeerConnectivity
 class CommunicationManager: CommunicatorDelegate {
 
     static let shared = CommunicationManager()
-    var communicator: MultipeerCommunicator!
+    let communicator = MultipeerCommunicator.shared
     weak var delegate: CommunicatorListDelegate?
 
-    let storageManager = CoreDataManager()
+    let storageManager = ProfileStorage()
 
     private init() {
         storageManager.loadProfile { (userProfile) in
             guard let profile = userProfile else {
                 return
             }
-
-            self.communicator = MultipeerCommunicator(with: profile)
-            self.communicator.startAdvertiserAndBrowser()
+            
+            self.communicator.startCommunication(name: nil)
             self.communicator.delegate = self
         }
 
@@ -38,7 +37,7 @@ class CommunicationManager: CommunicatorDelegate {
             guard let user = User.findOrInsertUser(withID: userID, in: saveContext) else {
                 return
             }
-            let conversation = ConversationUser.findOrInsertConversation(withID: userID, in: saveContext)
+            let conversation = Conversation.findOrInsertConversation(withID: userID, in: saveContext)
             user.name = userName
             user.isOnline = true
             conversation.isOnline = true
@@ -50,7 +49,7 @@ class CommunicationManager: CommunicatorDelegate {
     func didLostUser(userID: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
-            let conversation = ConversationUser.findOrInsertConversation(withID: userID, in: saveContext)
+            let conversation = Conversation.findOrInsertConversation(withID: userID, in: saveContext)
             conversation.isOnline = false
             conversation.user?.isOnline = false
             CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
@@ -86,7 +85,7 @@ class CommunicationManager: CommunicatorDelegate {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
             let message: Message
-            if let conversation = ConversationUser.findConversation(withID: fromUser, in: saveContext) {
+            if let conversation = Conversation.findConversation(withID: fromUser, in: saveContext) {
                 message = Message.insertNewMessage(in: saveContext)
                 message.incoming = true
                 message.conversationID = conversation.id
@@ -96,7 +95,7 @@ class CommunicationManager: CommunicatorDelegate {
                 conversation.hasUnreadMessages = true
                 conversation.addToMessages(message)
                 conversation.lastMessage = message
-            } else if let conversation = ConversationUser.findConversation(withID: toUser, in: saveContext) {
+            } else if let conversation = Conversation.findConversation(withID: toUser, in: saveContext) {
                 message = Message.insertNewMessage(in: saveContext)
                 message.incoming = false
                 message.conversationID = conversation.id

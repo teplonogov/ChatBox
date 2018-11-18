@@ -27,19 +27,13 @@ protocol MessageCellConfiguration: class {
 // MARK: - Multithreading
 
 protocol GetSaveProfileProtocol {
-    func getProfile(completion: @escaping (UserProfile) -> Void)
-    func saveProfile(profile: UserProfile, completion: @escaping(Error?) -> Void)
+//    func getProfile(completion: @escaping (UserProfile) -> Void)
+//    func saveProfile(profile: UserProfile, completion: @escaping(Error?) -> Void)
 }
 
 // MARK: - Communicator
 
-protocol Communicator: class {
 
-    var online: Bool? {get set}
-    var delegate: CommunicatorDelegate? {get set}
-    func sendMessage(string: String, to userID: String, completionHandler:((_ success: Bool, _ error: Error?) -> Void)?)
-
-}
 
 protocol CommunicatorDelegate: class {
 

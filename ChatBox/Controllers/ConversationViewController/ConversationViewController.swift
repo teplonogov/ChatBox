@@ -11,7 +11,7 @@ import CoreData
 
 class ConversationViewController: UIViewController {
 
-    var conversation: ConversationUser!
+    var conversation: Conversation!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noMessagesLabel: UILabel!
@@ -30,7 +30,7 @@ class ConversationViewController: UIViewController {
         guard let conversationID = conversation.id else {
             return
         }
-        let request = FetchRequestManager.shared.fetchMessagesFrom(conversationID: conversationID)
+        let request = FetchRequests.fetchMessagesFrom(conversationID: conversationID)
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
                                                       managedObjectContext: CoreDataStack.shared.mainContext,
                                                         sectionNameKeyPath: nil,

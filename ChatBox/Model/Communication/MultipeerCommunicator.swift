@@ -9,7 +9,16 @@
 import Foundation
 import MultipeerConnectivity
 
+protocol Communicator: class {
+    var online: Bool? {get set}
+    var delegate: CommunicatorDelegate? {get set}
+    func sendMessage(string: String, to userID: String, completionHandler:((_ success: Bool, _ error: Error?) -> Void)?)
+    func startCommunication(name: String?)
+}
+
 class MultipeerCommunicator: NSObject, Communicator {
+    
+    static let shared = MultipeerCommunicator()
 
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
     var nearbyServiceBrowser: MCNearbyServiceBrowser!
@@ -22,23 +31,27 @@ class MultipeerCommunicator: NSObject, Communicator {
 
     var sessions: [String: MCSession] = [:]
 
-    init(with profile: Profile) {
-        super.init()
-
-        discoveryInfo = ["userName": profile.name ?? "noname: (\(UIDevice.current.model))"]
-
+    
+    func startCommunication(name: String?) {
+        guard nearbyServiceBrowser != nil, nearbyServiceAdvertiser != nil else {
+            return
+        }
+        
+        discoveryInfo = ["userName": name ?? "noname: (\(UIDevice.current.model))"]
         serviceType = "tinkoff-chat"
-
         localPeerID = MCPeerID(displayName: UIDevice.current.name)
-
+        
         nearbyServiceBrowser = MCNearbyServiceBrowser(peer: localPeerID, serviceType: serviceType)
         nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: localPeerID,
                                                             discoveryInfo: discoveryInfo,
                                                             serviceType: serviceType)
-
+        
         nearbyServiceBrowser.delegate = self
         nearbyServiceAdvertiser.delegate = self
-
+        
+        online = true
+        nearbyServiceAdvertiser.startAdvertisingPeer()
+        nearbyServiceBrowser.startBrowsingForPeers()
     }
 
     func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> Void)?) {
@@ -73,11 +86,6 @@ class MultipeerCommunicator: NSObject, Communicator {
         return string!
     }
 
-    func startAdvertiserAndBrowser() {
-        online = true
-        nearbyServiceAdvertiser.startAdvertisingPeer()
-        nearbyServiceBrowser.startBrowsingForPeers()
-    }
 
     func getSession(peerID: MCPeerID) -> MCSession {
 

@@ -116,3 +116,7 @@ class SaveUserProfile: Operation {
         }
     }
 }
+
+enum DataImageError: Error {
+    case dataError
+}
