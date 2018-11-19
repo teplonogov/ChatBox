@@ -22,7 +22,7 @@ class ConversationViewController: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<Message>!
     var presentationAssembly: IPresentationAssembly!
     var model: ConversationModel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

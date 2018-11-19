@@ -10,28 +10,12 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController: UIViewController, CommunicationHandlerDelegate {
 
     var fetchedResultsController: NSFetchedResultsController<Conversation>!
     
     var presentationAssembly: IPresentationAssembly!
     var model: ConversationsListModel!
-    
-    
-//    init(model: IConversationsListModel, presentationAssembly: IPresentationAssembly) {
-//        self.model = model
-//        self.presentationAssembly = presentationAssembly
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        self.model = model
-//        self.presentationAssembly = presentationAssembly
-//        super.init(coder: aDecoder)
-//    }
-    
-
-    
     
     var choosenConversation: Conversation?
 
@@ -54,8 +38,7 @@ class ConversationsListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //CommunicationService.shared.delegate = self
-        updateUsers()
+        model.setHandler(communicationHandler: self)
     }
 
     @IBAction func showProfileButton(_ sender: Any) {
@@ -125,8 +108,11 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
 
         tableView.deselectRow(at: indexPath, animated: true)
         self.choosenConversation = fetchedResultsController.object(at: indexPath)
-        performSegue(withIdentifier: "ConversationID", sender: nil)
-
+        let conversationVC = presentationAssembly.createConversationViewController()
+        let conversation = fetchedResultsController.object(at: indexPath)
+        conversationVC.conversation = conversation
+        self.navigationController?.pushViewController(conversationVC, animated: true)
+        
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -26,7 +26,6 @@ class PresentationAssembly: IPresentationAssembly {
         let conversationsListVC = sb.instantiateViewController(withIdentifier: "list") as! ConversationsListViewController
         conversationsListVC.model = model
         conversationsListVC.presentationAssembly = self
-//        model.delegate = conversationsListVC
         return conversationsListVC
     }
     func createProfileController() -> ProfileViewController {
@@ -51,6 +50,10 @@ class PresentationAssembly: IPresentationAssembly {
         return themesNavigationController
     }
     func createConversationViewController() -> ConversationViewController {
-        return ConversationViewController()
+        let sb = UIStoryboard(name: "Conversation", bundle: nil)
+        let model = ConversationModel(communicationService: serviceAssembly.communicationService)
+        let conversationVC = sb.instantiateInitialViewController() as! ConversationViewController
+        conversationVC.model = model
+        return conversationVC
     }
 }

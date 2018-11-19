@@ -33,7 +33,7 @@ class MultipeerCommunicator: NSObject, Communicator {
 
     
     func startCommunication(name: String?) {
-        guard nearbyServiceBrowser != nil, nearbyServiceAdvertiser != nil else {
+        guard nearbyServiceBrowser == nil, nearbyServiceAdvertiser == nil else {
             return
         }
         
