@@ -9,6 +9,26 @@
 import Foundation
 import MultipeerConnectivity
 
+protocol CommunicatorListDelegate: class {
+    func updateUsers()
+    func handleError(error: Error)
+}
+
+protocol CommunicatorDelegate: class {
+    
+    //discovering
+    func didFoundUser(userID: String, userName: String?)
+    func didLostUser(userID: String)
+    
+    //errors
+    func failedToStartBrowsingForUsers(error: Error)
+    func failedToStartAdvertising(error: Error)
+    
+    //messages
+    func didRecieveMessage(text: String, fromUser: String, toUser: String)
+    
+}
+
 class CommunicationManager: CommunicatorDelegate {
 
     static let shared = CommunicationManager()

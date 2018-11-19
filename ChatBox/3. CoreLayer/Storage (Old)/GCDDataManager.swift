@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol GetSaveProfileProtocol {
+    //    func getProfile(completion: @escaping (UserProfile) -> Void)
+    //    func saveProfile(profile: UserProfile, completion: @escaping(Error?) -> Void)
+}
+
 class GCDDataManager: GetSaveProfileProtocol {
 
     let fileDirectory: URL

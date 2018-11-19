@@ -14,7 +14,6 @@
 		CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Logger.swift */; };
 		CF4766222168F136008AF8C2 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766202168F136008AF8C2 /* ConversationCell.swift */; };
 		CF4766232168F136008AF8C2 /* ConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF4766212168F136008AF8C2 /* ConversationCell.xib */; };
-		CF4766272168FCF3008AF8C2 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766262168FCF3008AF8C2 /* Protocols.swift */; };
 		CF47662A2169033E008AF8C2 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766292169033E008AF8C2 /* ConversationsListViewController.swift */; };
 		CF476634216A14DB008AF8C2 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF476633216A14DB008AF8C2 /* ConversationViewController.swift */; };
 		CF5A6A2E215EC44B0084371A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A6A2D215EC44B0084371A /* ProfileViewController.swift */; };
@@ -27,10 +26,8 @@
 		CF6735D0217390350062A600 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24DBF32158E30C00E00BC6 /* Logger.swift */; };
 		CF6735D2217390350062A600 /* UIColor+ChatBox.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */; };
 		CF6735D3217390350062A600 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A6A2D215EC44B0084371A /* ProfileViewController.swift */; };
-		CF6735D4217390350062A600 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF476633216A14DB008AF8C2 /* ConversationViewController.swift */; };
 		CF6735D5217390350062A600 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAEEC5215688D900E182F2 /* AppDelegate.swift */; };
 		CF6735D6217390350062A600 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67358321709EB90062A600 /* Themes.m */; };
-		CF6735D7217390350062A600 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766262168FCF3008AF8C2 /* Protocols.swift */; };
 		CF6735D8217390350062A600 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDC457A216125770016BB0F /* Constants.swift */; };
 		CF6735DA217390350062A600 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4766292169033E008AF8C2 /* ConversationsListViewController.swift */; };
 		CF6735DB217390350062A600 /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735CC21738F2E0062A600 /* ThemeService.swift */; };
@@ -85,7 +82,6 @@
 		CF24DBF32158E30C00E00BC6 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CF4766202168F136008AF8C2 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		CF4766212168F136008AF8C2 /* ConversationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationCell.xib; sourceTree = "<group>"; };
-		CF4766262168FCF3008AF8C2 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		CF4766292169033E008AF8C2 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		CF476633216A14DB008AF8C2 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		CF5A6A2D215EC44B0084371A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -180,32 +176,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		CF476628216902A6008AF8C2 /* Protocolos */ = {
-			isa = PBXGroup;
-			children = (
-				CF4766262168FCF3008AF8C2 /* Protocols.swift */,
-				CF6735912170D32C0062A600 /* ThemesViewControllerDelegate.h */,
-			);
-			path = Protocolos;
-			sourceTree = "<group>";
-		};
-		CF47662B2169034B008AF8C2 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				CFD4BF302198BFF600A875E4 /* ConversationViewController */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		CF47662E21692303008AF8C2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CFFD0948218206A600016184 /* Multithreading */,
-				CFFD094A2182070F00016184 /* Communication */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		CF6735902170B16C0062A600 /* UIColor+ChatBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,15 +183,6 @@
 				CF67358E2170B15E0062A600 /* UIColor+ChatBox.m */,
 			);
 			path = "UIColor+ChatBox";
-			sourceTree = "<group>";
-		};
-		CFD4BF302198BFF600A875E4 /* ConversationViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CF476633216A14DB008AF8C2 /* ConversationViewController.swift */,
-				CFD4BF2E21988F3300A875E4 /* ConversationVC+FRCDelegate.swift */,
-			);
-			path = ConversationViewController;
 			sourceTree = "<group>";
 		};
 		CFD78722219DAE7200E9634B /* 1. PresentationLayer */ = {
@@ -295,6 +256,7 @@
 		CFD7872B219DB65A00E9634B /* 2. ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				CFD7875621A2A4E100E9634B /* CommunicationService */,
 				CFD7874F21A1C28800E9634B /* ThemesService */,
 				CFD7874221A18C8400E9634B /* ProfileService */,
 				CFD7873C219ED37400E9634B /* UsersService */,
@@ -314,6 +276,8 @@
 		CFD7872F219DB73000E9634B /* 3. CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				CFD7875821A2A55C00E9634B /* Storage (Old) */,
+				CFD7875721A2A51100E9634B /* Communication */,
 				CFD7873F219EDB8C00E9634B /* Storage */,
 				CFD78730219DB75A00E9634B /* Assembly */,
 			);
@@ -331,6 +295,8 @@
 		CFD78735219DBF7300E9634B /* ConversationsModule */ = {
 			isa = PBXGroup;
 			children = (
+				CF476633216A14DB008AF8C2 /* ConversationViewController.swift */,
+				CFD4BF2E21988F3300A875E4 /* ConversationVC+FRCDelegate.swift */,
 				CFC17406216A371200A384CD /* MessageCell.swift */,
 				CFD78738219DC0DA00E9634B /* Conversation.storyboard */,
 			);
@@ -453,6 +419,7 @@
 			children = (
 				CF67357C216F7CC30062A600 /* ThemesViewController.h */,
 				CF67357D216F7CC30062A600 /* ThemesViewController.m */,
+				CF6735912170D32C0062A600 /* ThemesViewControllerDelegate.h */,
 				CF6735ED2173946F0062A600 /* ThemesViewController.swift */,
 			);
 			path = Controller;
@@ -464,6 +431,31 @@
 				CF6735CC21738F2E0062A600 /* ThemeService.swift */,
 			);
 			path = ThemesService;
+			sourceTree = "<group>";
+		};
+		CFD7875621A2A4E100E9634B /* CommunicationService */ = {
+			isa = PBXGroup;
+			children = (
+				CFFD094B21820B2200016184 /* CommunicationManager.swift */,
+			);
+			path = CommunicationService;
+			sourceTree = "<group>";
+		};
+		CFD7875721A2A51100E9634B /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				CFFD0946218203E800016184 /* MultipeerCommunicator.swift */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
+		CFD7875821A2A55C00E9634B /* Storage (Old) */ = {
+			isa = PBXGroup;
+			children = (
+				CF78831A217B7A0000FC739F /* GCDDataManager.swift */,
+				CF78831E217CD83300FC739F /* OperationDataManager.swift */,
+			);
+			path = "Storage (Old)";
 			sourceTree = "<group>";
 		};
 		CFDAEEB9215688D900E182F2 = {
@@ -494,9 +486,6 @@
 				CFD7872F219DB73000E9634B /* 3. CoreLayer */,
 				CFDAEEC5215688D900E182F2 /* AppDelegate.swift */,
 				CFD78733219DB79600E9634B /* RootAssembly.swift */,
-				CF476628216902A6008AF8C2 /* Protocolos */,
-				CF47662B2169034B008AF8C2 /* Controllers */,
-				CF47662E21692303008AF8C2 /* Model */,
 				CF67357B216F7CC20062A600 /* ChatBox-Bridging-Header.h */,
 				CFDAEECC215688DC00E182F2 /* Assets.xcassets */,
 				CFDAEECE215688DC00E182F2 /* LaunchScreen.storyboard */,
@@ -504,24 +493,6 @@
 				CF24DBF52158F34000E00BC6 /* Utils */,
 			);
 			path = ChatBox;
-			sourceTree = "<group>";
-		};
-		CFFD0948218206A600016184 /* Multithreading */ = {
-			isa = PBXGroup;
-			children = (
-				CF78831A217B7A0000FC739F /* GCDDataManager.swift */,
-				CF78831E217CD83300FC739F /* OperationDataManager.swift */,
-			);
-			path = Multithreading;
-			sourceTree = "<group>";
-		};
-		CFFD094A2182070F00016184 /* Communication */ = {
-			isa = PBXGroup;
-			children = (
-				CFFD0946218203E800016184 /* MultipeerCommunicator.swift */,
-				CFFD094B21820B2200016184 /* CommunicationManager.swift */,
-			);
-			path = Communication;
 			sourceTree = "<group>";
 		};
 		FC7A81640B8669D949497978 /* Frameworks */ = {
@@ -702,10 +673,8 @@
 				CF6735D0217390350062A600 /* Logger.swift in Sources */,
 				CF6735D2217390350062A600 /* UIColor+ChatBox.m in Sources */,
 				CF6735D3217390350062A600 /* ProfileViewController.swift in Sources */,
-				CF6735D4217390350062A600 /* ConversationViewController.swift in Sources */,
 				CF6735D5217390350062A600 /* AppDelegate.swift in Sources */,
 				CF6735D6217390350062A600 /* Themes.m in Sources */,
-				CF6735D7217390350062A600 /* Protocols.swift in Sources */,
 				CF6735D8217390350062A600 /* Constants.swift in Sources */,
 				CF6735EF217394720062A600 /* ThemesViewController.swift in Sources */,
 				CF6735DA217390350062A600 /* ConversationsListViewController.swift in Sources */,
@@ -735,7 +704,6 @@
 				CFD7875321A20EC600E9634B /* DataSourceDelegate.swift in Sources */,
 				CFD7875521A22AD900E9634B /* Extensions.swift in Sources */,
 				CF67358421709EB90062A600 /* Themes.m in Sources */,
-				CF4766272168FCF3008AF8C2 /* Protocols.swift in Sources */,
 				CFDC457B216125770016BB0F /* Constants.swift in Sources */,
 				CF47662A2169033E008AF8C2 /* ConversationsListViewController.swift in Sources */,
 				CFD4BF2F21988F3300A875E4 /* ConversationVC+FRCDelegate.swift in Sources */,

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MessageCellConfiguration: class {
+    var messageText: String? {get set}
+}
+
 class MessageCell: UITableViewCell, MessageCellConfiguration {
 
     var messageText: String? {
