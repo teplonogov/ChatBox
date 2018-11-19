@@ -55,7 +55,7 @@ class CoreDataStack: ICoreDataStack {
         context.undoManager = nil
         return context
     }()
-    
+
     lazy var mainContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.parent = masterContext
@@ -63,7 +63,7 @@ class CoreDataStack: ICoreDataStack {
         context.undoManager = nil
         return context
     }()
-    
+
     lazy var masterContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator
@@ -71,7 +71,6 @@ class CoreDataStack: ICoreDataStack {
         context.undoManager = nil
         return context
     }()
-
 
     func performSave(context: NSManagedObjectContext, completionHandler: ((Error?) -> Void)?) {
         context.perform {

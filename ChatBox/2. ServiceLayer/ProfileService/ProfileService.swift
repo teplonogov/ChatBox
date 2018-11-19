@@ -10,18 +10,17 @@ import Foundation
 
 protocol IProfileService {
     func getProfile(completion: @escaping (String?, String?, Data?) -> Void)
-    func saveProfile(name: String?, description: String?, avatarData: Data? ,completion: ((Error?) -> ())?)
+    func saveProfile(name: String?, description: String?, avatarData: Data?, completion: ((Error?) -> Void)?)
 }
 
-
 class ProfileService: IProfileService {
-    
+
     let profileStorage: IProfileStorage
-    
+
     init(profileStorage: IProfileStorage) {
         self.profileStorage = profileStorage
     }
-    
+
     func getProfile(completion: @escaping (String?, String?, Data?) -> Void) {
         profileStorage.loadProfile { (profile) in
             if let userProfile = profile {
@@ -34,26 +33,22 @@ class ProfileService: IProfileService {
             } else {
                 assert(false, "profile is nil")
             }
-            
+
         }
-        
-        
+
     }
 
-    
-    
-    func saveProfile(name: String?, description: String?, avatarData: Data? ,completion: ((Error?) -> ())?) {
-        
-    
+    func saveProfile(name: String?, description: String?, avatarData: Data?, completion: ((Error?) -> Void)?) {
+
         Profile.getProfile(in: profileStorage.coreDataStack.saveContext) { (profile) in
             if let userProfile = profile {
                 userProfile.name = name
                 userProfile.descriptionProfile = description
                 userProfile.avatarImage = avatarData
-                
+
                 //сохраняем в UserDefaults для использования в MultipeerCommunicator
                 UserDefaults.standard.set(userProfile.name, forKey: "name")
-                
+
                 self.profileStorage.saveProfile { (error) in
                     if let unwrappedError = error {
                         if let handler = completion {
@@ -69,10 +64,8 @@ class ProfileService: IProfileService {
             } else {
                 assert(false, "profile is nil")
             }
-            
 
         }
-        
 
     }
 }

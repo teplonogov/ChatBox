@@ -13,19 +13,18 @@ class ThemesViewController: UIViewController {
     @IBOutlet var themeOneButton: UIButton!
     @IBOutlet var themeTwoButton: UIButton!
     @IBOutlet var themeThreeButton: UIButton!
-    
-    
+
     // Dependencies
-    
+
     private let model: IThemesModel
     private let presentationAssembly: IPresentationAssembly
-    
+
     init(model: IThemesModel, presentationAssembly: PresentationAssembly) {
         self.model = model
         self.presentationAssembly = presentationAssembly
         super.init(nibName: "ThemesViewController", bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -34,9 +33,9 @@ class ThemesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        model.setTheme(for: self)
-        
+
+        model.setTheme(forVC: self)
+
         let closeButtonImage = #imageLiteral(resourceName: "CloseButton")
 
         let closeButton = UIBarButtonItem.init(image: closeButtonImage,

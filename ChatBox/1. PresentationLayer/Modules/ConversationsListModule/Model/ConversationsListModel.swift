@@ -9,11 +9,10 @@
 import Foundation
 import CoreData
 
-
 protocol IConversationsListModel {
     var communicationService: ICommunicationService { get }
     func setHandler(communicationHandler: CommunicationHandlerDelegate)
-    
+
 }
 
 @objc protocol IFRCSetup {
@@ -21,19 +20,18 @@ protocol IConversationsListModel {
     @objc optional func setupMessagesFetchedResultController(userID: String) -> NSFetchedResultsController<Message>
 }
 
+class ConversationsListModel: IConversationsListModel, IFRCSetup {
 
-class ConversationsListModel: IConversationsListModel,IFRCSetup {
-    
     var communicationService: ICommunicationService
-    
+
     init(communicationService: ICommunicationService) {
         self.communicationService = communicationService
     }
-    
+
     func setHandler(communicationHandler: CommunicationHandlerDelegate) {
         communicationService.delegate = communicationHandler
     }
-    
+
     func setupConversationsFetchedResultController() -> NSFetchedResultsController<Conversation> {
         let request = communicationService.fetchRequests.fetchAllConversations()
         request.fetchBatchSize = 20
@@ -45,5 +43,4 @@ class ConversationsListModel: IConversationsListModel,IFRCSetup {
         return fetchResultController
     }
 
-    
 }

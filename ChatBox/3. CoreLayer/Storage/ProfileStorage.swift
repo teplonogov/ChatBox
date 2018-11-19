@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol IProfileStorage {
     func loadProfile(completion: @escaping (Profile?) -> Void)
     func saveProfile(completion: @escaping (Error?) -> Void)
@@ -16,7 +15,7 @@ protocol IProfileStorage {
 }
 
 class ProfileStorage: IProfileStorage {
-    
+
     var coreDataStack: ICoreDataStack = CoreDataStack.shared
 
     func loadProfile(completion: @escaping (Profile?) -> Void) {
@@ -30,8 +29,6 @@ class ProfileStorage: IProfileStorage {
             }
         }
     }
-    
- 
 
     func saveProfile(completion: @escaping (Error?) -> Void) {
         coreDataStack.performSave(context: coreDataStack.saveContext) { (error) in

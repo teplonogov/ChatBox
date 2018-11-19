@@ -17,7 +17,7 @@ protocol Communicator: class {
 }
 
 class MultipeerCommunicator: NSObject, Communicator {
-    
+
     static let shared = MultipeerCommunicator()
 
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
@@ -31,24 +31,23 @@ class MultipeerCommunicator: NSObject, Communicator {
 
     var sessions: [String: MCSession] = [:]
 
-    
     func startCommunication(name: String?) {
         guard nearbyServiceBrowser == nil, nearbyServiceAdvertiser == nil else {
             return
         }
-        
+
         discoveryInfo = ["userName": name ?? "noname: (\(UIDevice.current.model))"]
         serviceType = "tinkoff-chat"
         localPeerID = MCPeerID(displayName: UIDevice.current.name)
-        
+
         nearbyServiceBrowser = MCNearbyServiceBrowser(peer: localPeerID, serviceType: serviceType)
         nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: localPeerID,
                                                             discoveryInfo: discoveryInfo,
                                                             serviceType: serviceType)
-        
+
         nearbyServiceBrowser.delegate = self
         nearbyServiceAdvertiser.delegate = self
-        
+
         online = true
         nearbyServiceAdvertiser.startAdvertisingPeer()
         nearbyServiceBrowser.startBrowsingForPeers()
@@ -85,7 +84,6 @@ class MultipeerCommunicator: NSObject, Communicator {
             .data(using: .utf8)?.base64EncodedString()
         return string!
     }
-
 
     func getSession(peerID: MCPeerID) -> MCSession {
 

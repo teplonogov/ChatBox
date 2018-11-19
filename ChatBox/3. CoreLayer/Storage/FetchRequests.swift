@@ -19,7 +19,7 @@ protocol IFetchRequests {
 }
 
 class FetchRequests: IFetchRequests {
-    
+
     func fetchAllConversations() -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         let dateSort = NSSortDescriptor(key: "date", ascending: false)
@@ -27,31 +27,31 @@ class FetchRequests: IFetchRequests {
         request.sortDescriptors = [dateSort, onlineSort]
         return request
     }
-    
+
     func fetchOnlineConversations() -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "isOnline == YES")
         return request
     }
-    
+
     func fetchConversations(withID: String) -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", withID)
         return request
     }
-    
+
     func fetchUser(withID: String) -> NSFetchRequest<User> {
         let request: NSFetchRequest<User> = User.fetchRequest()
         request.predicate = NSPredicate(format: "userID == %@", withID)
         return request
     }
-    
+
     func fetchOnlineUsers() -> NSFetchRequest<User> {
         let request: NSFetchRequest<User> = User.fetchRequest()
         request.predicate = NSPredicate(format: "isOnline == true")
         return request
     }
-    
+
     func fetchMessagesFrom(conversationID: String) -> NSFetchRequest<Message> {
         let request: NSFetchRequest<Message> = Message.fetchRequest()
         request.predicate = NSPredicate(format: "conversationID == %@", conversationID)
@@ -59,5 +59,5 @@ class FetchRequests: IFetchRequests {
         request.sortDescriptors = [dateSort]
         return request
     }
-    
+
 }

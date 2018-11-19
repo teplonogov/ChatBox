@@ -9,12 +9,12 @@
 import Foundation
 
 protocol ICommunicationService: class, IUserDiscover, ICommunicationFailHandler, IMessageHandler {
-    
+
     var delegate: CommunicationHandlerDelegate? { get set }
     var communicator: Communicator { get }
     var coreDataStack: ICoreDataStack { get }
     var fetchRequests: IFetchRequests { get }
-    
+
     func didStartSessions()
 }
 
@@ -30,5 +30,7 @@ protocol ICommunicationFailHandler {
 
 protocol IMessageHandler {
     func didReceiveMessage(text: String, fromUser: String, toUser: String)
-    func sendMessage(text: String, conversationID: String, completion: @escaping (_ succes: Bool, _ error: Error?) -> Void)
+    func sendMessage(text: String,
+                     conversationID: String,
+                     completion: @escaping (_ succes: Bool, _ error: Error?) -> Void)
 }

@@ -22,5 +22,3 @@ class CoreAssembly: ICoreAssembly {
     lazy var communicator: Communicator = MultipeerCommunicator.shared
     lazy var fetchRequests: IFetchRequests = FetchRequests()
 }
-
-

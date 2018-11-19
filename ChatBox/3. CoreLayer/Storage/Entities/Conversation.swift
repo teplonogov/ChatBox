@@ -10,7 +10,6 @@ import Foundation
 import CoreData
 
 extension Conversation {
-    
 
     static func insertConversation(withID: String, in context: NSManagedObjectContext) -> Conversation {
         guard let conversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation",

@@ -17,25 +17,23 @@ struct ProfileDisplayModel {
 protocol IProfileModel: class {
     var delegate: ProfileModelDelegate? { get set }
     func fetchUserProfile()
-    func saveUserProfile(profile: ProfileDisplayModel, handler: ((Error?)->())?)
+    func saveUserProfile(profile: ProfileDisplayModel, handler: ((Error?) -> Void)?)
 }
-
 
 protocol ProfileModelDelegate: class {
     func recievedUserProfile(profile: ProfileDisplayModel)
 }
 
-
 class ProfileModel: IProfileModel {
 
     weak var delegate: ProfileModelDelegate?
-    
+
     let profileService: IProfileService
-    
+
     init(profileService: IProfileService) {
         self.profileService = profileService
     }
-    
+
     func fetchUserProfile() {
         profileService.getProfile { (name, description, imageData) in
             let name: String = name ?? "No name"
@@ -45,27 +43,26 @@ class ProfileModel: IProfileModel {
             self.delegate?.recievedUserProfile(profile: profile)
         }
     }
-    
-    func saveUserProfile(profile: ProfileDisplayModel, handler: ((Error?)->())?) {
-        
+
+    func saveUserProfile(profile: ProfileDisplayModel, handler: ((Error?) -> Void)?) {
+
         let imageData = profile.avatar.jpegData(compressionQuality: 1)
-        
-        profileService.saveProfile(name: profile.name, description: profile.description, avatarData: imageData) { (error) in
+
+        profileService.saveProfile(name: profile.name,
+                                   description: profile.description,
+                                   avatarData: imageData) { (error) in
             if let unwrappedError = error {
                 if let completionHandler = handler {
                     completionHandler(unwrappedError)
                 }
             }
-            
+
             if let completionHandler = handler {
                 completionHandler(nil)
             }
 
         }
-        
-        
-        
+
     }
-    
-    
+
 }

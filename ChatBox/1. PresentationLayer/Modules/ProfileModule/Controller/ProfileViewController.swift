@@ -25,23 +25,22 @@ class ProfileViewController: UIViewController {
     var descriptionWasChanged: Bool = false
     var avatarWasChanged: Bool = false
     var dataWasChanged: Bool = false
-    
-    
+
     // Dependencies
-    
+
     private let model: IProfileModel
     private let presentationAssembly: IPresentationAssembly
-    
+
     init(model: IProfileModel, presentationAssembly: PresentationAssembly) {
         self.model = model
         self.presentationAssembly = presentationAssembly
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // DisplayModel
     private var profileToSave: ProfileDisplayModel?
 
@@ -52,7 +51,7 @@ class ProfileViewController: UIViewController {
 
         descriptionTextView.delegate = self
         model.delegate = self
-        
+
         model.fetchUserProfile()
 
         self.avatarButton.alpha = 0.2
@@ -89,20 +88,20 @@ class ProfileViewController: UIViewController {
     }
 
     func saveData() {
-        
+
         guard dataWasChanged == true, let profile = profileToSave else {
             print("Nothing was changed or profile is nil")
             return
         }
-        
+
         activityIndicator.startAnimating()
-        
+
         model.saveUserProfile(profile: profile) { (error) in
             guard let unwrappedError = error else {
                 self.activityIndicator.stopAnimating()
                 self.dataWasChanged = false
                 self.switchEditMode(isDataChanged: self.dataWasChanged)
-                
+
                 let completeAlert = UIAlertController(title: "Data was saved", message: nil, preferredStyle: .alert)
                 let continueAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                 completeAlert.addAction(continueAction)
@@ -122,7 +121,6 @@ class ProfileViewController: UIViewController {
             errorAlert.addAction(repeatAction)
             self.present(errorAlert, animated: true, completion: nil)
         }
-        
 
     }
 
@@ -324,7 +322,7 @@ extension ProfileViewController: UITextViewDelegate {
 }
 
 extension ProfileViewController: ProfileModelDelegate {
-    
+
     func recievedUserProfile(profile: ProfileDisplayModel) {
         self.profileToSave = profile
         self.nameTextField.text = profile.name
@@ -332,7 +330,5 @@ extension ProfileViewController: ProfileModelDelegate {
         self.avatarImageView.image = profile.avatar
         self.activityIndicator.stopAnimating()
     }
-    
-    
-    
+
 }

@@ -14,8 +14,6 @@ protocol CommunicatorListDelegate: class {
     func handleError(error: Error)
 }
 
-
-
 class CommunicationService: ICommunicationService {
     weak var delegate: CommunicationHandlerDelegate?
     var communicator: Communicator
@@ -25,15 +23,14 @@ class CommunicationService: ICommunicationService {
     let storageManager = ProfileStorage()
 
     init(name: String, communicator: Communicator,
-         coreDataStack: ICoreDataStack, fetchRequests: IFetchRequests) {
+         stack: ICoreDataStack, requests: IFetchRequests) {
         self.communicator = communicator
-        self.fetchRequests = fetchRequests
-        self.coreDataStack = coreDataStack
+        self.fetchRequests = requests
+        self.coreDataStack = stack
         self.communicator.delegate = self
         self.communicator.startCommunication(name: name)
     }
 
-    
     func didStartSessions() {
         let saveContext = coreDataStack.saveContext
         saveContext.perform {
@@ -73,12 +70,12 @@ class CommunicationService: ICommunicationService {
     func didLostUser(userId: String) {
         let saveContext = coreDataStack.saveContext
         saveContext.perform {
-            
+
             let conversation = Conversation.findOrInsertConversation(withID: userId,
                                                                      in: saveContext)
             conversation.isOnline = false
             conversation.user?.isOnline = false
-            
+
             self.coreDataStack.performSave(context: saveContext, completionHandler: nil)
         }
     }
@@ -131,8 +128,7 @@ class CommunicationService: ICommunicationService {
         }
 
     }
-    
-    
+
     func sendMessage(text: String, conversationID: String, completion: @escaping (Bool, Error?) -> Void) {
         communicator.sendMessage(string: text, to: conversationID, completionHandler: completion)
     }

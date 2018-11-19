@@ -11,7 +11,7 @@ import Foundation
 extension ConversationsListViewController {
 
     func transitionToThemesVC() {
-        let themesVC = presentationAssembly.createThemesViewController(from: self)
+        let themesVC = presentationAssembly.createThemesViewController(fromVC: self)
         self.present(themesVC, animated: true, completion: nil)
     }
 

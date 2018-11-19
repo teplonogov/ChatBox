@@ -22,10 +22,14 @@ protocol IFRCService: class, NSFetchedResultsControllerDelegate {
 }
 
 class FRCService: NSObject, IFRCService {
-    
+
     weak var delegate: FRCServiceDelegate?
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else { return }
@@ -43,16 +47,17 @@ class FRCService: NSObject, IFRCService {
             delegate?.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-    
+
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         delegate?.beginUpdates()
     }
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         delegate?.endUpdates()
     }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    sectionIndexTitleForSectionName sectionName: String) -> String? {
         return nil
     }
 }

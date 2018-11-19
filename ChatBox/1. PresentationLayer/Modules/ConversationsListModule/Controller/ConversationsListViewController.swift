@@ -13,10 +13,10 @@ import CoreData
 class ConversationsListViewController: UIViewController, CommunicationHandlerDelegate {
 
     var fetchedResultsController: NSFetchedResultsController<Conversation>!
-    
+
     var presentationAssembly: IPresentationAssembly!
     var model: ConversationsListModel!
-    
+
     var choosenConversation: Conversation?
 
     @IBOutlet weak var tableView: UITableView!
@@ -112,7 +112,7 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
         let conversation = fetchedResultsController.object(at: indexPath)
         conversationVC.conversation = conversation
         self.navigationController?.pushViewController(conversationVC, animated: true)
-        
+
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -148,4 +148,3 @@ extension ConversationsListViewController: CommunicatorListDelegate {
     }
 
 }
-

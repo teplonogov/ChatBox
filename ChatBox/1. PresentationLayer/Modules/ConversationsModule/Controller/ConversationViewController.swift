@@ -22,7 +22,7 @@ class ConversationViewController: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<Message>!
     var presentationAssembly: IPresentationAssembly!
     var model: ConversationModel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,13 +31,13 @@ class ConversationViewController: UIViewController {
         guard let userId = conversation.id else {
             return
         }
-        
+
         fetchedResultsController = model.setupMessagesFetchedResultController(userID: userId)
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            
+
         }
 
         setupKeyboard()
@@ -105,8 +105,7 @@ class ConversationViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }
-        
-        
+
     }
 
     // MARK: - Notifications
