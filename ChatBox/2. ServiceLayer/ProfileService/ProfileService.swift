@@ -10,7 +10,7 @@ import Foundation
 
 protocol IProfileService {
     func getProfile(completion: @escaping (String?, String?, Data?) -> Void)
-    func saveProfile(completion: ((Error?) -> ())?)
+    func saveProfile(name: String?, description: String?, avatarData: Data? ,completion: ((Error?) -> ())?)
 }
 
 
@@ -24,11 +24,17 @@ class ProfileService: IProfileService {
     
     func getProfile(completion: @escaping (String?, String?, Data?) -> Void) {
         profileStorage.loadProfile { (profile) in
-            let name = profile?.name
-            // почему падает?( если в loadProfile поставить mainContext, то данные приходят, но не те
-            let description = profile?.descriptionProfile
-            let avatarData = profile?.avatarImage
-            completion(name, description, avatarData)
+            if let userProfile = profile {
+                let name = userProfile.name
+                let description = userProfile.descriptionProfile
+                let avatarData = userProfile.avatarImage
+                DispatchQueue.main.async {
+                    completion(name, description, avatarData)
+                }
+            } else {
+                assert(false, "profile is nil")
+            }
+            
         }
         
         
@@ -36,18 +42,37 @@ class ProfileService: IProfileService {
 
     
     
-    func saveProfile(completion: ((Error?) -> ())?) {
-        profileStorage.saveProfile { (error) in
-            if let unwrappedError = error {
-                if let handler = completion {
-                    handler(unwrappedError)
+    func saveProfile(name: String?, description: String?, avatarData: Data? ,completion: ((Error?) -> ())?) {
+        
+    
+        Profile.getProfile(in: profileStorage.coreDataStack.saveContext) { (profile) in
+            if let userProfile = profile {
+                userProfile.name = name
+                userProfile.descriptionProfile = description
+                userProfile.avatarImage = avatarData
+                
+                //сохраняем в UserDefaults для использования в MultipeerCommunicator
+                UserDefaults.standard.set(userProfile.name, forKey: "name")
+                
+                self.profileStorage.saveProfile { (error) in
+                    if let unwrappedError = error {
+                        if let handler = completion {
+                            handler(unwrappedError)
+                        }
+                    } else {
+                        print("Data was saved")
+                        if let handler = completion {
+                            handler(nil)
+                        }
+                    }
                 }
             } else {
-                print("Data was saved")
-                if let handler = completion {
-                    handler(nil)
-                }
+                assert(false, "profile is nil")
             }
+            
+
         }
+        
+
     }
 }

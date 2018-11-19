@@ -290,6 +290,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
 
         avatarImageView.image = newAvatar
+        profileToSave?.avatar = newAvatar
         self.avatarWasChanged = true
         self.dataWasChanged = true
         picker.dismiss(animated: true, completion: nil)

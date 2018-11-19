@@ -12,14 +12,15 @@ import Foundation
 protocol IProfileStorage {
     func loadProfile(completion: @escaping (Profile?) -> Void)
     func saveProfile(completion: @escaping (Error?) -> Void)
+    var coreDataStack: ICoreDataStack {get}
 }
 
 class ProfileStorage: IProfileStorage {
-
-    private let coreDataStack = CoreDataStack.shared
+    
+    var coreDataStack: ICoreDataStack = CoreDataStack.shared
 
     func loadProfile(completion: @escaping (Profile?) -> Void) {
-        Profile.getProfile(in: coreDataStack.saveContext) { (userProfile) in
+        Profile.getProfile(in: coreDataStack.mainContext) { (userProfile) in
             if let profile = userProfile {
                 DispatchQueue.main.async {
                     completion(profile)

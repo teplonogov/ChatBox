@@ -180,6 +180,22 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		CF598A8D21A319B2000F68D9 /* FRCService */ = {
+			isa = PBXGroup;
+			children = (
+				CFD7876221A2D4FF00E9634B /* FRCService.swift */,
+			);
+			path = FRCService;
+			sourceTree = "<group>";
+		};
+		CF598A8E21A319C5000F68D9 /* CoreDataService */ = {
+			isa = PBXGroup;
+			children = (
+				CFD7876521A2DA7E00E9634B /* CoreDataService.swift */,
+			);
+			path = CoreDataService;
+			sourceTree = "<group>";
+		};
 		CF6735902170B16C0062A600 /* UIColor+ChatBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,13 +277,12 @@
 		CFD7872B219DB65A00E9634B /* 2. ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				CF598A8E21A319C5000F68D9 /* CoreDataService */,
+				CF598A8D21A319B2000F68D9 /* FRCService */,
 				CFD7875621A2A4E100E9634B /* CommunicationService */,
 				CFD7874F21A1C28800E9634B /* ThemesService */,
 				CFD7874221A18C8400E9634B /* ProfileService */,
 				CFD7872C219DB67300E9634B /* Assembly */,
-				CFD7876221A2D4FF00E9634B /* FRCService.swift */,
-				CFD7876521A2DA7E00E9634B /* CoreDataService.swift */,
-				CFD7876721A2EA2900E9634B /* IComminicationService.swift */,
 			);
 			path = "2. ServiceLayer";
 			sourceTree = "<group>";
@@ -431,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				CFFD094B21820B2200016184 /* CommunicationService.swift */,
+				CFD7876721A2EA2900E9634B /* IComminicationService.swift */,
 			);
 			path = CommunicationService;
 			sourceTree = "<group>";

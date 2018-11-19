@@ -47,7 +47,10 @@ class ProfileModel: IProfileModel {
     }
     
     func saveUserProfile(profile: ProfileDisplayModel, handler: ((Error?)->())?) {
-        profileService.saveProfile { (error) in
+        
+        let imageData = profile.avatar.jpegData(compressionQuality: 1)
+        
+        profileService.saveProfile(name: profile.name, description: profile.description, avatarData: imageData) { (error) in
             if let unwrappedError = error {
                 if let completionHandler = handler {
                     completionHandler(unwrappedError)
@@ -57,8 +60,11 @@ class ProfileModel: IProfileModel {
             if let completionHandler = handler {
                 completionHandler(nil)
             }
-            
+
         }
+        
+        
+        
     }
     
     

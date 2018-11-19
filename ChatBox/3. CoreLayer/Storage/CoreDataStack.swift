@@ -48,29 +48,30 @@ class CoreDataStack: ICoreDataStack {
         return coordinator
     }()
 
-    lazy var masterContext: NSManagedObjectContext = {
-        var masterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-
-        masterContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        masterContext.mergePolicy = NSOverwriteMergePolicy
-        return masterContext
-    }()
-
-    lazy var mainContext: NSManagedObjectContext = {
-        var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-
-        mainContext.parent = self.masterContext
-        mainContext.mergePolicy = NSOverwriteMergePolicy
-        return mainContext
-    }()
-
     lazy var saveContext: NSManagedObjectContext = {
-        var saveContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-
-        saveContext.parent = self.mainContext
-        saveContext.mergePolicy = NSOverwriteMergePolicy
-        return saveContext
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.parent = mainContext
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        context.undoManager = nil
+        return context
     }()
+    
+    lazy var mainContext: NSManagedObjectContext = {
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        context.parent = masterContext
+        context.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+        context.undoManager = nil
+        return context
+    }()
+    
+    lazy var masterContext: NSManagedObjectContext = {
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.persistentStoreCoordinator = persistentStoreCoordinator
+        context.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+        context.undoManager = nil
+        return context
+    }()
+
 
     func performSave(context: NSManagedObjectContext, completionHandler: ((Error?) -> Void)?) {
         context.perform {

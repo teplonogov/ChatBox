@@ -24,6 +24,7 @@ extension Profile {
                                                                 into: context) as? Profile else {
             return nil
         }
+        profile.currentUser = User.insertUser(withID: UIDevice.current.name, in: context)
         profile.name = UIDevice.current.name
         profile.avatarImage = UIImage(named: "placeholder-user")!.jpegData(compressionQuality: 1.0)
         profile.descriptionProfile = ""
@@ -32,7 +33,9 @@ extension Profile {
 
     static func getProfile(in context: NSManagedObjectContext, completion: @escaping (Profile?) -> Void) {
         context.perform {
-            guard let model = context.persistentStoreCoordinator?.managedObjectModel else { return }
+            guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
+                return
+            }
             guard let request = Profile.getRequest(model: model) else { return }
             var profile: Profile?
             do {
