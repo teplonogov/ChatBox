@@ -20,26 +20,24 @@ class ConversationViewController: UIViewController {
     @IBOutlet var messageTextField: UITextField!
 
     var fetchedResultsController: NSFetchedResultsController<Message>!
+    var presentationAssembly: IPresentationAssembly!
+    var model: ConversationModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         sendButton.isEnabled = false
-        CommunicationManager.shared.delegate = self
 
-        guard let conversationID = conversation.id else {
+        guard let userId = conversation.id else {
             return
         }
-        let request = FetchRequests.fetchMessagesFrom(conversationID: conversationID)
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                      managedObjectContext: CoreDataStack.shared.mainContext,
-                                                        sectionNameKeyPath: nil,
-                                                                 cacheName: nil)
+        
+        fetchedResultsController = model.setupMessagesFetchedResultController(userID: userId)
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            print(error.localizedDescription)
+            
         }
 
         setupKeyboard()
@@ -92,23 +90,23 @@ class ConversationViewController: UIViewController {
 
         noMessagesLabel.isHidden = true
 
-        CommunicationManager.shared.communicator.sendMessage(string: text, to: conversationID) { (success, error) in
-            if success {
+        model.sendMessage(text: text, conversationId: conversationID) { succes, error in
+            if succes {
                 self.messageTextField.text = ""
                 self.sendButton.isEnabled = false
             }
             if let error = error {
                 print(error.localizedDescription)
                 self.view.endEditing(true)
-                let alert = UIAlertController(title: "Error after trying send message",
-                                              message: nil,
-                                              preferredStyle: .alert)
+                let alert = UIAlertController(title: "Ошибка при отправке сообщения",
+                                              message: nil, preferredStyle: .alert)
                 let action = UIAlertAction(title: "Ок", style: .default, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
             }
         }
-
+        
+        
     }
 
     // MARK: - Notifications

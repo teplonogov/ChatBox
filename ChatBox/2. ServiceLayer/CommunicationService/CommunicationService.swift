@@ -14,50 +14,68 @@ protocol CommunicatorListDelegate: class {
     func handleError(error: Error)
 }
 
-protocol CommunicatorDelegate: class {
-    
-    //discovering
-    func didFoundUser(userID: String, userName: String?)
-    func didLostUser(userID: String)
-    
-    //errors
-    func failedToStartBrowsingForUsers(error: Error)
-    func failedToStartAdvertising(error: Error)
-    
-    //messages
-    func didRecieveMessage(text: String, fromUser: String, toUser: String)
-    
-}
 
-class CommunicationManager: CommunicatorDelegate {
+//protocol CommunicatorDelegate: class {
+//
+//    //discovering
+//    func didFoundUser(userID: String, userName: String?)
+//    func didLostUser(userID: String)
+//
+//    //errors
+//    func failedToStartBrowsingForUsers(error: Error)
+//    func failedToStartAdvertising(error: Error)
+//
+//    //messages
+//    func didRecieveMessage(text: String, fromUser: String, toUser: String)
+//
+//}
 
-    static let shared = CommunicationManager()
-    let communicator = MultipeerCommunicator.shared
-    weak var delegate: CommunicatorListDelegate?
+class CommunicationService: ICommunicationService {
+    weak var delegate: CommunicationHandlerDelegate?
+    var communicator: Communicator
+    var coreDataStack: ICoreDataStack
+    var fetchRequests: IFetchRequests
 
     let storageManager = ProfileStorage()
 
-    private init() {
-        storageManager.loadProfile { (userProfile) in
-            guard let profile = userProfile else {
-                return
-            }
-            
-            self.communicator.startCommunication(name: nil)
-            self.communicator.delegate = self
-        }
-
+    init(name: String, communicator: Communicator,
+         coreDataStack: ICoreDataStack, fetchRequests: IFetchRequests) {
+        self.communicator = communicator
+        self.fetchRequests = fetchRequests
+        self.coreDataStack = coreDataStack
+        self.communicator.delegate = self
+        self.communicator.startCommunication(name: name)
     }
 
-    // MARK: - CommunicatorDelegate
+    
+    func didStartSessions() {
+        let saveContext = coreDataStack.saveContext
+        saveContext.perform {
+            DispatchQueue.main.sync {
+                self.communicator.online = false
+            }
+            guard let conversations = Conversation.findOnlineConversations(in: saveContext)
+                else {
+                    DispatchQueue.main.sync {
+                        self.communicator.online = true
+                    }
+                    return
+            }
+            conversations.forEach { $0.isOnline = false; $0.user?.isOnline = false }
+            self.coreDataStack.performSave(context: saveContext, completionHandler: nil)
+            DispatchQueue.main.sync {
+                self.communicator.online = true
+            }
+        }
+    }
 
-    func didFoundUser(userID: String, userName: String?) {
+    func didFoundUser(userId: String, userName: String?) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
-            guard let user = User.findOrInsertUser(withID: userID, in: saveContext) else {
+            guard let user = User.findOrInsertUser(withID: userId, in: saveContext) else {
                 return
             }
-            let conversation = Conversation.findOrInsertConversation(withID: userID, in: saveContext)
+            let conversation = Conversation.findOrInsertConversation(withID: userId, in: saveContext)
             user.name = userName
             user.isOnline = true
             conversation.isOnline = true
@@ -66,20 +84,17 @@ class CommunicationManager: CommunicatorDelegate {
         }
     }
 
-    func didLostUser(userID: String) {
-        let saveContext = CoreDataStack.shared.saveContext
+    func didLostUser(userId: String) {
+        let saveContext = coreDataStack.saveContext
         saveContext.perform {
-            let conversation = Conversation.findOrInsertConversation(withID: userID, in: saveContext)
+            
+            let conversation = Conversation.findOrInsertConversation(withID: userId,
+                                                                     in: saveContext)
             conversation.isOnline = false
             conversation.user?.isOnline = false
-            CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
+            
+            self.coreDataStack.performSave(context: saveContext, completionHandler: nil)
         }
-        if let unwrappedDelegate = delegate {
-            DispatchQueue.main.async {
-                unwrappedDelegate.updateUsers()
-            }
-        }
-
     }
 
     func failedToStartBrowsingForUsers(error: Error) {
@@ -101,7 +116,7 @@ class CommunicationManager: CommunicatorDelegate {
         }
     }
 
-    func didRecieveMessage(text: String, fromUser: String, toUser: String) {
+    func didReceiveMessage(text: String, fromUser: String, toUser: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
             let message: Message
@@ -129,6 +144,11 @@ class CommunicationManager: CommunicatorDelegate {
             CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
         }
 
+    }
+    
+    
+    func sendMessage(text: String, conversationID: String, completion: @escaping (Bool, Error?) -> Void) {
+        communicator.sendMessage(string: text, to: conversationID, completionHandler: completion)
     }
 
 }

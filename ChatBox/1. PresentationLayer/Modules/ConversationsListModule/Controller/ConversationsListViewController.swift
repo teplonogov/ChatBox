@@ -15,7 +15,8 @@ class ConversationsListViewController: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<Conversation>!
     
     var presentationAssembly: IPresentationAssembly!
-    var model: IConversationsListModel!
+    var model: ConversationsListModel!
+    
     
 //    init(model: IConversationsListModel, presentationAssembly: IPresentationAssembly) {
 //        self.model = model
@@ -42,22 +43,18 @@ class ConversationsListViewController: UIViewController {
         let nibCell = UINib(nibName: "ConversationCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "ConversationCell")
 
-        let request = FetchRequests.fetchAllConversations()
-        request.fetchBatchSize = 20
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                              managedObjectContext: CoreDataStack.shared.mainContext,
-                                                              sectionNameKeyPath: "isOnline", cacheName: nil)
+        fetchedResultsController = model.setupConversationsFetchedResultController()
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
-        } catch let error {
-            print(error)
+        } catch {
+            assertionFailure("Error. Need perform fetch on fetchResultController")
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        CommunicationManager.shared.delegate = self
+        //CommunicationService.shared.delegate = self
         updateUsers()
     }
 
@@ -166,9 +163,3 @@ extension ConversationsListViewController: CommunicatorListDelegate {
 
 }
 
-extension ConversationsListViewController: ConversationsListModelDelegate {
-    func setup(dataSource: [CellDisplayModel]) {
-        
-    }
-    
-}

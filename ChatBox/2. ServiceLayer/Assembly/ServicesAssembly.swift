@@ -10,12 +10,10 @@ import Foundation
 
 protocol IServicesAsembly {
     var profileService: IProfileService { get }
-    var usersService: IUsersService { get }
+    var communicationService: ICommunicationService { get }
 }
 
 class ServicesAssmbly: IServicesAsembly {
-    
-    
     
     private let coreAssembly: ICoreAssembly
     init(coreAssembly: ICoreAssembly) {
@@ -23,5 +21,6 @@ class ServicesAssmbly: IServicesAsembly {
     }
     
     lazy var profileService: IProfileService = ProfileService(profileStorage: self.coreAssembly.profileStorage)
-    lazy var usersService: IUsersService = UsersService()
+    let name = UserDefaults.standard.string(forKey: "name") ?? UIDevice.current.name
+    lazy var communicationService: ICommunicationService = CommunicationService(name: name, communicator: coreAssembly.communicator, coreDataStack: coreAssembly.coreDataStack, fetchRequests: coreAssembly.fetchRequests)
 }

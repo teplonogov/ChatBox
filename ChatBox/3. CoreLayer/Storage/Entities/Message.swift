@@ -20,7 +20,8 @@ extension Message {
     }
 
     static func findMessagesFrom(conversationID: String, in context: NSManagedObjectContext) -> [Message]? {
-        let request = FetchRequests.fetchMessagesFrom(conversationID: conversationID)
+        let fetchRequests = FetchRequests()
+        let request = fetchRequests.fetchMessagesFrom(conversationID: conversationID)
         do {
             let messages = try context.fetch(request)
             return messages

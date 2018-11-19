@@ -9,42 +9,41 @@
 import Foundation
 import CoreData
 
-struct CellDisplayModel {
-    let name: String
-    let lastMessage: String
-    let date: String
-    let isOnline: Bool
-}
 
-protocol IConversationsListModel: class {
-    var delegate: ConversationsListModelDelegate? { get set }
-    func fetchOnlineUsers()
-}
-
-protocol ConversationsListModelDelegate: class {
-    func setup(dataSource: [CellDisplayModel])
-}
-
-
-class ConversationsListModel: IConversationsListModel {
-
-    weak var delegate: ConversationsListModelDelegate?
+protocol IConversationsListModel {
+    var communicationService: ICommunicationService { get }
+    func setHandler(communicationHandler: CommunicationHandlerDelegate)
     
-    let usersService: IUsersService
+}
+
+@objc protocol IFRCSetup {
+    @objc optional func setupConversationsFetchedResultController() -> NSFetchedResultsController<Conversation>
+    @objc optional func setupMessagesFetchedResultController(userID: String) -> NSFetchedResultsController<Message>
+}
+
+
+class ConversationsListModel: IConversationsListModel,IFRCSetup {
     
-    init(usersService: IUsersService) {
-        self.usersService = usersService
+    var communicationService: ICommunicationService
+    
+    init(communicationService: ICommunicationService) {
+        self.communicationService = communicationService
     }
     
-    
-    func fetchOnlineUsers() {
-        usersService.getUsers {
-            guard let unwrappedDelegate = self.delegate else {
-                return
-            }
-            
-            //unwrappedDelegate.setup(dataSource: <#T##[CellDisplayModel]#>)
-        }
+    func setHandler(communicationHandler: CommunicationHandlerDelegate) {
+        communicationService.delegate = communicationHandler
     }
+    
+    func setupConversationsFetchedResultController() -> NSFetchedResultsController<Conversation> {
+        let request = communicationService.fetchRequests.fetchAllConversations()
+        request.fetchBatchSize = 20
+        let mainContext = communicationService.coreDataStack.mainContext
+        let fetchResultController = NSFetchedResultsController(fetchRequest: request,
+                                                               managedObjectContext: mainContext,
+                                                               sectionNameKeyPath: "isOnline",
+                                                               cacheName: nil)
+        return fetchResultController
+    }
+
     
 }

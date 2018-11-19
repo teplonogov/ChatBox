@@ -11,7 +11,7 @@ import Foundation
 protocol IPresentationAssembly {
     func createConversationsListController() -> ConversationsListViewController
     func createProfileController() -> ProfileViewController
-    func createThemesViewController() -> ThemesViewController
+    func createThemesViewController(from vc: ConversationsListViewController) -> UINavigationController
     func createConversationViewController() -> ConversationViewController
 }
 
@@ -22,11 +22,11 @@ class PresentationAssembly: IPresentationAssembly {
     }
     func createConversationsListController() -> ConversationsListViewController {
         let sb = UIStoryboard(name: "ConversationsList", bundle: nil)
-        let model = ConversationsListModel(usersService: serviceAssembly.usersService)
+        let model = ConversationsListModel(communicationService: serviceAssembly.communicationService)
         let conversationsListVC = sb.instantiateViewController(withIdentifier: "list") as! ConversationsListViewController
         conversationsListVC.model = model
         conversationsListVC.presentationAssembly = self
-        model.delegate = conversationsListVC
+//        model.delegate = conversationsListVC
         return conversationsListVC
     }
     func createProfileController() -> ProfileViewController {
@@ -35,8 +35,20 @@ class PresentationAssembly: IPresentationAssembly {
         profileModel.delegate = profileVC
         return profileVC
     }
-    func createThemesViewController() -> ThemesViewController {
-        return ThemesViewController()
+    func createThemesViewController(from vc: ConversationsListViewController) -> UINavigationController {
+        let model = ThemesModel()
+        let themesVC = ThemesViewController(model: model, presentationAssembly: self)
+        let themesNavigationController = UINavigationController(rootViewController: themesVC)
+        themesVC.handler = { (selectedTheme: UIColor) in
+            vc.logThemeChanging(selectedTheme: selectedTheme)
+            vc.configureAppearance(color: selectedTheme)
+            
+            DispatchQueue.global(qos: .utility).async {
+                let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as Data?
+                UserDefaults.standard.set(colorData, forKey: "theme")
+            }
+        }
+        return themesNavigationController
     }
     func createConversationViewController() -> ConversationViewController {
         return ConversationViewController()

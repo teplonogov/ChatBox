@@ -22,7 +22,8 @@ extension Conversation {
     }
 
     static func findConversation(withID: String, in context: NSManagedObjectContext) -> Conversation? {
-        let fetchConversationWithId = FetchRequests.fetchConversations(withID: withID)
+        let fetchRequests = FetchRequests()
+        let fetchConversationWithId = fetchRequests.fetchConversations(withID: withID)
 
         do {
             let conversationsWithId = try context.fetch(fetchConversationWithId)
@@ -47,7 +48,8 @@ extension Conversation {
     }
 
     static func findOnlineConversations(in context: NSManagedObjectContext) -> [Conversation]? {
-        let fetchRequest = FetchRequests.fetchOnlineConversations()
+        let fetchRequests = FetchRequests()
+        let fetchRequest = fetchRequests.fetchOnlineConversations()
         do {
             let conversations = try context.fetch(fetchRequest)
             return conversations

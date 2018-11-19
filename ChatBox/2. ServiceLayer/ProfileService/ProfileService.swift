@@ -25,6 +25,7 @@ class ProfileService: IProfileService {
     func getProfile(completion: @escaping (String?, String?, Data?) -> Void) {
         profileStorage.loadProfile { (profile) in
             let name = profile?.name
+            // почему падает?( если в loadProfile поставить mainContext, то данные приходят, но не те
             let description = profile?.descriptionProfile
             let avatarData = profile?.avatarImage
             completion(name, description, avatarData)

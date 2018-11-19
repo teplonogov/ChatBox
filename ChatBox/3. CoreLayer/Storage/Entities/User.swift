@@ -20,7 +20,8 @@ extension User {
     }
 
     static func findOrInsertUser(withID: String, in context: NSManagedObjectContext) -> User? {
-        let request = FetchRequests.fetchUser(withID: withID)
+        let fetchRequests = FetchRequests()
+        let request = fetchRequests.fetchUser(withID: withID)
         do {
             let users = try context.fetch(request)
             assert(users.count < 2, "Users with id \(withID) more than 1")
