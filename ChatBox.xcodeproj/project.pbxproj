@@ -60,7 +60,6 @@
 		CFD7875D21A2CBE300E9634B /* ConversationsListExtensionSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6735F321739E790062A600 /* ConversationsListExtensionSwift.swift */; };
 		CFD7876121A2D04600E9634B /* ThemesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7876021A2D04600E9634B /* ThemesModel.swift */; };
 		CFD7876321A2D4FF00E9634B /* FRCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7876221A2D4FF00E9634B /* FRCService.swift */; };
-		CFD7876621A2DA7E00E9634B /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7876521A2DA7E00E9634B /* CoreDataService.swift */; };
 		CFD7876821A2EA2900E9634B /* IComminicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7876721A2EA2900E9634B /* IComminicationService.swift */; };
 		CFD7876A21A2EAE100E9634B /* CommunicationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7876921A2EAE100E9634B /* CommunicationHandler.swift */; };
 		CFD7876C21A2FFBB00E9634B /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7876B21A2FFBB00E9634B /* ConversationModel.swift */; };
@@ -124,7 +123,6 @@
 		CFD7874921A195AC00E9634B /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		CFD7876021A2D04600E9634B /* ThemesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesModel.swift; sourceTree = "<group>"; };
 		CFD7876221A2D4FF00E9634B /* FRCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCService.swift; sourceTree = "<group>"; };
-		CFD7876521A2DA7E00E9634B /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		CFD7876721A2EA2900E9634B /* IComminicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IComminicationService.swift; sourceTree = "<group>"; };
 		CFD7876921A2EAE100E9634B /* CommunicationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationHandler.swift; sourceTree = "<group>"; };
 		CFD7876B21A2FFBB00E9634B /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
@@ -186,14 +184,6 @@
 				CFD7876221A2D4FF00E9634B /* FRCService.swift */,
 			);
 			path = FRCService;
-			sourceTree = "<group>";
-		};
-		CF598A8E21A319C5000F68D9 /* CoreDataService */ = {
-			isa = PBXGroup;
-			children = (
-				CFD7876521A2DA7E00E9634B /* CoreDataService.swift */,
-			);
-			path = CoreDataService;
 			sourceTree = "<group>";
 		};
 		CF6735902170B16C0062A600 /* UIColor+ChatBox */ = {
@@ -277,7 +267,6 @@
 		CFD7872B219DB65A00E9634B /* 2. ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				CF598A8E21A319C5000F68D9 /* CoreDataService */,
 				CF598A8D21A319B2000F68D9 /* FRCService */,
 				CFD7875621A2A4E100E9634B /* CommunicationService */,
 				CFD7874F21A1C28800E9634B /* ThemesService */,
@@ -743,7 +732,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFD4BF272198745300A875E4 /* Conversation.swift in Sources */,
-				CFD7876621A2DA7E00E9634B /* CoreDataService.swift in Sources */,
 				CFD7876321A2D4FF00E9634B /* FRCService.swift in Sources */,
 				CFD4BF2D21987D1300A875E4 /* ConversationsList+FRCDelegate.swift in Sources */,
 				CF24DBF42158E30C00E00BC6 /* Logger.swift in Sources */,
