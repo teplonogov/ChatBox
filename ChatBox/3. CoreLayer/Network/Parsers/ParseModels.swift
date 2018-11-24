@@ -19,6 +19,7 @@ struct PixabayModel: Codable {
 }
 
 struct PixabayImage {
-    let imageData: Data
-    lazy var largeImageURL: String? = nil
+    let smallImage: UIImage
+//    let imageData: Data
+    var largeImageURL: String? = nil
 }

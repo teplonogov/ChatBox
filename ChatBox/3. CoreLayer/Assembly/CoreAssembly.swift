@@ -13,6 +13,8 @@ protocol ICoreAssembly {
     var coreDataStack: ICoreDataStack { get }
     var communicator: Communicator { get }
     var fetchRequests: IFetchRequests { get }
+    var requestSender: IRequestSender { get }
+    
 
 }
 
@@ -21,4 +23,5 @@ class CoreAssembly: ICoreAssembly {
     lazy var coreDataStack: ICoreDataStack = CoreDataStack.shared
     lazy var communicator: Communicator = MultipeerCommunicator.shared
     lazy var fetchRequests: IFetchRequests = FetchRequests()
+    lazy var requestSender: IRequestSender = RequestSender()
 }

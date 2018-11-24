@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="MPg-OQ-C6D">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="MPg-OQ-C6D">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                     </imageView>
                 </subviews>
@@ -33,6 +33,9 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="170" height="150"/>
+            <connections>
+                <outlet property="imageView" destination="MPg-OQ-C6D" id="I7A-So-ygH"/>
+            </connections>
             <point key="canvasLocation" x="-315.19999999999999" y="-179.01049475262371"/>
         </collectionViewCell>
     </objects>

@@ -13,10 +13,11 @@ class PixabayRequest: IRequest {
     
     private let baseUrl: String = "https://pixabay.com/api/"
     private let apiKey: String
-    private let searchString: String = "humans"
-    var page: Int = 1
+    private let searchString: String = "man"
+    private var page: Int
     
-    init(apiKey: String) {
+    init(page: Int, apiKey: String) {
+        self.page = page
         self.apiKey = apiKey
     }
     

@@ -11,6 +11,7 @@ import Foundation
 protocol IServicesAsembly {
     var profileService: IProfileService { get }
     var communicationService: ICommunicationService { get }
+    var pixabayService: IPixabayService { get }
 }
 
 class ServicesAssmbly: IServicesAsembly {
@@ -26,4 +27,6 @@ class ServicesAssmbly: IServicesAsembly {
                                                                                 communicator: coreAssembly.communicator,
                                                                                 stack: coreAssembly.coreDataStack,
                                                                                 requests: coreAssembly.fetchRequests)
+    
+    lazy var pixabayService: IPixabayService = PixabayService(requestSender: coreAssembly.requestSender)
 }

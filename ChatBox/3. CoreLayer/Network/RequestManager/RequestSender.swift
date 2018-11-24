@@ -30,6 +30,7 @@ class RequestSender: IRequestSender {
                 return
             }
             completionHandler(Result.success(parsedModel))
+            
         }
         
         task.resume()
@@ -39,25 +40,25 @@ class RequestSender: IRequestSender {
     
     
     func fetchImage(urlString: String, completionHandler: @escaping (PixabayImage?, Error?) -> Void) {
-
-        let request = DownloadImageRequest(urlString: urlString)
         
-        guard let imageRequest = request.urlRequest else {
+        guard let url = URL(string: urlString) else {
             print("⭕️ Error: invalid url")
             return
         }
 
-        session.dataTask(with: imageRequest) { (data, response, error) in
+        let task = session.dataTask(with: url) { (data, response, error) in
             if let unwrappedError = error {
                 completionHandler(nil, unwrappedError)
                 return
             }
             
-            if let unwrappedData = data {
-                let pixabayImage = PixabayImage(imageData: unwrappedData, largeImageURL: nil)
+            if let unwrappedData = data, let image = UIImage(data: unwrappedData) {
+                let pixabayImage = PixabayImage(smallImage: image, largeImageURL: nil)
                 completionHandler(pixabayImage, nil)
             }
         }
+        
+        task.resume()
         
     }
     

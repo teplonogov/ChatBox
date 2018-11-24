@@ -53,7 +53,6 @@
 		CFCADC3A21A8518B00AF719F /* RequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3921A8518B00AF719F /* RequestSender.swift */; };
 		CFCADC3F21A852E800AF719F /* PixabayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3E21A852E800AF719F /* PixabayRequest.swift */; };
 		CFCADC4121A8593600AF719F /* ParseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4021A8593600AF719F /* ParseModels.swift */; };
-		CFCADC4321A8681500AF719F /* DownloadImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4221A8681500AF719F /* DownloadImageRequest.swift */; };
 		CFCADC4521A8698500AF719F /* PixabayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4421A8698500AF719F /* PixabayParser.swift */; };
 		CFCADC4721A86E8500AF719F /* RequestsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4621A86E8500AF719F /* RequestsFactory.swift */; };
 		CFCADC4921A8744A00AF719F /* PixabayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4821A8744A00AF719F /* PixabayService.swift */; };
@@ -133,7 +132,6 @@
 		CFCADC3921A8518B00AF719F /* RequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSender.swift; sourceTree = "<group>"; };
 		CFCADC3E21A852E800AF719F /* PixabayRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayRequest.swift; sourceTree = "<group>"; };
 		CFCADC4021A8593600AF719F /* ParseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseModels.swift; sourceTree = "<group>"; };
-		CFCADC4221A8681500AF719F /* DownloadImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageRequest.swift; sourceTree = "<group>"; };
 		CFCADC4421A8698500AF719F /* PixabayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayParser.swift; sourceTree = "<group>"; };
 		CFCADC4621A86E8500AF719F /* RequestsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsFactory.swift; sourceTree = "<group>"; };
 		CFCADC4821A8744A00AF719F /* PixabayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayService.swift; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 			children = (
 				CFCADC3721A84D7B00AF719F /* IRequest.swift */,
 				CFCADC3E21A852E800AF719F /* PixabayRequest.swift */,
-				CFCADC4221A8681500AF719F /* DownloadImageRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -890,7 +887,6 @@
 				CFD4BF2521986DFD00A875E4 /* FetchRequests.swift in Sources */,
 				CFD7876A21A2EAE100E9634B /* CommunicationHandler.swift in Sources */,
 				CF4766222168F136008AF8C2 /* ConversationCell.swift in Sources */,
-				CFCADC4321A8681500AF719F /* DownloadImageRequest.swift in Sources */,
 				CFD78734219DB79600E9634B /* RootAssembly.swift in Sources */,
 				CFCADC2721A8176600AF719F /* ImageLoaderViewController.swift in Sources */,
 				CFA085C0218A1E590038A284 /* CoreDataModel.xcdatamodeld in Sources */,

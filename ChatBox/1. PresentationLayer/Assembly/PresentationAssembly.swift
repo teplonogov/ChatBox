@@ -59,7 +59,9 @@ class PresentationAssembly: IPresentationAssembly {
     }
     
     func createImageLoaderViewController() -> UINavigationController {
-        let imageLoaderVC = ImageLoaderViewController(presentationAssembly: self)
+        let model = ImageLoaderModel(pixabayService: serviceAssembly.pixabayService)
+        let imageLoaderVC = ImageLoaderViewController(model: model, presentationAssembly: self)
+        model.delegate = imageLoaderVC
         let navController = UINavigationController(rootViewController: imageLoaderVC)
         navController.navigationBar.prefersLargeTitles = true
         return navController

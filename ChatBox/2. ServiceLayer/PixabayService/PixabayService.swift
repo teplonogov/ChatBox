@@ -9,18 +9,18 @@
 import Foundation
 
 protocol IPixabayService {
-    var fethedPixabayImages: [PixabayImage]? {get}
+    var fethedPixabayImages: [PixabayImage] { get set }
     func loadPixabayObjects(completionHandler: @escaping ([PixabayImage]?, String?) -> Void)
     func loadImagesObject(from pixabayImage:PixabayImage?, pixabayItem: PixabayItem?, completionHandler: @escaping (PixabayImage?, Error?) -> Void)
 }
 
 class PixabayService: IPixabayService {
     
-    var fethedPixabayImages: [PixabayImage]?
+    var fethedPixabayImages: [PixabayImage] = []
     
-    let requestSender: RequestSender
+    let requestSender: IRequestSender
     
-    init(requestSender: RequestSender) {
+    init(requestSender: IRequestSender) {
         self.requestSender = requestSender
     }
     
@@ -43,16 +43,21 @@ class PixabayService: IPixabayService {
                             return
                         }
                         
-                        if var unwrappedPixabay = pixabayImage {
-                            unwrappedPixabay.largeImageURL = item.largeImageURL
-                            self.fethedPixabayImages?.append(unwrappedPixabay)
+                        if let unwrappedPixabay = pixabayImage {
+                            let pixabay = PixabayImage.init(smallImage: unwrappedPixabay.smallImage, largeImageURL: item.largeImageURL)
+                            self.fethedPixabayImages.append(pixabay)
                         }
                         
-                        completionHandler(self.fethedPixabayImages, nil)
+                        if self.fethedPixabayImages.count == 20 {
+                            completionHandler(self.fethedPixabayImages, nil)
+                        }
+                        
                         
                     })
                 }
-                //completionHandler(pixabayModel, nil)
+                //completionHandler(self.fethedPixabayImages, nil)
+                self.fethedPixabayImages.removeAll()
+
             }
         }
         
