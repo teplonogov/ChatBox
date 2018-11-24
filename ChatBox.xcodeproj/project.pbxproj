@@ -42,6 +42,21 @@
 		CFA085BC218A1DFD0038A284 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA085BB218A1DFD0038A284 /* CoreDataStack.swift */; };
 		CFA085C0218A1E590038A284 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CFA085BE218A1E590038A284 /* CoreDataModel.xcdatamodeld */; };
 		CFC17407216A371200A384CD /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17406216A371200A384CD /* MessageCell.swift */; };
+		CFCADC2721A8176600AF719F /* ImageLoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC2521A8176600AF719F /* ImageLoaderViewController.swift */; };
+		CFCADC2821A8176600AF719F /* ImageLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFCADC2621A8176600AF719F /* ImageLoaderViewController.xib */; };
+		CFCADC2B21A8190A00AF719F /* ImageLoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC2921A8190A00AF719F /* ImageLoaderCell.swift */; };
+		CFCADC2C21A8190A00AF719F /* ImageLoaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFCADC2A21A8190A00AF719F /* ImageLoaderCell.xib */; };
+		CFCADC3121A82D5700AF719F /* ImageLoaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3021A82D5700AF719F /* ImageLoaderModel.swift */; };
+		CFCADC3421A84C3400AF719F /* IRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3321A84C3400AF719F /* IRequestSender.swift */; };
+		CFCADC3621A84C7800AF719F /* IParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3521A84C7800AF719F /* IParser.swift */; };
+		CFCADC3821A84D7B00AF719F /* IRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3721A84D7B00AF719F /* IRequest.swift */; };
+		CFCADC3A21A8518B00AF719F /* RequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3921A8518B00AF719F /* RequestSender.swift */; };
+		CFCADC3F21A852E800AF719F /* PixabayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC3E21A852E800AF719F /* PixabayRequest.swift */; };
+		CFCADC4121A8593600AF719F /* ParseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4021A8593600AF719F /* ParseModels.swift */; };
+		CFCADC4321A8681500AF719F /* DownloadImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4221A8681500AF719F /* DownloadImageRequest.swift */; };
+		CFCADC4521A8698500AF719F /* PixabayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4421A8698500AF719F /* PixabayParser.swift */; };
+		CFCADC4721A86E8500AF719F /* RequestsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4621A86E8500AF719F /* RequestsFactory.swift */; };
+		CFCADC4921A8744A00AF719F /* PixabayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4821A8744A00AF719F /* PixabayService.swift */; };
 		CFD4BF2521986DFD00A875E4 /* FetchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD4BF2421986DFD00A875E4 /* FetchRequests.swift */; };
 		CFD4BF272198745300A875E4 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD4BF262198745300A875E4 /* Conversation.swift */; };
 		CFD4BF29219878B700A875E4 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD4BF28219878B700A875E4 /* Message.swift */; };
@@ -107,6 +122,21 @@
 		CFA085BB218A1DFD0038A284 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CFA085BF218A1E590038A284 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CFC17406216A371200A384CD /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		CFCADC2521A8176600AF719F /* ImageLoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderViewController.swift; sourceTree = "<group>"; };
+		CFCADC2621A8176600AF719F /* ImageLoaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageLoaderViewController.xib; sourceTree = "<group>"; };
+		CFCADC2921A8190A00AF719F /* ImageLoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderCell.swift; sourceTree = "<group>"; };
+		CFCADC2A21A8190A00AF719F /* ImageLoaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageLoaderCell.xib; sourceTree = "<group>"; };
+		CFCADC3021A82D5700AF719F /* ImageLoaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderModel.swift; sourceTree = "<group>"; };
+		CFCADC3321A84C3400AF719F /* IRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestSender.swift; sourceTree = "<group>"; };
+		CFCADC3521A84C7800AF719F /* IParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IParser.swift; sourceTree = "<group>"; };
+		CFCADC3721A84D7B00AF719F /* IRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequest.swift; sourceTree = "<group>"; };
+		CFCADC3921A8518B00AF719F /* RequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSender.swift; sourceTree = "<group>"; };
+		CFCADC3E21A852E800AF719F /* PixabayRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayRequest.swift; sourceTree = "<group>"; };
+		CFCADC4021A8593600AF719F /* ParseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseModels.swift; sourceTree = "<group>"; };
+		CFCADC4221A8681500AF719F /* DownloadImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageRequest.swift; sourceTree = "<group>"; };
+		CFCADC4421A8698500AF719F /* PixabayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayParser.swift; sourceTree = "<group>"; };
+		CFCADC4621A86E8500AF719F /* RequestsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsFactory.swift; sourceTree = "<group>"; };
+		CFCADC4821A8744A00AF719F /* PixabayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayService.swift; sourceTree = "<group>"; };
 		CFD4BF2421986DFD00A875E4 /* FetchRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRequests.swift; sourceTree = "<group>"; };
 		CFD4BF262198745300A875E4 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		CFD4BF28219878B700A875E4 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -195,6 +225,90 @@
 			path = "UIColor+ChatBox";
 			sourceTree = "<group>";
 		};
+		CFCADC2421A80E5C00AF719F /* ImageLoaderModule */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC2D21A8288300AF719F /* Controller */,
+				CFCADC2E21A8289100AF719F /* View */,
+				CFCADC2F21A8289800AF719F /* Model */,
+			);
+			path = ImageLoaderModule;
+			sourceTree = "<group>";
+		};
+		CFCADC2D21A8288300AF719F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC2521A8176600AF719F /* ImageLoaderViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CFCADC2E21A8289100AF719F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC2621A8176600AF719F /* ImageLoaderViewController.xib */,
+				CFCADC2921A8190A00AF719F /* ImageLoaderCell.swift */,
+				CFCADC2A21A8190A00AF719F /* ImageLoaderCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CFCADC2F21A8289800AF719F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC3021A82D5700AF719F /* ImageLoaderModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CFCADC3221A8453F00AF719F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC3B21A851AB00AF719F /* RequestManager */,
+				CFCADC3D21A852D600AF719F /* Parsers */,
+				CFCADC3C21A852CA00AF719F /* Requests */,
+				CFCADC4621A86E8500AF719F /* RequestsFactory.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CFCADC3B21A851AB00AF719F /* RequestManager */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC3321A84C3400AF719F /* IRequestSender.swift */,
+				CFCADC3921A8518B00AF719F /* RequestSender.swift */,
+			);
+			path = RequestManager;
+			sourceTree = "<group>";
+		};
+		CFCADC3C21A852CA00AF719F /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC3721A84D7B00AF719F /* IRequest.swift */,
+				CFCADC3E21A852E800AF719F /* PixabayRequest.swift */,
+				CFCADC4221A8681500AF719F /* DownloadImageRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		CFCADC3D21A852D600AF719F /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC3521A84C7800AF719F /* IParser.swift */,
+				CFCADC4021A8593600AF719F /* ParseModels.swift */,
+				CFCADC4421A8698500AF719F /* PixabayParser.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		CFCADC4A21A8745200AF719F /* PixabayService */ = {
+			isa = PBXGroup;
+			children = (
+				CFCADC4821A8744A00AF719F /* PixabayService.swift */,
+			);
+			path = PixabayService;
+			sourceTree = "<group>";
+		};
 		CFD78722219DAE7200E9634B /* 1. PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +323,7 @@
 		CFD78723219DAE9D00E9634B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				CFCADC2421A80E5C00AF719F /* ImageLoaderModule */,
 				CFD7874B21A1C01700E9634B /* ThemesModule */,
 				CFD7874521A1955A00E9634B /* ProfileModule */,
 				CFD78735219DBF7300E9634B /* ConversationsModule */,
@@ -271,7 +386,7 @@
 				CFD7875621A2A4E100E9634B /* CommunicationService */,
 				CFD7874F21A1C28800E9634B /* ThemesService */,
 				CFD7874221A18C8400E9634B /* ProfileService */,
-				CFD7872C219DB67300E9634B /* Assembly */,
+				CFCADC4A21A8745200AF719F /* PixabayService */,
 			);
 			path = "2. ServiceLayer";
 			sourceTree = "<group>";
@@ -290,6 +405,7 @@
 				CFD7875821A2A55C00E9634B /* Storage (Old) */,
 				CFD7875721A2A51100E9634B /* Communication */,
 				CFD7873F219EDB8C00E9634B /* Storage */,
+				CFCADC3221A8453F00AF719F /* Network */,
 				CFD78730219DB75A00E9634B /* Assembly */,
 			);
 			path = "3. CoreLayer";
@@ -526,6 +642,7 @@
 			children = (
 				CFD78722219DAE7200E9634B /* 1. PresentationLayer */,
 				CFD7872B219DB65A00E9634B /* 2. ServiceLayer */,
+				CFD7872C219DB67300E9634B /* Assembly */,
 				CFD7872F219DB73000E9634B /* 3. CoreLayer */,
 				CFDAEEC5215688D900E182F2 /* AppDelegate.swift */,
 				CFD78733219DB79600E9634B /* RootAssembly.swift */,
@@ -642,11 +759,13 @@
 			files = (
 				CF4766232168F136008AF8C2 /* ConversationCell.xib in Resources */,
 				CFDAEED0215688DC00E182F2 /* LaunchScreen.storyboard in Resources */,
+				CFCADC2C21A8190A00AF719F /* ImageLoaderCell.xib in Resources */,
 				CFD78739219DC0DA00E9634B /* Conversation.storyboard in Resources */,
 				CFDAEECD215688DC00E182F2 /* Assets.xcassets in Resources */,
 				CF673577216F688E0062A600 /* ProfileViewController.xib in Resources */,
 				CF673580216F7CC30062A600 /* ThemesViewController.xib in Resources */,
 				CFDAEECB215688D900E182F2 /* ConversationsList.storyboard in Resources */,
+				CFCADC2821A8176600AF719F /* ImageLoaderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +823,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "#\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -738,11 +857,14 @@
 				CFC17407216A371200A384CD /* MessageCell.swift in Sources */,
 				CFD7876C21A2FFBB00E9634B /* ConversationModel.swift in Sources */,
 				CFD78732219DB76B00E9634B /* CoreAssembly.swift in Sources */,
+				CFCADC4121A8593600AF719F /* ParseModels.swift in Sources */,
 				CFD4BF2B2198792E00A875E4 /* User.swift in Sources */,
+				CFCADC3A21A8518B00AF719F /* RequestSender.swift in Sources */,
 				CFFD094C21820B2200016184 /* CommunicationService.swift in Sources */,
 				CF67358F2170B15E0062A600 /* UIColor+ChatBox.m in Sources */,
 				CFD7874A21A195AC00E9634B /* ProfileModel.swift in Sources */,
 				CF5A6A2E215EC44B0084371A /* ProfileViewController.swift in Sources */,
+				CFCADC3621A84C7800AF719F /* IParser.swift in Sources */,
 				CF476634216A14DB008AF8C2 /* ConversationViewController.swift in Sources */,
 				CFDAEEC6215688D900E182F2 /* AppDelegate.swift in Sources */,
 				CF67358421709EB90062A600 /* Themes.m in Sources */,
@@ -751,23 +873,33 @@
 				CFD7875D21A2CBE300E9634B /* ConversationsListExtensionSwift.swift in Sources */,
 				CF47662A2169033E008AF8C2 /* ConversationsListViewController.swift in Sources */,
 				CFD4BF2F21988F3300A875E4 /* ConversationVC+FRCDelegate.swift in Sources */,
+				CFCADC3121A82D5700AF719F /* ImageLoaderModel.swift in Sources */,
 				CFD7872A219DB3F000E9634B /* PresentationAssembly.swift in Sources */,
+				CFCADC4521A8698500AF719F /* PixabayParser.swift in Sources */,
+				CFCADC4921A8744A00AF719F /* PixabayService.swift in Sources */,
 				CFD7872E219DB68800E9634B /* ServicesAssembly.swift in Sources */,
+				CFCADC3F21A852E800AF719F /* PixabayRequest.swift in Sources */,
 				CFA085BC218A1DFD0038A284 /* CoreDataStack.swift in Sources */,
 				CFD7875C21A2CBA400E9634B /* ThemesViewController.swift in Sources */,
 				CF6735CD21738F2E0062A600 /* ThemeService.swift in Sources */,
 				CF14459B2190DABD00155F54 /* ProfileStorage.swift in Sources */,
 				CFD7876121A2D04600E9634B /* ThemesModel.swift in Sources */,
+				CFCADC3421A84C3400AF719F /* IRequestSender.swift in Sources */,
 				CFD7873B219DC2F600E9634B /* ConversationsListModel.swift in Sources */,
 				CFFD0947218203E800016184 /* MultipeerCommunicator.swift in Sources */,
 				CFD4BF2521986DFD00A875E4 /* FetchRequests.swift in Sources */,
 				CFD7876A21A2EAE100E9634B /* CommunicationHandler.swift in Sources */,
 				CF4766222168F136008AF8C2 /* ConversationCell.swift in Sources */,
+				CFCADC4321A8681500AF719F /* DownloadImageRequest.swift in Sources */,
 				CFD78734219DB79600E9634B /* RootAssembly.swift in Sources */,
+				CFCADC2721A8176600AF719F /* ImageLoaderViewController.swift in Sources */,
 				CFA085C0218A1E590038A284 /* CoreDataModel.xcdatamodeld in Sources */,
+				CFCADC3821A84D7B00AF719F /* IRequest.swift in Sources */,
 				CFD4BF29219878B700A875E4 /* Message.swift in Sources */,
 				CF14459D2190DCE800155F54 /* Profile.swift in Sources */,
 				CFD7874421A18CA900E9634B /* ProfileService.swift in Sources */,
+				CFCADC2B21A8190A00AF719F /* ImageLoaderCell.swift in Sources */,
+				CFCADC4721A86E8500AF719F /* RequestsFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

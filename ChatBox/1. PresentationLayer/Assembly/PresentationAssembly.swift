@@ -13,6 +13,7 @@ protocol IPresentationAssembly {
     func createProfileController() -> ProfileViewController
     func createThemesViewController(fromVC: ConversationsListViewController) -> UINavigationController
     func createConversationViewController() -> ConversationViewController
+    func createImageLoaderViewController() -> UINavigationController
 }
 
 class PresentationAssembly: IPresentationAssembly {
@@ -55,5 +56,12 @@ class PresentationAssembly: IPresentationAssembly {
         let conversationVC = sboard.instantiateInitialViewController() as? ConversationViewController
         conversationVC?.model = model
         return conversationVC ?? ConversationViewController()
+    }
+    
+    func createImageLoaderViewController() -> UINavigationController {
+        let imageLoaderVC = ImageLoaderViewController(presentationAssembly: self)
+        let navController = UINavigationController(rootViewController: imageLoaderVC)
+        navController.navigationBar.prefersLargeTitles = true
+        return navController
     }
 }

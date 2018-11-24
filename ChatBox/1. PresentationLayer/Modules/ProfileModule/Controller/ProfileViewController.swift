@@ -145,6 +145,10 @@ class ProfileViewController: UIViewController {
                 print("Camera not available in Simulator")
             }
         }
+        
+        let downloadButton = UIAlertAction(title: downloadText, style: .default) { [weak self] (_) in
+            self?.presentImageLoaderVC()
+        }
 
         let deleteButton = UIAlertAction(title: deleteText, style: .destructive) { [weak self] (_) in
             self?.avatarImageView.image = #imageLiteral(resourceName: "placeholder-user")
@@ -157,6 +161,7 @@ class ProfileViewController: UIViewController {
 
         actionSheet.addAction(libraryButton)
         actionSheet.addAction(cameraButton)
+        actionSheet.addAction(downloadButton)
 
         let placeholderImage = #imageLiteral(resourceName: "placeholder-user")
         if !(avatarImageView.image?.isEqual(placeholderImage))! {
@@ -247,6 +252,11 @@ class ProfileViewController: UIViewController {
 
         saveButton.layer.cornerRadius = 15
         saveButton.layer.borderWidth = 1
+    }
+    
+    func presentImageLoaderVC() {
+        let vc = presentationAssembly.createImageLoaderViewController()
+        self.present(vc, animated: true, completion: nil)
     }
 
     // MARK: - Notifications

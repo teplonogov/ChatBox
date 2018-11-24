@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageLoaderCell" id="gTV-IL-0wX" customClass="ImageLoaderCell" customModule="ChatBox" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="MPg-OQ-C6D">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="MPg-OQ-C6D" secondAttribute="bottom" id="0jc-27-Sqx"/>
+                <constraint firstItem="MPg-OQ-C6D" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="5NF-y9-e9b"/>
+                <constraint firstAttribute="trailing" secondItem="MPg-OQ-C6D" secondAttribute="trailing" id="WqA-tT-jZo"/>
+                <constraint firstItem="MPg-OQ-C6D" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YS4-Bi-Q2T"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="170" height="150"/>
+            <point key="canvasLocation" x="-315.19999999999999" y="-179.01049475262371"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="placeholderImage.jpg" width="512" height="512"/>
+    </resources>
+</document>
