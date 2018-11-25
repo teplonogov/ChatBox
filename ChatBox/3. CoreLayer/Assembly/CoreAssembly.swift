@@ -14,7 +14,6 @@ protocol ICoreAssembly {
     var communicator: Communicator { get }
     var fetchRequests: IFetchRequests { get }
     var requestSender: IRequestSender { get }
-    
 
 }
 

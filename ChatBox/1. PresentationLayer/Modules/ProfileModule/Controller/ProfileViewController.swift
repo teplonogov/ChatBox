@@ -145,7 +145,7 @@ class ProfileViewController: UIViewController {
                 print("Camera not available in Simulator")
             }
         }
-        
+
         let downloadButton = UIAlertAction(title: downloadText, style: .default) { [weak self] (_) in
             self?.presentImageLoaderVC()
         }
@@ -253,7 +253,7 @@ class ProfileViewController: UIViewController {
         saveButton.layer.cornerRadius = 15
         saveButton.layer.borderWidth = 1
     }
-    
+
     func presentImageLoaderVC() {
         let navController = presentationAssembly.createImageLoaderViewController()
         let pixabayVC = navController.topViewController as? ImageLoaderViewController
@@ -354,6 +354,6 @@ extension ProfileViewController: ProfileLoadImageDelegate {
             self.profileToSave?.avatar = image
             self.switchEditMode(isDataChanged: self.dataWasChanged)
         }
-        
+
     }
 }

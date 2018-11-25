@@ -11,12 +11,11 @@ import Foundation
 class PixabayParser: IParser {
 
     typealias Model = PixabayModel
-    
+
     func parse(data: Data) -> PixabayModel? {
         let decoder = JSONDecoder()
         let pixabayModel: PixabayModel? = try? decoder.decode(PixabayModel.self, from: data)
         return pixabayModel
     }
-    
-    
+
 }

@@ -25,7 +25,6 @@ let downloadText: String = "Download from Pixabay"
 let deleteText: String = "Delete"
 let cancelText: String = "Cancel"
 
-
 let keyPixabay: String = "10783711-64ea495d399cb27053c412cef"
 
 /*

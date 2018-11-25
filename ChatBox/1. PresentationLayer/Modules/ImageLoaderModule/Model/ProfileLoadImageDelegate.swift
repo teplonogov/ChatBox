@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol ProfileLoadImageDelegate: class {
     func didSelectImagePixabay(image: UIImage)
 }

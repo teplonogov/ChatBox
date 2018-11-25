@@ -13,9 +13,11 @@ class ImageLoaderCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.clipsToBounds = true
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 15
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = #imageLiteral(resourceName: "placeholderImage.jpg")

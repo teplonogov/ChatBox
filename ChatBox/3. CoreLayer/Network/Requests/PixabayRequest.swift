@@ -8,30 +8,29 @@
 
 import Foundation
 
-
 class PixabayRequest: IRequest {
-    
+
     private let baseUrl: String = "https://pixabay.com/api/"
     private let apiKey: String
     private let searchString: String = "man"
     private var page: Int
-    
+
     init(page: Int, apiKey: String) {
         self.page = page
         self.apiKey = apiKey
     }
-    
-    private var getParameters: [String : String] {
-        return ["key":apiKey,
-                  "q":searchString,
-               "page":"\(page)"]
+
+    private var getParameters: [String: String] {
+        return ["key": apiKey,
+                  "q": searchString,
+               "page": "\(page)"]
     }
-    
+
     private var urlString: String {
         let getParams = getParameters.compactMap({ "\($0.key)=\($0.value)"}).joined(separator: "&")
         return baseUrl + "?" + getParams
     }
-    
+
     var urlRequest: URLRequest? {
         if let url = URL(string: urlString) {
             return URLRequest(url: url)
@@ -39,6 +38,5 @@ class PixabayRequest: IRequest {
             return nil
         }
     }
-    
-    
+
 }

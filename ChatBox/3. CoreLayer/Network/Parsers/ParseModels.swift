@@ -20,5 +20,5 @@ struct PixabayModel: Codable {
 
 struct PixabayImage {
     let image: UIImage
-    var largeImageURL: String? = nil
+    var largeImageURL: String?
 }

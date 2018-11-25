@@ -53,6 +53,7 @@ class ThemesViewController: UIViewController {
 
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = closeButton
         self.navigationController?.navigationBar.isTranslucent = false
+        self.title = "Themes"
     }
 
     // MARK: - Actions

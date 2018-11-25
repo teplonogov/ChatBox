@@ -27,6 +27,6 @@ class ServicesAssmbly: IServicesAsembly {
                                                                                 communicator: coreAssembly.communicator,
                                                                                 stack: coreAssembly.coreDataStack,
                                                                                 requests: coreAssembly.fetchRequests)
-    
+
     lazy var pixabayService: IPixabayService = PixabayService(requestSender: coreAssembly.requestSender)
 }

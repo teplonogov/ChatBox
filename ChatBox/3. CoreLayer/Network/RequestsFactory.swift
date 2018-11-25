@@ -9,9 +9,9 @@
 import Foundation
 
 struct RequestsFactory {
-    
+
     //static var page = 1
-    
+
     static func pixabayObjectsConfig(page: Int) -> RequestConfig<PixabayParser> {
         let request = PixabayRequest.init(page: page, apiKey: keyPixabay)
         let parser = PixabayParser()
@@ -19,7 +19,5 @@ struct RequestsFactory {
         //page += 1
         return config
     }
-    
-    
-    
+
 }

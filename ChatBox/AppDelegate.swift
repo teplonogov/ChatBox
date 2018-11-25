@@ -33,10 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let color = NSKeyedUnarchiver.unarchiveObject(with: themeData) as? UIColor
             themeService.changeThemeTo(color: color!)
         } else {
-            navigationController.navigationBar.tintColor = #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)
-            let textAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2972377241, green: 0.61023283, blue: 0.9433095455, alpha: 1)]
-            navigationController.navigationBar.largeTitleTextAttributes = textAttributes
-            navigationController.navigationBar.titleTextAttributes = textAttributes
+            ThemeService.shared.changeThemeTo(color: UIColor.white)
         }
 
         window?.rootViewController = navigationController

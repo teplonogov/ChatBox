@@ -57,7 +57,7 @@ class PresentationAssembly: IPresentationAssembly {
         conversationVC?.model = model
         return conversationVC ?? ConversationViewController()
     }
-    
+
     func createImageLoaderViewController() -> UINavigationController {
         let model = ImageLoaderModel(pixabayService: serviceAssembly.pixabayService)
         let imageLoaderVC = ImageLoaderViewController(model: model, presentationAssembly: self)
