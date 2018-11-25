@@ -12,8 +12,9 @@ class ImageLoaderViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
     
+    weak var profileLoadDelegate: ProfileLoadImageDelegate?
+    
     private var dataSource: [CellDisplayModel] = []
-
     private let model: IImageLoaderModel
     private let presentationAssembly: IPresentationAssembly
     
@@ -26,6 +27,8 @@ class ImageLoaderViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var pageNumber: Int = 1
     
     
     override func viewDidLoad() {
@@ -46,7 +49,12 @@ class ImageLoaderViewController: UIViewController {
         self.title = "Pixabay Images"
         self.navigationController?.navigationBar.isTranslucent = false
         
-        model.fetchSmallImages()
+        model.fetchSmallImages(with: pageNumber)
+    }
+    
+    deinit {
+        print("ImageLoaderViewController: DEINIT")
+        model.cleanFetchedData()
     }
     
     //MARK: - Actions
@@ -54,17 +62,6 @@ class ImageLoaderViewController: UIViewController {
     @objc func closeAction() {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//
-//        if offsetY > contentHeight - scrollView.frame.size.height {
-//            model.fetchSmallImages()
-//        }
-//    }
-
 
 }
 
@@ -77,7 +74,6 @@ extension ImageLoaderViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageLoaderCell", for: indexPath) as? ImageLoaderCell
-//        let image = UIImage(data: dataSource[indexPath.row].smallImageData)
         let image = dataSource[indexPath.row].smallImage
         cell?.imageView.image = image
         return cell!
@@ -104,8 +100,13 @@ extension ImageLoaderViewController: UICollectionViewDataSource, UICollectionVie
         let lastItem = dataSource.count - 1
         
         if indexPath.row == lastItem {
-            model.fetchSmallImages()
+            model.fetchSmallImages(with: pageNumber)
         }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        model.fetchLargeImage(from: indexPath)
     }
     
     
@@ -120,14 +121,24 @@ extension ImageLoaderViewController: IImageLoaderModelDelegate {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
+        
+        pageNumber += 1
+    }
+    
+    func didRecieveLargeImage(displayModel: CellDisplayModel) {
+        DispatchQueue.main.async {
+            if let image = displayModel.largeImage {
+                self.profileLoadDelegate?.didSelectImagePixabay(image: image)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     func show(error message: String) {
-        let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "Continue", style: .default, handler: nil)
-        alertController.addAction(alertAction)
-        
         DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Continue", style: .default, handler: nil)
+            alertController.addAction(alertAction)
             self.present(alertController, animated: true, completion: nil)
         }
     }

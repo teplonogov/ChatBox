@@ -255,8 +255,10 @@ class ProfileViewController: UIViewController {
     }
     
     func presentImageLoaderVC() {
-        let vc = presentationAssembly.createImageLoaderViewController()
-        self.present(vc, animated: true, completion: nil)
+        let navController = presentationAssembly.createImageLoaderViewController()
+        let pixabayVC = navController.topViewController as? ImageLoaderViewController
+        pixabayVC?.profileLoadDelegate = self
+        self.present(navController, animated: true, completion: nil)
     }
 
     // MARK: - Notifications
@@ -341,4 +343,17 @@ extension ProfileViewController: ProfileModelDelegate {
         self.activityIndicator.stopAnimating()
     }
 
+}
+
+extension ProfileViewController: ProfileLoadImageDelegate {
+    func didSelectImagePixabay(image: UIImage) {
+        DispatchQueue.main.async {
+            self.avatarImageView.image = image
+            self.avatarWasChanged = true
+            self.dataWasChanged = true
+            self.profileToSave?.avatar = image
+            self.switchEditMode(isDataChanged: self.dataWasChanged)
+        }
+        
+    }
 }

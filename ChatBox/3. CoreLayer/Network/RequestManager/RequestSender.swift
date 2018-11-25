@@ -53,7 +53,7 @@ class RequestSender: IRequestSender {
             }
             
             if let unwrappedData = data, let image = UIImage(data: unwrappedData) {
-                let pixabayImage = PixabayImage(smallImage: image, largeImageURL: nil)
+                let pixabayImage = PixabayImage(image: image, largeImageURL: nil)
                 completionHandler(pixabayImage, nil)
             }
         }

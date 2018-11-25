@@ -9,7 +9,7 @@
 import Foundation
 
 struct PixabayItem: Codable {
-    let webformatURL: String
+    let previewURL: String
     let largeImageURL: String
 }
 
@@ -19,7 +19,6 @@ struct PixabayModel: Codable {
 }
 
 struct PixabayImage {
-    let smallImage: UIImage
-//    let imageData: Data
+    let image: UIImage
     var largeImageURL: String? = nil
 }

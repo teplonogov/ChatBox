@@ -56,6 +56,7 @@
 		CFCADC4521A8698500AF719F /* PixabayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4421A8698500AF719F /* PixabayParser.swift */; };
 		CFCADC4721A86E8500AF719F /* RequestsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4621A86E8500AF719F /* RequestsFactory.swift */; };
 		CFCADC4921A8744A00AF719F /* PixabayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4821A8744A00AF719F /* PixabayService.swift */; };
+		CFCADC4C21AA98CA00AF719F /* ProfileLoadImageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCADC4B21AA98CA00AF719F /* ProfileLoadImageDelegate.swift */; };
 		CFD4BF2521986DFD00A875E4 /* FetchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD4BF2421986DFD00A875E4 /* FetchRequests.swift */; };
 		CFD4BF272198745300A875E4 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD4BF262198745300A875E4 /* Conversation.swift */; };
 		CFD4BF29219878B700A875E4 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD4BF28219878B700A875E4 /* Message.swift */; };
@@ -135,6 +136,7 @@
 		CFCADC4421A8698500AF719F /* PixabayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayParser.swift; sourceTree = "<group>"; };
 		CFCADC4621A86E8500AF719F /* RequestsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsFactory.swift; sourceTree = "<group>"; };
 		CFCADC4821A8744A00AF719F /* PixabayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixabayService.swift; sourceTree = "<group>"; };
+		CFCADC4B21AA98CA00AF719F /* ProfileLoadImageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLoadImageDelegate.swift; sourceTree = "<group>"; };
 		CFD4BF2421986DFD00A875E4 /* FetchRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRequests.swift; sourceTree = "<group>"; };
 		CFD4BF262198745300A875E4 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		CFD4BF28219878B700A875E4 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				CFCADC3021A82D5700AF719F /* ImageLoaderModel.swift */,
+				CFCADC4B21AA98CA00AF719F /* ProfileLoadImageDelegate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				CFCADC3121A82D5700AF719F /* ImageLoaderModel.swift in Sources */,
 				CFD7872A219DB3F000E9634B /* PresentationAssembly.swift in Sources */,
 				CFCADC4521A8698500AF719F /* PixabayParser.swift in Sources */,
+				CFCADC4C21AA98CA00AF719F /* ProfileLoadImageDelegate.swift in Sources */,
 				CFCADC4921A8744A00AF719F /* PixabayService.swift in Sources */,
 				CFD7872E219DB68800E9634B /* ServicesAssembly.swift in Sources */,
 				CFCADC3F21A852E800AF719F /* PixabayRequest.swift in Sources */,
