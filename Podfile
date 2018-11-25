@@ -7,6 +7,9 @@ target 'ChatBox' do
 
   # Pods for ChatBox
 
+  pod 'SwiftLint'
+  pod 'MBProgressHUD', '~> 1.1.0'
+
 end
 
 target 'ChatBox_Swift' do
@@ -14,6 +17,6 @@ target 'ChatBox_Swift' do
   use_frameworks!
 
   # Pods for ChatBox_Swift
-  pod 'SwiftLint'
+  
 
 end

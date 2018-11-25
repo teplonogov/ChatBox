@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class ImageLoaderViewController: UIViewController {
     
@@ -49,7 +50,9 @@ class ImageLoaderViewController: UIViewController {
         self.title = "Pixabay Images"
         self.navigationController?.navigationBar.isTranslucent = false
         
+        
         model.fetchSmallImages(with: pageNumber)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
     }
     
     deinit {
@@ -101,12 +104,14 @@ extension ImageLoaderViewController: UICollectionViewDataSource, UICollectionVie
         
         if indexPath.row == lastItem {
             model.fetchSmallImages(with: pageNumber)
+            MBProgressHUD.showAdded(to: self.view, animated: true)
         }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         model.fetchLargeImage(from: indexPath)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
     }
     
     
@@ -120,6 +125,7 @@ extension ImageLoaderViewController: IImageLoaderModelDelegate {
         
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
         
         pageNumber += 1
@@ -127,6 +133,7 @@ extension ImageLoaderViewController: IImageLoaderModelDelegate {
     
     func didRecieveLargeImage(displayModel: CellDisplayModel) {
         DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
             if let image = displayModel.largeImage {
                 self.profileLoadDelegate?.didSelectImagePixabay(image: image)
                 self.dismiss(animated: true, completion: nil)
@@ -136,6 +143,7 @@ extension ImageLoaderViewController: IImageLoaderModelDelegate {
     
     func show(error message: String) {
         DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
             let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "Continue", style: .default, handler: nil)
             alertController.addAction(alertAction)

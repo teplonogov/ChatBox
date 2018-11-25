@@ -689,11 +689,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CFDAEED4215688DC00E182F2 /* Build configuration list for PBXNativeTarget "ChatBox" */;
 			buildPhases = (
-				CFD4BF3121996DDF00A875E4 /* ShellScript */,
 				CFB2A2947CA79A2C10171343 /* [CP] Check Pods Manifest.lock */,
+				CFD4BF3121996DDF00A875E4 /* ShellScript */,
 				CFDAEEBE215688D900E182F2 /* Sources */,
 				CFDAEEBF215688D900E182F2 /* Frameworks */,
 				CFDAEEC0215688D900E182F2 /* Resources */,
+				10E4A2CA13EFB31A3356AB42 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -772,6 +773,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		10E4A2CA13EFB31A3356AB42 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ChatBox/Pods-ChatBox-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatBox/Pods-ChatBox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		702312DA8A487BEE1C2A3D8C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
