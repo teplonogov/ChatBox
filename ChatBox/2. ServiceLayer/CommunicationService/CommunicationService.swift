@@ -10,16 +10,17 @@ import Foundation
 import MultipeerConnectivity
 
 protocol CommunicatorListDelegate: class {
-    func updateUsers()
+    func updateUsers(isOnline: Bool?)
     func handleError(error: Error)
 }
 
 class CommunicationService: ICommunicationService {
     weak var delegate: CommunicationHandlerDelegate?
+    weak var communicatorDelegate: CommunicatorListDelegate?
     var communicator: Communicator
     var coreDataStack: ICoreDataStack
     var fetchRequests: IFetchRequests
-
+    
     let storageManager = ProfileStorage()
 
     init(name: String, communicator: Communicator,
@@ -75,9 +76,10 @@ class CommunicationService: ICommunicationService {
                                                                      in: saveContext)
             conversation.isOnline = false
             conversation.user?.isOnline = false
-
             self.coreDataStack.performSave(context: saveContext, completionHandler: nil)
         }
+        
+        self.communicatorDelegate?.updateUsers(isOnline: false)
     }
 
     func failedToStartBrowsingForUsers(error: Error) {

@@ -25,8 +25,8 @@ class ConversationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        sendButton.isEnabled = false
+        
+        disableSendButtonWithAnimation()
 
         guard let userId = conversation.id else {
             return
@@ -39,7 +39,8 @@ class ConversationViewController: UIViewController {
         } catch {
 
         }
-
+        
+        model.communicationService.communicatorDelegate = self
         setupKeyboard()
     }
 
@@ -76,10 +77,10 @@ class ConversationViewController: UIViewController {
     // MARK: - Actions
 
     @IBAction func messageTextChanged(_ sender: UITextField) {
-        if sender.text == "" {
-            sendButton.isEnabled = false
+        if sender.text == "" || !conversation.isOnline {
+            disableSendButtonWithAnimation()
         } else {
-            sendButton.isEnabled = true
+            enableSendButtonWithAnimation()
         }
     }
 
@@ -93,7 +94,7 @@ class ConversationViewController: UIViewController {
         model.sendMessage(text: text, conversationId: conversationID) { succes, error in
             if succes {
                 self.messageTextField.text = ""
-                self.sendButton.isEnabled = false
+                self.disableSendButtonWithAnimation()
             }
             if let error = error {
                 print(error.localizedDescription)
@@ -155,7 +156,38 @@ class ConversationViewController: UIViewController {
     @objc func hideKeyboard(gesture: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-
+    
+    // MARK: - Animation
+    
+    
+    private func animateScaleSendButton() {
+        UIView.transition(with: sendButton, duration: 0.3, options: .curveEaseIn, animations: {
+            self.sendButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }, completion: { _ in
+            UIView.transition(with: self.sendButton, duration: 0.3, options: .curveEaseIn, animations: {
+                self.sendButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            })
+        })
+    }
+    
+    
+    private func disableSendButtonWithAnimation() {
+        self.sendButton.isEnabled = false
+        UIView.animate(withDuration: 0.3) {
+            self.sendButton.alpha = 0.3
+        }
+        animateScaleSendButton()
+    }
+    
+    private func enableSendButtonWithAnimation() {
+        self.sendButton.isEnabled = true
+        UIView.animate(withDuration: 0.3) {
+            self.sendButton.alpha = 1
+        }
+        animateScaleSendButton()
+    }
+    
+    
 }
 
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
@@ -198,9 +230,17 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 extension ConversationViewController: CommunicatorListDelegate {
-    func updateUsers() {
+    func updateUsers(isOnline: Bool?) {
+        
+        if let isOnlineParam = isOnline, isOnlineParam == false {
+            disableSendButtonWithAnimation()
+            return
+        }
+        
         if !conversation.isOnline {
-            sendButton.isEnabled = false
+            disableSendButtonWithAnimation()
+        } else {
+            enableSendButtonWithAnimation()
         }
         conversation.hasUnreadMessages = false
         scrollDown()

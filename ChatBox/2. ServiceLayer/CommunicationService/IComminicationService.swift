@@ -11,6 +11,7 @@ import Foundation
 protocol ICommunicationService: class, IUserDiscover, ICommunicationFailHandler, IMessageHandler {
 
     var delegate: CommunicationHandlerDelegate? { get set }
+    var communicatorDelegate: CommunicatorListDelegate? { get set }
     var communicator: Communicator { get }
     var coreDataStack: ICoreDataStack { get }
     var fetchRequests: IFetchRequests { get }

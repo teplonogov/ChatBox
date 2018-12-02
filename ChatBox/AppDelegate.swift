@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let conversationsListVC = rootAssembly.presentationAssembly.createConversationsListController()
 
-        let navigationController = UINavigationController()
+        let navigationController = TinkoffNavController()
         navigationController.viewControllers = [conversationsListVC]
 
         navigationController.navigationBar.prefersLargeTitles = true

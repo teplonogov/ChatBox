@@ -25,6 +25,8 @@ class ProfileViewController: UIViewController {
     var descriptionWasChanged: Bool = false
     var avatarWasChanged: Bool = false
     var dataWasChanged: Bool = false
+    
+    let animationService = ArmsAnimationService()
 
     // Dependencies
 
@@ -63,6 +65,7 @@ class ProfileViewController: UIViewController {
         switchEditMode(isDataChanged: editMode)
         registerNotifications()
 
+        animationService.setupView(view: view)
     }
 
     override func viewDidLayoutSubviews() {

@@ -11,9 +11,9 @@ import Foundation
 protocol IPresentationAssembly {
     func createConversationsListController() -> ConversationsListViewController
     func createProfileController() -> ProfileViewController
-    func createThemesViewController(fromVC: ConversationsListViewController) -> UINavigationController
+    func createThemesViewController(fromVC: ConversationsListViewController) -> TinkoffNavController
     func createConversationViewController() -> ConversationViewController
-    func createImageLoaderViewController() -> UINavigationController
+    func createImageLoaderViewController() -> TinkoffNavController
 }
 
 class PresentationAssembly: IPresentationAssembly {
@@ -35,10 +35,10 @@ class PresentationAssembly: IPresentationAssembly {
         profileModel.delegate = profileVC
         return profileVC
     }
-    func createThemesViewController(fromVC: ConversationsListViewController) -> UINavigationController {
+    func createThemesViewController(fromVC: ConversationsListViewController) -> TinkoffNavController {
         let model = ThemesModel()
         let themesVC = ThemesViewController(model: model, presentationAssembly: self)
-        let themesNavigationController = UINavigationController(rootViewController: themesVC)
+        let themesNavigationController = TinkoffNavController(rootViewController: themesVC)
         themesVC.handler = { (selectedTheme: UIColor) in
             fromVC.logThemeChanging(selectedTheme: selectedTheme)
             fromVC.configureAppearance(color: selectedTheme)
@@ -58,11 +58,11 @@ class PresentationAssembly: IPresentationAssembly {
         return conversationVC ?? ConversationViewController()
     }
 
-    func createImageLoaderViewController() -> UINavigationController {
+    func createImageLoaderViewController() -> TinkoffNavController {
         let model = ImageLoaderModel(pixabayService: serviceAssembly.pixabayService)
         let imageLoaderVC = ImageLoaderViewController(model: model, presentationAssembly: self)
         model.delegate = imageLoaderVC
-        let navController = UINavigationController(rootViewController: imageLoaderVC)
+        let navController = TinkoffNavController(rootViewController: imageLoaderVC)
         navController.navigationBar.prefersLargeTitles = true
         return navController
     }
