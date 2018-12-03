@@ -14,9 +14,14 @@ protocol CommunicatorListDelegate: class {
     func handleError(error: Error)
 }
 
+protocol CommunicatorUpdateDelegate: class {
+    func didLostUser(userId: String)
+    func didFoundUser(userId: String)
+}
+
 class CommunicationService: ICommunicationService {
     weak var delegate: CommunicationHandlerDelegate?
-    weak var communicatorDelegate: CommunicatorListDelegate?
+    weak var communicatorDelegate: CommunicatorUpdateDelegate?
     var communicator: Communicator
     var coreDataStack: ICoreDataStack
     var fetchRequests: IFetchRequests
@@ -64,7 +69,10 @@ class CommunicationService: ICommunicationService {
             user.isOnline = true
             conversation.isOnline = true
             conversation.user = user
-            CoreDataStack.shared.performSave(context: saveContext, completionHandler: nil)
+            self.coreDataStack.performSave(context: saveContext, completionHandler: nil)
+            DispatchQueue.main.async {
+                self.communicatorDelegate?.didFoundUser(userId: userId)
+            }
         }
     }
 
@@ -76,10 +84,22 @@ class CommunicationService: ICommunicationService {
                                                                      in: saveContext)
             conversation.isOnline = false
             conversation.user?.isOnline = false
-            self.coreDataStack.performSave(context: saveContext, completionHandler: nil)
+
+            self.coreDataStack.performSave(context: saveContext, completionHandler: { error in
+                
+                if let unwrappedError = error {
+                    DispatchQueue.main.async {
+                        self.delegate?.handleError(error: unwrappedError)
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.communicatorDelegate?.didLostUser(userId: userId)
+                }
+            })
         }
         
-        self.communicatorDelegate?.updateUsers(isOnline: false)
     }
 
     func failedToStartBrowsingForUsers(error: Error) {

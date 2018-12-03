@@ -18,6 +18,10 @@ class ConversationViewController: UIViewController {
     @IBOutlet var sendButton: UIButton!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     @IBOutlet var messageTextField: UITextField!
+    
+    var userNameLabel: UILabel!
+    var canSendMessage: Bool = true
+    var alreadyAnimated: Bool = false
 
     var fetchedResultsController: NSFetchedResultsController<Message>!
     var presentationAssembly: IPresentationAssembly!
@@ -40,6 +44,11 @@ class ConversationViewController: UIViewController {
 
         }
         
+        userNameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        userNameLabel.text = conversation.user?.name ?? "No name"
+        userNameLabel.textAlignment = .center
+        userNameLabel.font = UIFont(name: "Futura-medium", size: 20)
+        
         model.communicationService.communicatorDelegate = self
         setupKeyboard()
     }
@@ -48,9 +57,14 @@ class ConversationViewController: UIViewController {
         super.viewWillAppear(true)
         sendButton.layer.cornerRadius = 10
         conversation.hasUnreadMessages = false
-        navigationItem.title = conversation.user?.name ?? "No name"
+        navigationItem.titleView = userNameLabel
         switchPlaceHolder()
         scrollDown()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        animateUserNameLabel()
     }
 
     func switchPlaceHolder() {
@@ -77,10 +91,15 @@ class ConversationViewController: UIViewController {
     // MARK: - Actions
 
     @IBAction func messageTextChanged(_ sender: UITextField) {
-        if sender.text == "" || !conversation.isOnline {
+        if sender.text == "" {
             disableSendButtonWithAnimation()
-        } else {
+            alreadyAnimated = false
+        } else if canSendMessage {
+            if alreadyAnimated {
+                return
+            }
             enableSendButtonWithAnimation()
+            alreadyAnimated = true
         }
     }
 
@@ -95,6 +114,7 @@ class ConversationViewController: UIViewController {
             if succes {
                 self.messageTextField.text = ""
                 self.disableSendButtonWithAnimation()
+                self.alreadyAnimated = false
             }
             if let error = error {
                 print(error.localizedDescription)
@@ -180,11 +200,28 @@ class ConversationViewController: UIViewController {
     }
     
     private func enableSendButtonWithAnimation() {
+        
         self.sendButton.isEnabled = true
         UIView.animate(withDuration: 0.3) {
             self.sendButton.alpha = 1
         }
         animateScaleSendButton()
+    }
+    
+    func animateUserNameLabel() {
+        var scale: Double
+        var color: UIColor
+        if conversation.isOnline {
+            scale = 1.1
+            color = UIColor.green
+        } else {
+            scale = 0.9
+            color = UIColor.black
+        }
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
+            self.userNameLabel.transform = CGAffineTransform(scaleX: CGFloat(scale), y: CGFloat(scale))
+            self.userNameLabel.textColor = color
+        }, completion: nil)
     }
     
     
@@ -229,22 +266,28 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
 
 }
 
-extension ConversationViewController: CommunicatorListDelegate {
-    func updateUsers(isOnline: Bool?) {
-        
-        if let isOnlineParam = isOnline, isOnlineParam == false {
+extension ConversationViewController: CommunicatorUpdateDelegate {
+    func didLostUser(userId: String) {
+        if userId == conversation.id {
+            conversation.isOnline = false
+            canSendMessage = false
             disableSendButtonWithAnimation()
-            return
+            animateUserNameLabel()
         }
-        
-        if !conversation.isOnline {
-            disableSendButtonWithAnimation()
-        } else {
-            enableSendButtonWithAnimation()
-        }
-        conversation.hasUnreadMessages = false
-        scrollDown()
     }
+    
+    func didFoundUser(userId: String) {
+        if userId == conversation.id {
+            conversation.isOnline = true
+            canSendMessage = true
+            animateUserNameLabel()
+            if self.messageTextField.text != "" {
+                self.enableSendButtonWithAnimation()
+            }
+        }
+    }
+    
+    
 
     func handleError(error: Error) {
         self.view.endEditing(true)

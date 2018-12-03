@@ -15,7 +15,7 @@ extension ConversationViewController: NSFetchedResultsControllerDelegate {
     }
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
-        updateUsers(isOnline: nil)
+        scrollDown()
     }
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange anObject: Any, at indexPath: IndexPath?,
