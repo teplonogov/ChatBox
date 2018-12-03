@@ -8,25 +8,24 @@
 
 import Foundation
 
-
 protocol IArmsAnimationService {
     func setupView(view: UIView)
 }
 
 class ArmsAnimationService: IArmsAnimationService {
-    
+
     let emitter = CAEmitterLayer()
-    
+
     weak var view: UIView?
 
     lazy var gestureRecognizer: UIPanGestureRecognizer = {
         return UIPanGestureRecognizer(target: self, action: #selector(self.touchScreen(sender:)))
     }()
-    
+
     deinit {
         view?.removeGestureRecognizer(gestureRecognizer)
     }
-    
+
     func setupView(view: UIView) {
         emitter.emitterShape = .circle
         emitter.emitterSize = CGSize(width: 20, height: 20)
@@ -38,13 +37,12 @@ class ArmsAnimationService: IArmsAnimationService {
         view.layer.addSublayer(emitter)
         self.view = view
     }
-    
-    
+
     @objc func touchScreen(sender: UIPanGestureRecognizer) {
         guard let unwrappedView = view else {
             return
         }
-        
+
         switch sender.state {
         case .began:
             beginEmitting(position: sender.location(ofTouch: 0, in: unwrappedView))
@@ -57,20 +55,20 @@ class ArmsAnimationService: IArmsAnimationService {
         }
 
     }
-    
+
     func beginEmitting(position: CGPoint) {
         changePosition(to: position)
         emitter.opacity = 1
     }
-    
+
     func changePosition(to position: CGPoint) {
         emitter.emitterPosition = position
     }
-    
+
     func stopEmitting() {
         emitter.opacity = 0
     }
-    
+
     func createEmitterCell() -> CAEmitterCell {
         let cell = CAEmitterCell()
         cell.birthRate = 7
@@ -84,10 +82,10 @@ class ArmsAnimationService: IArmsAnimationService {
         cell.spinRange = 3
         cell.scaleRange = 0.5
         cell.scaleSpeed = -0.07
-        
+
         let image = #imageLiteral(resourceName: "tinkoffLogo")
         cell.contents = image.cgImage
         return cell
     }
-    
+
 }

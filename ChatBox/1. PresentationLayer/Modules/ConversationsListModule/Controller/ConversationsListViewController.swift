@@ -137,7 +137,7 @@ extension ConversationsListViewController: UITableViewDelegate, UITableViewDataS
 }
 
 extension ConversationsListViewController: CommunicatorListDelegate {
-    
+
     func updateUsers(isOnline: Bool?) {
         //used before coredata
     }

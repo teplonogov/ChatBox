@@ -25,7 +25,7 @@ class CommunicationService: ICommunicationService {
     var communicator: Communicator
     var coreDataStack: ICoreDataStack
     var fetchRequests: IFetchRequests
-    
+
     let storageManager = ProfileStorage()
 
     init(name: String, communicator: Communicator,
@@ -86,20 +86,20 @@ class CommunicationService: ICommunicationService {
             conversation.user?.isOnline = false
 
             self.coreDataStack.performSave(context: saveContext, completionHandler: { error in
-                
+
                 if let unwrappedError = error {
                     DispatchQueue.main.async {
                         self.delegate?.handleError(error: unwrappedError)
                     }
                     return
                 }
-                
+
                 DispatchQueue.main.async {
                     self.communicatorDelegate?.didLostUser(userId: userId)
                 }
             })
         }
-        
+
     }
 
     func failedToStartBrowsingForUsers(error: Error) {

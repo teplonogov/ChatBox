@@ -9,14 +9,12 @@
 import UIKit
 
 class TinkoffNavController: UINavigationController {
-    
+
     private var animationService: IArmsAnimationService = ArmsAnimationService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         animationService.setupView(view: view)
     }
-
-    
 
 }

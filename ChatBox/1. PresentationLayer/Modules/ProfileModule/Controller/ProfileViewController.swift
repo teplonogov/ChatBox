@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController {
     var descriptionWasChanged: Bool = false
     var avatarWasChanged: Bool = false
     var dataWasChanged: Bool = false
-    
+
     let animationService = ArmsAnimationService()
 
     // Dependencies

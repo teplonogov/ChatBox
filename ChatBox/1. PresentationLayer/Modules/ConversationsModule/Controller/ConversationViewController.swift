@@ -18,7 +18,7 @@ class ConversationViewController: UIViewController {
     @IBOutlet var sendButton: UIButton!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     @IBOutlet var messageTextField: UITextField!
-    
+
     var userNameLabel: UILabel!
     var canSendMessage: Bool = true
     var alreadyAnimated: Bool = false
@@ -29,7 +29,7 @@ class ConversationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         disableSendButtonWithAnimation()
 
         guard let userId = conversation.id else {
@@ -43,12 +43,12 @@ class ConversationViewController: UIViewController {
         } catch {
 
         }
-        
+
         userNameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         userNameLabel.text = conversation.user?.name ?? "No name"
         userNameLabel.textAlignment = .center
         userNameLabel.font = UIFont(name: "Futura-medium", size: 20)
-        
+
         model.communicationService.communicatorDelegate = self
         setupKeyboard()
     }
@@ -61,7 +61,7 @@ class ConversationViewController: UIViewController {
         switchPlaceHolder()
         scrollDown()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         animateUserNameLabel()
@@ -176,10 +176,9 @@ class ConversationViewController: UIViewController {
     @objc func hideKeyboard(gesture: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
+
     // MARK: - Animation
-    
-    
+
     private func animateScaleSendButton() {
         UIView.transition(with: sendButton, duration: 0.3, options: .curveEaseIn, animations: {
             self.sendButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
@@ -189,8 +188,7 @@ class ConversationViewController: UIViewController {
             })
         })
     }
-    
-    
+
     private func disableSendButtonWithAnimation() {
         self.sendButton.isEnabled = false
         UIView.animate(withDuration: 0.3) {
@@ -198,33 +196,32 @@ class ConversationViewController: UIViewController {
         }
         animateScaleSendButton()
     }
-    
+
     private func enableSendButtonWithAnimation() {
-        
+
         self.sendButton.isEnabled = true
         UIView.animate(withDuration: 0.3) {
             self.sendButton.alpha = 1
         }
         animateScaleSendButton()
     }
-    
+
     func animateUserNameLabel() {
         var scale: Double
         var color: UIColor
         if conversation.isOnline {
             scale = 1.1
-            color = UIColor.green
+            color = #colorLiteral(red: 0.3510814905, green: 0.901078403, blue: 0.4691026211, alpha: 1)
         } else {
             scale = 0.9
-            color = UIColor.black
+            color = #colorLiteral(red: 0.1279224568, green: 0.03052755389, blue: 0.2613410748, alpha: 1)
         }
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
             self.userNameLabel.transform = CGAffineTransform(scaleX: CGFloat(scale), y: CGFloat(scale))
             self.userNameLabel.textColor = color
         }, completion: nil)
     }
-    
-    
+
 }
 
 extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
@@ -275,7 +272,7 @@ extension ConversationViewController: CommunicatorUpdateDelegate {
             animateUserNameLabel()
         }
     }
-    
+
     func didFoundUser(userId: String) {
         if userId == conversation.id {
             conversation.isOnline = true
@@ -286,8 +283,6 @@ extension ConversationViewController: CommunicatorUpdateDelegate {
             }
         }
     }
-    
-    
 
     func handleError(error: Error) {
         self.view.endEditing(true)
